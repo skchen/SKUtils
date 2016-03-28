@@ -5,6 +5,5 @@ xcode_scheme: SKUtils
 xcode_sdk: iphonesimulator
 before_install: 
   - brew update
-  - brew upgrade xctool
   - brew install carthage
   - carthage update --platform iOS
