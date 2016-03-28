@@ -19,4 +19,5 @@ deploy:
   file: SKUtils.framework.zip
   skip_cleanup: true
   on:
+    repo: skchen/SKUtils
     tags: true

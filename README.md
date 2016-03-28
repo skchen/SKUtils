@@ -12,7 +12,7 @@ $ brew update
 $ brew install carthage
 ```
 
-To integrate AFNetworking into your Xcode project using Carthage, specify it in your `Cartfile`:
+To integrate SKUtils into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
 github "skchen/SKUtils" ~> 0.1
