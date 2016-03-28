@@ -53,3 +53,6 @@ fastlane/screenshots
 
 # MacOS
 .DS_Store
+
+# to deploy
+*.framework.zip
