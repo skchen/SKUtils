@@ -12,6 +12,9 @@
 		826803641CA94AE700C8B952 /* SKUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803631CA94AE700C8B952 /* SKUtilsTests.m */; };
 		826803721CA94C8800C8B952 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 826803701CA94C8800C8B952 /* OCHamcrest.framework */; };
 		826803731CA94C8800C8B952 /* OCMockito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 826803711CA94C8800C8B952 /* OCMockito.framework */; };
+		826803761CA95DE500C8B952 /* SKOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803741CA95DE500C8B952 /* SKOrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803751CA95DE500C8B952 /* SKOrderedDictionary.m */; };
+		826803791CA95DEF00C8B952 /* SKOrderedDictionaryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,9 @@
 		826803651CA94AE700C8B952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		826803701CA94C8800C8B952 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Carthage/Build/iOS/OCHamcrest.framework; sourceTree = "<group>"; };
 		826803711CA94C8800C8B952 /* OCMockito.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockito.framework; path = ../../Carthage/Build/iOS/OCMockito.framework; sourceTree = "<group>"; };
+		826803741CA95DE500C8B952 /* SKOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKOrderedDictionary.h; sourceTree = "<group>"; };
+		826803751CA95DE500C8B952 /* SKOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKOrderedDictionary.m; sourceTree = "<group>"; };
+		826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKOrderedDictionaryTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,8 @@
 		826803561CA94AE600C8B952 /* SKUtils */ = {
 			isa = PBXGroup;
 			children = (
+				826803741CA95DE500C8B952 /* SKOrderedDictionary.h */,
+				826803751CA95DE500C8B952 /* SKOrderedDictionary.m */,
 				826803571CA94AE700C8B952 /* SKUtils.h */,
 				826803591CA94AE700C8B952 /* Info.plist */,
 			);
@@ -86,8 +94,9 @@
 		826803621CA94AE700C8B952 /* SKUtilsTests */ = {
 			isa = PBXGroup;
 			children = (
-				8268036F1CA94C6600C8B952 /* frameworks */,
+				826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */,
 				826803631CA94AE700C8B952 /* SKUtilsTests.m */,
+				8268036F1CA94C6600C8B952 /* frameworks */,
 				826803651CA94AE700C8B952 /* Info.plist */,
 			);
 			path = SKUtilsTests;
@@ -109,6 +118,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826803761CA95DE500C8B952 /* SKOrderedDictionary.h in Headers */,
 				826803581CA94AE700C8B952 /* SKUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				826803641CA94AE700C8B952 /* SKUtilsTests.m in Sources */,
+				826803791CA95DEF00C8B952 /* SKOrderedDictionaryTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +429,7 @@
 				8268036A1CA94AE700C8B952 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8268036B1CA94AE700C8B952 /* Build configuration list for PBXNativeTarget "SKUtilsTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +438,7 @@
 				8268036D1CA94AE700C8B952 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
