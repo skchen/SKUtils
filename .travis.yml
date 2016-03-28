@@ -2,3 +2,4 @@ language: objective-c
 osx_image: xcode7.2
 xcode_project: SKUtils.xcodeproj
 xcode_scheme: SKUtils
+xcode_sdk: iphonesimulator
