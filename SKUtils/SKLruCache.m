@@ -11,8 +11,8 @@
 @interface SKLruCache ()
 
 @property(nonatomic, assign, readonly) NSUInteger capacity;
-@property(nonatomic, strong) NSMutableDictionary *dictionary;
-@property(nonatomic, strong) NSMutableArray *array;
+@property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *dictionary;
+@property(nonatomic, copy, readonly, nonnull) NSMutableArray *array;
 
 - (void)_removeObjectForKey:(nonnull id<NSCopying>)key;
 - (void)checkOverflow;
