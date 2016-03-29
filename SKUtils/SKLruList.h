@@ -19,6 +19,7 @@
 - (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruListSpiller>)spiller;
 
 - (void)touchObject:(nonnull id)object;
+- (void)removeObject:(nonnull id)object;
 - (void)removeAllObjects;
 
 @end

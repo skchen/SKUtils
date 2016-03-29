@@ -40,6 +40,12 @@
     }
 }
 
+- (void)removeObject:(nonnull id)object {
+    @synchronized(self) {
+        [_storage removeObject:object];
+    }
+}
+
 - (void)removeAllObjects {
     @synchronized(self) {
         [_storage removeAllObjects];

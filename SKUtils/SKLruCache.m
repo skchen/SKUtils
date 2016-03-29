@@ -8,15 +8,17 @@
 
 #import "SKLruCache.h"
 
-@interface SKLruCache ()
+#import "SKLruList.h"
+
+@interface SKLruCache () <SKLruListSpiller>
 
 @property(nonatomic, assign, readonly) NSUInteger capacity;
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *dictionary;
-@property(nonatomic, copy, readonly, nonnull) NSMutableArray *array;
+@property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
 
 - (void)_removeObjectForKey:(nonnull id<NSCopying>)key;
-- (void)checkOverflow;
-- (BOOL)isOverflow;
+
+- (void)onSpilled:(id)object;
 
 @end
 
@@ -26,7 +28,7 @@
     self = [super init];
     _capacity = numItems;
     _dictionary = [[NSMutableDictionary alloc] initWithCapacity:(numItems+1)];
-    _array = [[NSMutableArray alloc] initWithCapacity:(numItems+1)];
+    _keyLruList = [[SKLruList alloc] initWithCapacity:numItems andSpiller:self];
     return self;
 }
 
@@ -37,54 +39,40 @@
 - (void)removeAllObjects {
     @synchronized(self) {
         [_dictionary removeAllObjects];
-        [_array removeAllObjects];
+        [_keyLruList removeAllObjects];
     }
 }
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
     @synchronized(self) {
         id object = [_dictionary objectForKey:key];
-        
-        [_array removeObject:key];
-        [_array insertObject:key atIndex:0];
-        
+        if(object) {
+            [_keyLruList touchObject:key];
+        }
         return object;
     }
 }
 
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
-    
     @synchronized(self) {
         [_dictionary setObject:object forKey:key];
-        
-        [_array removeObject:key];
-        [_array insertObject:key atIndex:0];
-        
-        [self checkOverflow];
+        [_keyLruList touchObject:key];
     }
 }
 
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key {
     @synchronized(self) {
-        [self _removeObjectForKey:key];
+        [_dictionary removeObjectForKey:key];
+        [_keyLruList removeObject:key];
     }
 }
 
-- (void)_removeObjectForKey:(nonnull id<NSCopying>)key {
-    [_dictionary removeObjectForKey:key];
-    
-    [_array removeObject:key];
-}
+#pragma mark - SKLruListSpiller
 
-- (void)checkOverflow {
-    if([self isOverflow]) {
-        id<NSCopying> key = [_array lastObject];
-        [self _removeObjectForKey:key];
+- (void)onSpilled:(id)object {
+    @synchronized(self) {
+        [_dictionary removeObjectForKey:object];
     }
-}
-
-- (BOOL)isOverflow {
-    return ([_dictionary count]>_capacity);
 }
 
 @end

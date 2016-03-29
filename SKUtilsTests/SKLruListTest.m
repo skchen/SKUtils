@@ -66,6 +66,19 @@
     [verifyCount(_mockSpiller, never()) onSpilled:_mockObject3];
 }
 
+- (void)test_shouldNotSpill_whenObjectTouchedAfterRemove {
+    [_list touchObject:_mockObject1];
+    [_list touchObject:_mockObject2];
+    [_list removeObject:_mockObject1];
+    [_list touchObject:_mockObject3];
+    [_list touchObject:_mockObject4];
+    
+    [verifyCount(_mockSpiller, never()) onSpilled:_mockObject1];
+    [verify(_mockSpiller) onSpilled:_mockObject2];
+    [verifyCount(_mockSpiller, never()) onSpilled:_mockObject3];
+    [verifyCount(_mockSpiller, never()) onSpilled:_mockObject4];
+}
+
 - (void)test_shouldNotSpill_whenObjectTouchedAfterClear {
     [_list touchObject:_mockObject1];
     [_list touchObject:_mockObject2];
