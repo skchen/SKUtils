@@ -8,11 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^SpillerBlock)(id _Nonnull object);
+@protocol SKLruListSpiller <NSObject>
+
+- (void)onSpilled:(nonnull id)object;
+
+@end
 
 @interface SKLruList : NSObject
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable SpillerBlock)spiller;
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruListSpiller>)spiller;
 
 - (void)touchObject:(nonnull id)object;
 - (void)removeAllObjects;
