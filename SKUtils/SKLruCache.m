@@ -16,8 +16,6 @@
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *dictionary;
 @property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
 
-- (void)_removeObjectForKey:(nonnull id<NSCopying>)key;
-
 - (void)onSpilled:(id)object;
 
 @end
