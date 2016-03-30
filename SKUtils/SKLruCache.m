@@ -13,6 +13,7 @@
 @interface SKLruCache () <SKLruListSpiller>
 
 @property(nonatomic, assign, readonly) NSUInteger capacity;
+@property(nonatomic, weak, readonly, nullable) id<SKLruCacheSpiller> spiller;
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *dictionary;
 @property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
 
@@ -22,11 +23,12 @@
 
 @implementation SKLruCache
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)numItems {
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruCacheSpiller>)spiller {
     self = [super init];
-    _capacity = numItems;
-    _dictionary = [[NSMutableDictionary alloc] initWithCapacity:(numItems+1)];
-    _keyLruList = [[SKLruList alloc] initWithCapacity:numItems andSpiller:self];
+    _capacity = capacity;
+    _spiller = spiller;
+    _dictionary = [[NSMutableDictionary alloc] init];
+    _keyLruList = [[SKLruList alloc] initWithCapacity:capacity andSpiller:self];
     return self;
 }
 
@@ -67,9 +69,13 @@
 
 #pragma mark - SKLruListSpiller
 
-- (void)onSpilled:(id)object {
+- (void)onSpilled:(id)key {
     @synchronized(self) {
-        [_dictionary removeObjectForKey:object];
+        id object = [_dictionary objectForKey:key];
+        [_dictionary removeObjectForKey:key];
+        if([_spiller respondsToSelector:@selector(onSpilled:forKey:)]) {
+            [_spiller onSpilled:object forKey:key];
+        }
     }
 }
 

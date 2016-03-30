@@ -8,13 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SKLruCacheSpiller <NSObject>
+
+- (void)onSpilled:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
+
+@end
+
 @interface SKLruCache : NSObject
 
-@property (readonly) NSUInteger count;
+@property (nonatomic, assign, readonly) NSUInteger count;
 
 - (void)removeAllObjects;
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)numItems;
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruCacheSpiller>)spiller;
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;

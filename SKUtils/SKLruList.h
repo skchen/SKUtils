@@ -16,7 +16,7 @@
 
 @interface SKLruList : NSObject
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruListSpiller>)spiller;
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
 - (void)touchObject:(nonnull id)object;
 - (void)removeObject:(nonnull id)object;

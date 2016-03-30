@@ -12,7 +12,7 @@
 
 @property(nonatomic, readonly) NSUInteger capacity;
 @property(nonatomic, copy, readonly, nonnull) NSMutableArray *storage;
-@property(nonatomic, weak, readonly, nullable) id<SKLruListSpiller> spiller;
+@property(nonatomic, weak, readonly) id<SKLruListSpiller> spiller;
 
 - (void)checkSpill;
 
@@ -20,7 +20,7 @@
 
 @implementation SKLruList
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nonnull id<SKLruListSpiller>)spiller {
     
     self = [super init];
     
