@@ -17,10 +17,13 @@
 		826803791CA95DEF00C8B952 /* SKOrderedDictionaryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */; };
 		826803F31CAC25E900C8B952 /* SKLruListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803F11CAC25E900C8B952 /* SKLruListTests.m */; };
 		826803F41CAC25E900C8B952 /* SKLruTableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803F21CAC25E900C8B952 /* SKLruTableTests.m */; };
-		826803FA1CAC25F000C8B952 /* SKLruList.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803F61CAC25F000C8B952 /* SKLruList.h */; };
-		826803FB1CAC25F000C8B952 /* SKLruList.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803F71CAC25F000C8B952 /* SKLruList.m */; };
-		826803FC1CAC25F000C8B952 /* SKLruTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803F81CAC25F000C8B952 /* SKLruTable.h */; };
-		826803FD1CAC25F000C8B952 /* SKLruTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803F91CAC25F000C8B952 /* SKLruTable.m */; };
+		826804031CAC264200C8B952 /* SKLruCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804021CAC264200C8B952 /* SKLruCacheTests.m */; };
+		8268040B1CAC26E400C8B952 /* SKLruCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804051CAC26E400C8B952 /* SKLruCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8268040C1CAC26E400C8B952 /* SKLruCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804061CAC26E400C8B952 /* SKLruCache.m */; };
+		8268040D1CAC26E400C8B952 /* SKLruList.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804071CAC26E400C8B952 /* SKLruList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8268040E1CAC26E400C8B952 /* SKLruList.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804081CAC26E400C8B952 /* SKLruList.m */; };
+		8268040F1CAC26E400C8B952 /* SKLruTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804091CAC26E400C8B952 /* SKLruTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		826804101CAC26E400C8B952 /* SKLruTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8268040A1CAC26E400C8B952 /* SKLruTable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,10 +50,13 @@
 		826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKOrderedDictionaryTest.m; sourceTree = "<group>"; };
 		826803F11CAC25E900C8B952 /* SKLruListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruListTests.m; sourceTree = "<group>"; };
 		826803F21CAC25E900C8B952 /* SKLruTableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruTableTests.m; sourceTree = "<group>"; };
-		826803F61CAC25F000C8B952 /* SKLruList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruList.h; sourceTree = "<group>"; };
-		826803F71CAC25F000C8B952 /* SKLruList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruList.m; sourceTree = "<group>"; };
-		826803F81CAC25F000C8B952 /* SKLruTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruTable.h; sourceTree = "<group>"; };
-		826803F91CAC25F000C8B952 /* SKLruTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruTable.m; sourceTree = "<group>"; };
+		826804021CAC264200C8B952 /* SKLruCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruCacheTests.m; sourceTree = "<group>"; };
+		826804051CAC26E400C8B952 /* SKLruCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruCache.h; sourceTree = "<group>"; };
+		826804061CAC26E400C8B952 /* SKLruCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruCache.m; sourceTree = "<group>"; };
+		826804071CAC26E400C8B952 /* SKLruList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruList.h; sourceTree = "<group>"; };
+		826804081CAC26E400C8B952 /* SKLruList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruList.m; sourceTree = "<group>"; };
+		826804091CAC26E400C8B952 /* SKLruTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruTable.h; sourceTree = "<group>"; };
+		8268040A1CAC26E400C8B952 /* SKLruTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruTable.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +101,7 @@
 		826803561CA94AE600C8B952 /* SKUtils */ = {
 			isa = PBXGroup;
 			children = (
-				826803F51CAC25F000C8B952 /* Lru */,
+				826804041CAC26E400C8B952 /* Lru */,
 				826803741CA95DE500C8B952 /* SKOrderedDictionary.h */,
 				826803751CA95DE500C8B952 /* SKOrderedDictionary.m */,
 				826803571CA94AE700C8B952 /* SKUtils.h */,
@@ -130,17 +136,20 @@
 			children = (
 				826803F11CAC25E900C8B952 /* SKLruListTests.m */,
 				826803F21CAC25E900C8B952 /* SKLruTableTests.m */,
+				826804021CAC264200C8B952 /* SKLruCacheTests.m */,
 			);
 			path = Lru;
 			sourceTree = "<group>";
 		};
-		826803F51CAC25F000C8B952 /* Lru */ = {
+		826804041CAC26E400C8B952 /* Lru */ = {
 			isa = PBXGroup;
 			children = (
-				826803F61CAC25F000C8B952 /* SKLruList.h */,
-				826803F71CAC25F000C8B952 /* SKLruList.m */,
-				826803F81CAC25F000C8B952 /* SKLruTable.h */,
-				826803F91CAC25F000C8B952 /* SKLruTable.m */,
+				826804071CAC26E400C8B952 /* SKLruList.h */,
+				826804081CAC26E400C8B952 /* SKLruList.m */,
+				826804091CAC26E400C8B952 /* SKLruTable.h */,
+				8268040A1CAC26E400C8B952 /* SKLruTable.m */,
+				826804051CAC26E400C8B952 /* SKLruCache.h */,
+				826804061CAC26E400C8B952 /* SKLruCache.m */,
 			);
 			path = Lru;
 			sourceTree = "<group>";
@@ -152,10 +161,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8268040B1CAC26E400C8B952 /* SKLruCache.h in Headers */,
 				826803761CA95DE500C8B952 /* SKOrderedDictionary.h in Headers */,
-				826803FA1CAC25F000C8B952 /* SKLruList.h in Headers */,
+				8268040F1CAC26E400C8B952 /* SKLruTable.h in Headers */,
+				8268040D1CAC26E400C8B952 /* SKLruList.h in Headers */,
 				826803581CA94AE700C8B952 /* SKUtils.h in Headers */,
-				826803FC1CAC25F000C8B952 /* SKLruTable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,9 +284,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826804101CAC26E400C8B952 /* SKLruTable.m in Sources */,
+				8268040C1CAC26E400C8B952 /* SKLruCache.m in Sources */,
+				8268040E1CAC26E400C8B952 /* SKLruList.m in Sources */,
 				826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */,
-				826803FB1CAC25F000C8B952 /* SKLruList.m in Sources */,
-				826803FD1CAC25F000C8B952 /* SKLruTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +298,7 @@
 				826803F41CAC25E900C8B952 /* SKLruTableTests.m in Sources */,
 				826803641CA94AE700C8B952 /* SKUtilsTests.m in Sources */,
 				826803F31CAC25E900C8B952 /* SKLruListTests.m in Sources */,
+				826804031CAC264200C8B952 /* SKLruCacheTests.m in Sources */,
 				826803791CA95DEF00C8B952 /* SKOrderedDictionaryTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
