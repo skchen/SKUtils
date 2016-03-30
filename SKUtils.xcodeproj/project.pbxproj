@@ -18,7 +18,7 @@
 		826803821CA9945B00C8B952 /* SKLruCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803801CA9945B00C8B952 /* SKLruCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		826803831CA9945B00C8B952 /* SKLruCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803811CA9945B00C8B952 /* SKLruCache.m */; };
 		826803851CA9947A00C8B952 /* SKLruCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803841CA9947A00C8B952 /* SKLruCacheTest.m */; };
-		826803C41CAAA7C400C8B952 /* SKLruList.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803C21CAAA7C400C8B952 /* SKLruList.h */; };
+		826803C41CAAA7C400C8B952 /* SKLruList.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803C21CAAA7C400C8B952 /* SKLruList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		826803C51CAAA7C400C8B952 /* SKLruList.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803C31CAAA7C400C8B952 /* SKLruList.m */; };
 		826803C71CAAA7DD00C8B952 /* SKLruListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803C61CAAA7DD00C8B952 /* SKLruListTest.m */; };
 /* End PBXBuildFile section */
