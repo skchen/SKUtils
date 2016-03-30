@@ -8,16 +8,16 @@
 
 #import <XCTest/XCTest.h>
 
-#import "SKLruCache.h"
+#import "SKLruTable.h"
 
 @import OCHamcrest;
 @import OCMockito;
 
-@interface SKLruCacheTest : XCTestCase
+@interface SKLruTableTests : XCTestCase
 
-@property(nonatomic, strong) SKLruCache *lruDictionary;
+@property(nonatomic, strong) SKLruTable *lruTable;
 
-@property(nonatomic, strong) id<SKLruCacheSpiller> mockSpillers;
+@property(nonatomic, strong) id<SKLruTableSpiller> mockSpillers;
 
 @property(nonatomic, strong) id<NSCopying> key1;
 @property(nonatomic, strong) id<NSCopying> key2;
@@ -30,23 +30,27 @@
 
 @end
 
-@implementation SKLruCacheTest
+@implementation SKLruTableTests
 
 - (void)setUp {
     [super setUp];
     
-    _mockSpillers = mockProtocol(@protocol(SKLruCacheSpiller));
+    _mockSpillers = mockProtocol(@protocol(SKLruTableSpiller));
     
-    _lruDictionary = [[SKLruCache alloc] initWithCapacity:2 andSpiller:_mockSpillers];
+    _lruTable = [[SKLruTable alloc] initWithCapacity:2 andSpiller:_mockSpillers];
     
-    _key1 = @"Key 1";
-    _key2 = @"Key 2";
-    _key3 = @"Key 3";
+    _key1 = mockProtocol(@protocol(NSCopying));
+    _key2 = mockProtocol(@protocol(NSCopying));
+    _key3 = mockProtocol(@protocol(NSCopying));
     
     _mockObject1 = mock([NSObject class]);
     _mockObject1r = mock([NSObject class]);
     _mockObject2 = mock([NSObject class]);
     _mockObject3 = mock([NSObject class]);
+    
+    [given([_key1 copyWithZone:nil]) willReturn:_key1];
+    [given([_key2 copyWithZone:nil]) willReturn:_key2];
+    [given([_key3 copyWithZone:nil]) willReturn:_key3];
 }
 
 - (void)tearDown {
@@ -55,37 +59,37 @@
 }
 
 - (void)test_countShouldBeOne_whenSetObjectForEmptyDictionary {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
     
-    assertThatUnsignedInteger(_lruDictionary.count, is(equalToUnsignedInteger(1)));
+    assertThatUnsignedInteger(_lruTable.count, is(equalToUnsignedInteger(1)));
     [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
 }
 
 - (void)test_countShouldBeTwo_whenSetObjectForDictionaryWithOneObject {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
     
-    [_lruDictionary setObject:_mockObject2 forKey:_key2];
+    [_lruTable setObject:_mockObject2 forKey:_key2];
     
-    assertThatUnsignedInteger(_lruDictionary.count, is(equalToUnsignedInteger(2)));
+    assertThatUnsignedInteger(_lruTable.count, is(equalToUnsignedInteger(2)));
     [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
     [verifyCount(_mockSpillers, never()) onSpilled:_mockObject2 forKey:_key2];
 }
 
 - (void)test_countShouldBeZero_whenRemoveAllObjects {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
     
-    [_lruDictionary removeAllObjects];
+    [_lruTable removeAllObjects];
     
-    assertThatUnsignedInteger(_lruDictionary.count, is(equalToUnsignedInteger(0)));
+    assertThatUnsignedInteger(_lruTable.count, is(equalToUnsignedInteger(0)));
     [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
 }
 
 - (void)test_objectShouldMatch_whenRetriveObjectWithSpecificKey {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
-    [_lruDictionary setObject:_mockObject2 forKey:_key2];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject2 forKey:_key2];
     
-    id object1 = [_lruDictionary objectForKey:_key1];
-    id object2 = [_lruDictionary objectForKey:_key2];
+    id object1 = [_lruTable objectForKey:_key1];
+    id object2 = [_lruTable objectForKey:_key2];
     
     assertThat(object1, is(notNilValue()));
     assertThat(object1, is(equalTo(_mockObject1)));
@@ -96,13 +100,13 @@
 }
 
 - (void)test_objectShouldBeRemoved_whenRemoveObjectForSpecificKey {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
-    [_lruDictionary setObject:_mockObject2 forKey:_key2];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject2 forKey:_key2];
     
-    [_lruDictionary removeObjectForKey:_key1];
+    [_lruTable removeObjectForKey:_key1];
     
-    id object1 = [_lruDictionary objectForKey:_key1];
-    id object2 = [_lruDictionary objectForKey:_key2];
+    id object1 = [_lruTable objectForKey:_key1];
+    id object2 = [_lruTable objectForKey:_key2];
     
     assertThat(object1, is(nilValue()));
     assertThat(object2, is(notNilValue()));
@@ -112,13 +116,13 @@
 }
 
 - (void)test_shouldDropLru_whenSetOverflow {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
-    [_lruDictionary setObject:_mockObject2 forKey:_key2];
-    [_lruDictionary setObject:_mockObject3 forKey:_key3];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject2 forKey:_key2];
+    [_lruTable setObject:_mockObject3 forKey:_key3];
     
-    id object1 = [_lruDictionary objectForKey:_key1];
-    id object2 = [_lruDictionary objectForKey:_key2];
-    id object3 = [_lruDictionary objectForKey:_key3];
+    id object1 = [_lruTable objectForKey:_key1];
+    id object2 = [_lruTable objectForKey:_key2];
+    id object3 = [_lruTable objectForKey:_key3];
     
     assertThat(object1, is(nilValue()));
     assertThat(object2, is(notNilValue()));
@@ -131,14 +135,14 @@
 }
 
 - (void)test_shouldUpdateLru_whenGetObject {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
-    [_lruDictionary setObject:_mockObject2 forKey:_key2];
-    [_lruDictionary objectForKey:_key1];
-    [_lruDictionary setObject:_mockObject3 forKey:_key3];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject2 forKey:_key2];
+    [_lruTable objectForKey:_key1];
+    [_lruTable setObject:_mockObject3 forKey:_key3];
     
-    id object1 = [_lruDictionary objectForKey:_key1];
-    id object2 = [_lruDictionary objectForKey:_key2];
-    id object3 = [_lruDictionary objectForKey:_key3];
+    id object1 = [_lruTable objectForKey:_key1];
+    id object2 = [_lruTable objectForKey:_key2];
+    id object3 = [_lruTable objectForKey:_key3];
     
     assertThat(object1, is(notNilValue()));
     assertThat(object1, is(equalTo(_mockObject1)));
@@ -151,14 +155,14 @@
 }
 
 - (void)test_shouldUpdateLru_whenSetObject {
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
-    [_lruDictionary setObject:_mockObject2 forKey:_key2];
-    [_lruDictionary setObject:_mockObject1r forKey:_key1];
-    [_lruDictionary setObject:_mockObject3 forKey:_key3];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject2 forKey:_key2];
+    [_lruTable setObject:_mockObject1r forKey:_key1];
+    [_lruTable setObject:_mockObject3 forKey:_key3];
     
-    id object1 = [_lruDictionary objectForKey:_key1];
-    id object2 = [_lruDictionary objectForKey:_key2];
-    id object3 = [_lruDictionary objectForKey:_key3];
+    id object1 = [_lruTable objectForKey:_key1];
+    id object2 = [_lruTable objectForKey:_key2];
+    id object3 = [_lruTable objectForKey:_key3];
     
     assertThat(object1, is(notNilValue()));
     assertThat(object1, is(equalTo(_mockObject1r)));
@@ -172,12 +176,12 @@
 }
 
 - (void)test_shouldKeepObjects_whenNotOverflow {
-    [_lruDictionary setObject:_mockObject2 forKey:_key2];
-    [_lruDictionary setObject:_mockObject1 forKey:_key1];
-    [_lruDictionary setObject:_mockObject1r forKey:_key1];
+    [_lruTable setObject:_mockObject2 forKey:_key2];
+    [_lruTable setObject:_mockObject1 forKey:_key1];
+    [_lruTable setObject:_mockObject1r forKey:_key1];
     
-    id object1 = [_lruDictionary objectForKey:_key1];
-    id object2 = [_lruDictionary objectForKey:_key2];
+    id object1 = [_lruTable objectForKey:_key1];
+    id object2 = [_lruTable objectForKey:_key2];
     
     assertThat(object1, is(notNilValue()));
     assertThat(object1, is(equalTo(_mockObject1r)));

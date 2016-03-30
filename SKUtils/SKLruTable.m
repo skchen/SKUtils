@@ -6,14 +6,14 @@
 //  Copyright © 2016年 SK. All rights reserved.
 //
 
-#import "SKLruCache.h"
+#import "SKLruTable.h"
 
 #import "SKLruList.h"
 
-@interface SKLruCache () <SKLruListSpiller>
+@interface SKLruTable () <SKLruListSpiller>
 
 @property(nonatomic, assign, readonly) NSUInteger capacity;
-@property(nonatomic, weak, readonly, nullable) id<SKLruCacheSpiller> spiller;
+@property(nonatomic, weak, readonly, nullable) id<SKLruTableSpiller> spiller;
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *dictionary;
 @property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
 
@@ -21,9 +21,9 @@
 
 @end
 
-@implementation SKLruCache
+@implementation SKLruTable
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruCacheSpiller>)spiller {
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruTableSpiller>)spiller {
     self = [super init];
     _capacity = capacity;
     _spiller = spiller;

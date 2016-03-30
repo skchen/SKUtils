@@ -13,7 +13,7 @@
 @import OCHamcrest;
 @import OCMockito;
 
-@interface SKLruListTest : XCTestCase
+@interface SKLruListTests : XCTestCase
 
 @property(nonatomic, strong) id<SKLruListSpiller> mockSpiller;
 @property(nonatomic, strong) SKLruList *list;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation SKLruListTest
+@implementation SKLruListTests
 
 - (void)setUp {
     [super setUp];
@@ -41,7 +41,6 @@
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
