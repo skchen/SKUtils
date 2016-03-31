@@ -39,4 +39,8 @@
     [_lruTable removeObjectForKey:key];
 }
 
+- (void)removeAllObjects {
+    [_lruTable removeAllObjects];
+}
+
 @end

@@ -79,4 +79,12 @@
     [verify(mockLruTable) removeObjectForKey:mockKey1];
 }
 
+- (void)test_shouldRemoveAllObjects {
+    [lruCache removeAllObjects];
+    
+    [verify(mockLruTable) removeAllObjects];
+}
+
+
+
 @end

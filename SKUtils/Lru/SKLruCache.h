@@ -22,5 +22,6 @@
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key;
+- (void)removeAllObjects;
 
 @end
