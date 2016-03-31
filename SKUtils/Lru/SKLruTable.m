@@ -10,9 +10,10 @@
 
 #import "SKLruList.h"
 
-@interface SKLruTable () <SKLruListSpiller>
+@interface SKLruTable () <SKLruListCoster, SKLruListSpiller>
 
 @property(nonatomic, assign, readonly) NSUInteger capacity;
+@property(nonatomic, weak, readonly, nullable) id<SKLruTableCoster> coster;
 @property(nonatomic, weak, readonly, nullable) id<SKLruTableSpiller> spiller;
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *dictionary;
 @property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
@@ -23,12 +24,13 @@
 
 @implementation SKLruTable
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
     self = [super init];
     _capacity = capacity;
+    _coster = coster;
     _spiller = spiller;
     _dictionary = [[NSMutableDictionary alloc] init];
-    _keyLruList = [[SKLruList alloc] initWithCapacity:capacity andSpiller:self];
+    _keyLruList = [[SKLruList alloc] initWithConstraint:capacity andCoster:self andSpiller:self];
     return self;
 }
 
@@ -68,6 +70,11 @@
 }
 
 #pragma mark - SKLruListSpiller
+
+- (NSUInteger)costForObject:(id)key {
+    id object = [_dictionary objectForKey:key];
+    return [_coster costForObject:object];
+}
 
 - (void)onSpilled:(id)key {
     @synchronized(self) {

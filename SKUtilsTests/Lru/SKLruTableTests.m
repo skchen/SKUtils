@@ -17,8 +17,6 @@
 
 @property(nonatomic, strong) SKLruTable *lruTable;
 
-@property(nonatomic, strong) id<SKLruTableSpiller> mockSpillers;
-
 @property(nonatomic, strong) id<NSCopying> key1;
 @property(nonatomic, strong) id<NSCopying> key2;
 @property(nonatomic, strong) id<NSCopying> key3;
@@ -30,14 +28,18 @@
 
 @end
 
-@implementation SKLruTableTests
+@implementation SKLruTableTests {
+    id<SKLruTableCoster> mockCoster;
+    id<SKLruTableSpiller> mockSpiller;
+}
 
 - (void)setUp {
     [super setUp];
     
-    _mockSpillers = mockProtocol(@protocol(SKLruTableSpiller));
+    mockCoster = mockProtocol(@protocol(SKLruTableCoster));
+    mockSpiller = mockProtocol(@protocol(SKLruTableSpiller));
     
-    _lruTable = [[SKLruTable alloc] initWithCapacity:2 andSpiller:_mockSpillers];
+    _lruTable = [[SKLruTable alloc] initWithCapacity:2 andCoster:mockCoster andSpiller:mockSpiller];
     
     _key1 = mockProtocol(@protocol(NSCopying));
     _key2 = mockProtocol(@protocol(NSCopying));
@@ -51,6 +53,11 @@
     [given([_key1 copyWithZone:nil]) willReturn:_key1];
     [given([_key2 copyWithZone:nil]) willReturn:_key2];
     [given([_key3 copyWithZone:nil]) willReturn:_key3];
+    
+    [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:1];
+    [given([mockCoster costForObject:_mockObject1r]) willReturnUnsignedInteger:1];
+    [given([mockCoster costForObject:_mockObject2]) willReturnUnsignedInteger:1];
+    [given([mockCoster costForObject:_mockObject3]) willReturnUnsignedInteger:1];
 }
 
 - (void)tearDown {
@@ -62,7 +69,7 @@
     [_lruTable setObject:_mockObject1 forKey:_key1];
     
     assertThatUnsignedInteger(_lruTable.count, is(equalToUnsignedInteger(1)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
 }
 
 - (void)test_countShouldBeTwo_whenSetObjectForDictionaryWithOneObject {
@@ -71,8 +78,8 @@
     [_lruTable setObject:_mockObject2 forKey:_key2];
     
     assertThatUnsignedInteger(_lruTable.count, is(equalToUnsignedInteger(2)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject2 forKey:_key2];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2 forKey:_key2];
 }
 
 - (void)test_countShouldBeZero_whenRemoveAllObjects {
@@ -81,7 +88,7 @@
     [_lruTable removeAllObjects];
     
     assertThatUnsignedInteger(_lruTable.count, is(equalToUnsignedInteger(0)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
 }
 
 - (void)test_objectShouldMatch_whenRetriveObjectWithSpecificKey {
@@ -95,8 +102,8 @@
     assertThat(object1, is(equalTo(_mockObject1)));
     assertThat(object2, is(notNilValue()));
     assertThat(object2, is(equalTo(_mockObject2)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject2 forKey:_key2];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2 forKey:_key2];
 }
 
 - (void)test_objectShouldBeRemoved_whenRemoveObjectForSpecificKey {
@@ -111,8 +118,8 @@
     assertThat(object1, is(nilValue()));
     assertThat(object2, is(notNilValue()));
     assertThat(object2, is(equalTo(_mockObject2)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject2 forKey:_key2];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2 forKey:_key2];
 }
 
 - (void)test_shouldDropLru_whenSetOverflow {
@@ -129,9 +136,9 @@
     assertThat(object2, is(equalTo(_mockObject2)));
     assertThat(object3, is(notNilValue()));
     assertThat(object3, is(equalTo(_mockObject3)));
-    [verify(_mockSpillers) onSpilled:_mockObject1 forKey:_key1];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject2 forKey:_key2];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject3 forKey:_key3];
+    [verify(mockSpiller) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2 forKey:_key2];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3 forKey:_key3];
 }
 
 - (void)test_shouldUpdateLru_whenGetObject {
@@ -149,9 +156,9 @@
     assertThat(object2, is(nilValue()));
     assertThat(object3, is(notNilValue()));
     assertThat(object3, is(equalTo(_mockObject3)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
-    [verify(_mockSpillers) onSpilled:_mockObject2 forKey:_key2];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject3 forKey:_key3];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verify(mockSpiller) onSpilled:_mockObject2 forKey:_key2];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3 forKey:_key3];
 }
 
 - (void)test_shouldUpdateLru_whenSetObject {
@@ -169,10 +176,10 @@
     assertThat(object2, is(nilValue()));
     assertThat(object3, is(notNilValue()));
     assertThat(object3, is(equalTo(_mockObject3)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1r forKey:_key1];
-    [verify(_mockSpillers) onSpilled:_mockObject2 forKey:_key2];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject3 forKey:_key3];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1r forKey:_key1];
+    [verify(mockSpiller) onSpilled:_mockObject2 forKey:_key2];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3 forKey:_key3];
 }
 
 - (void)test_shouldKeepObjects_whenNotOverflow {
@@ -187,9 +194,9 @@
     assertThat(object1, is(equalTo(_mockObject1r)));
     assertThat(object2, is(notNilValue()));
     assertThat(object2, is(equalTo(_mockObject2)));
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1 forKey:_key1];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject1r forKey:_key1];
-    [verifyCount(_mockSpillers, never()) onSpilled:_mockObject2 forKey:_key2];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1 forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1r forKey:_key1];
+    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2 forKey:_key2];
 }
 
 @end

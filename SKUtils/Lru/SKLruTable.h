@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SKLruTableCoster <NSObject>
+
+- (NSUInteger)costForObject:(nonnull id)object;
+
+@end
+
 @protocol SKLruTableSpiller <NSObject>
 
 - (void)onSpilled:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
@@ -20,7 +26,7 @@
 
 - (void)removeAllObjects;
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nullable id<SKLruTableSpiller>)spiller;
+- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller;
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;

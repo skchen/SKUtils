@@ -10,8 +10,8 @@
 
 @interface SKLruList ()
 
-@property(nonatomic, readonly) NSUInteger capacity;
 @property(nonatomic, copy, readonly, nonnull) NSMutableArray *storage;
+@property(nonatomic, weak, readonly) id<SKLruListCoster> coster;
 @property(nonatomic, weak, readonly) id<SKLruListSpiller> spiller;
 
 - (void)checkSpill;
@@ -20,11 +20,13 @@
 
 @implementation SKLruList
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nonnull id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
     
     self = [super init];
     
-    _capacity = capacity;
+    _cost = 0;
+    _constraint = constraint;
+    _coster = coster;
     _spiller = spiller;
     _storage = [[NSMutableArray alloc] init];
     
@@ -33,7 +35,12 @@
 
 - (void)touchObject:(id)object {
     @synchronized(self) {
-        [_storage removeObject:object];
+        if([_storage containsObject:object]) {
+            [_storage removeObject:object];
+        } else {
+            _cost += [_coster costForObject:object];
+        }
+        
         [_storage insertObject:object atIndex:0];
         
         [self checkSpill];
@@ -42,20 +49,25 @@
 
 - (void)removeObject:(nonnull id)object {
     @synchronized(self) {
-        [_storage removeObject:object];
+        if([_storage containsObject:object]) {
+            [_storage removeObject:object];
+            _cost -= [_coster costForObject:object];
+        }
     }
 }
 
 - (void)removeAllObjects {
     @synchronized(self) {
         [_storage removeAllObjects];
+        _cost = 0;
     }
 }
 
 - (void)checkSpill {
-    if([_storage count]>_capacity) {
+    while(_cost>_constraint) {
         id objectToSpill = [_storage lastObject];
         [_storage removeObject:objectToSpill];
+        _cost -= [_coster costForObject:objectToSpill];
         
         if([_spiller respondsToSelector:@selector(onSpilled:)]) {
             [_spiller onSpilled:objectToSpill];

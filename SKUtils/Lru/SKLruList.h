@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SKLruListCoster <NSObject>
+
+- (NSUInteger)costForObject:(nonnull id)object;
+
+@end
+
 @protocol SKLruListSpiller <NSObject>
 
 - (void)onSpilled:(nonnull id)object;
@@ -16,7 +22,10 @@
 
 @interface SKLruList : NSObject
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andSpiller:(nonnull id<SKLruListSpiller>)spiller;
+@property(nonatomic, readonly) NSUInteger constraint;
+@property(nonatomic, readonly) NSUInteger cost;
+
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nonnull id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
 - (void)touchObject:(nonnull id)object;
 - (void)removeObject:(nonnull id)object;
