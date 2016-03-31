@@ -11,8 +11,6 @@
 @interface SKLruList ()
 
 @property(nonatomic, copy, readonly, nonnull) NSMutableArray *storage;
-@property(nonatomic, weak, readonly) id<SKLruListCoster> coster;
-@property(nonatomic, weak, readonly) id<SKLruListSpiller> spiller;
 
 - (void)checkSpill;
 
@@ -20,7 +18,7 @@
 
 @implementation SKLruList
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nonnull NSMutableArray *)storage andCoster:(nonnull id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nonnull NSMutableArray *)storage andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nullable id<SKLruListSpiller>)spiller {
     
     self = [super init];
     
@@ -31,6 +29,10 @@
     _spiller = spiller;
     
     return self;
+}
+
+- (NSUInteger)count {
+    return [_storage count];
 }
 
 - (void)touchObject:(id)object {
@@ -62,6 +64,8 @@
         _cost = 0;
     }
 }
+
+#pragma mark - Local
 
 - (void)checkSpill {
     while(_cost>_constraint) {

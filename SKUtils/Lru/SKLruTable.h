@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SKLruList.h"
+
 @protocol SKLruTableCoster <NSObject>
 
 - (NSUInteger)costForObject:(nonnull id)object;
@@ -22,14 +24,16 @@
 
 @interface SKLruTable : NSObject
 
-@property (nonatomic, assign, readonly) NSUInteger count;
+@property(nonatomic, assign, readonly) NSUInteger count;
 
-- (void)removeAllObjects;
+@property(nonatomic, assign, readonly) NSUInteger constraint;
+@property(nonatomic, assign, readonly) NSUInteger cost;
 
-- (nonnull instancetype)initWithCapacity:(NSUInteger)capacity andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller;
+- (nonnull instancetype)initWithStorage:(nonnull NSMutableDictionary *)storage andLruList:(nonnull SKLruList *)lruList andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller;
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key;
+- (void)removeAllObjects;
 
 @end
