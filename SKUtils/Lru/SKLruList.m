@@ -20,15 +20,15 @@
 
 @implementation SKLruList
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nonnull id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nonnull NSMutableArray *)storage andCoster:(nonnull id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
     
     self = [super init];
     
     _cost = 0;
     _constraint = constraint;
+    _storage = storage;
     _coster = coster;
     _spiller = spiller;
-    _storage = [[NSMutableArray alloc] init];
     
     return self;
 }

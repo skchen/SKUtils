@@ -25,7 +25,7 @@
 @property(nonatomic, readonly) NSUInteger constraint;
 @property(nonatomic, readonly) NSUInteger cost;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nonnull id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nonnull NSMutableArray *)storage andCoster:(nonnull id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
 - (void)touchObject:(nonnull id)object;
 - (void)removeObject:(nonnull id)object;

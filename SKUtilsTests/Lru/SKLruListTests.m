@@ -19,12 +19,11 @@
 
 @property(nonatomic, strong) id mockObject1;
 @property(nonatomic, strong) id mockObject2;
-@property(nonatomic, strong) id mockObject3;
-@property(nonatomic, strong) id mockObject4;
 
 @end
 
 @implementation SKLruListTests {
+    NSMutableArray *mockStorage;
     id<SKLruListCoster> mockCoster;
     id<SKLruListSpiller> mockSpiller;
 }
@@ -32,109 +31,94 @@
 - (void)setUp {
     [super setUp];
     
+    mockStorage = mock([NSMutableArray class]);
     mockCoster = mockProtocol(@protocol(SKLruListCoster));
     mockSpiller = mockProtocol(@protocol(SKLruListSpiller));
     
     _mockObject1 = mock([NSObject class]);
     _mockObject2 = mock([NSObject class]);
-    _mockObject3 = mock([NSObject class]);
-    _mockObject4 = mock([NSObject class]);
     
-    _list = [[SKLruList alloc] initWithConstraint:2 andCoster:mockCoster andSpiller:mockSpiller];
+    _list = [[SKLruList alloc] initWithConstraint:1 andStorage:mockStorage andCoster:mockCoster andSpiller:mockSpiller];
 }
 
 - (void)tearDown {
     [super tearDown];
 }
 
-- (void)test_shouldSpillLru_whenOverflow {
+- (void)test_shouldKeepObjectAndIncreaseCost_whenObjectIsNotInStorageAndTouched {
+    [given([mockStorage containsObject:_mockObject1]) willReturnBool:NO];
     [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject2]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject3]) willReturnUnsignedInteger:1];
+    NSUInteger previousCost = _list.cost;
     
     [_list touchObject:_mockObject1];
-    [_list touchObject:_mockObject2];
-    [_list touchObject:_mockObject3];
     
-    [verify(mockSpiller) onSpilled:_mockObject1];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3];
+    NSUInteger currentCost = _list.cost;
+    [verifyCount(mockStorage, never()) removeObject:_mockObject1];
+    [verify(mockStorage) insertObject:_mockObject1 atIndex:0];
+    assertThatUnsignedInteger(currentCost, is(equalToUnsignedInteger(previousCost+1)));
 }
 
-- (void)test_shouldUpdateLru_whenObjectReTouched {
+- (void)test_shouldUpdateObject_whenObjectIsInStorageAndTouched {
+    [given([mockStorage containsObject:_mockObject1]) willReturnBool:YES];
     [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:1];
+    NSUInteger previousCost = _list.cost;
+    
+    [_list touchObject:_mockObject1];
+    
+    NSUInteger currentCost = _list.cost;
+    [verify(mockStorage) removeObject:_mockObject1];
+    [verify(mockStorage) insertObject:_mockObject1 atIndex:0];
+    assertThatUnsignedInteger(currentCost, is(equalToUnsignedInteger(previousCost)));
+}
+
+- (void)test_shouldSpillObject_whenCostOverflow {
+    [given([mockStorage containsObject:_mockObject1]) willReturnBool:NO];
+    [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:2];
+    [given([mockStorage lastObject]) willReturn:_mockObject2];
     [given([mockCoster costForObject:_mockObject2]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject3]) willReturnUnsignedInteger:1];
+    NSUInteger previousCost = _list.cost;
     
     [_list touchObject:_mockObject1];
-    [_list touchObject:_mockObject2];
-    [_list touchObject:_mockObject1];
-    [_list touchObject:_mockObject3];
     
+    NSUInteger currentCost = _list.cost;
+    [verifyCount(mockStorage, never()) removeObject:_mockObject1];
+    [verify(mockStorage) insertObject:_mockObject1 atIndex:0];
+    [verify(mockStorage) removeObject:_mockObject2];
     [verifyCount(mockSpiller, never()) onSpilled:_mockObject1];
     [verify(mockSpiller) onSpilled:_mockObject2];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3];
+    assertThatUnsignedInteger(currentCost, is(equalToUnsignedInteger(previousCost+1)));
 }
 
-- (void)test_shouldNotSpill_whenObjectTouchedAfterRemove {
+- (void)test_shouldDoNothing_whenObjectIsNotInStorageAndRemoved {
+    [given([mockStorage containsObject:_mockObject1]) willReturnBool:NO];
     [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject2]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject3]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject4]) willReturnUnsignedInteger:1];
+    NSUInteger previousCost = _list.cost;
     
-    [_list touchObject:_mockObject1];
-    [_list touchObject:_mockObject2];
     [_list removeObject:_mockObject1];
-    [_list touchObject:_mockObject3];
-    [_list touchObject:_mockObject4];
     
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1];
-    [verify(mockSpiller) onSpilled:_mockObject2];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject4];
+    NSUInteger currentCost = _list.cost;
+    [verifyCount(mockStorage, never()) removeObject:_mockObject1];
+    assertThatUnsignedInteger(currentCost, is(equalToUnsignedInteger(previousCost)));
 }
 
-- (void)test_shouldNotSpill_whenObjectTouchedAfterClear {
+- (void)test_shouldRemoveObject_whenObjectIsInStorageAndRemoved {
+    [given([mockStorage containsObject:_mockObject1]) willReturnBool:YES];
     [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject2]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject3]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject4]) willReturnUnsignedInteger:1];
+    NSUInteger previousCost = _list.cost;
     
-    [_list touchObject:_mockObject1];
-    [_list touchObject:_mockObject2];
+    [_list removeObject:_mockObject1];
+    
+    NSUInteger currentCost = _list.cost;
+    [verify(mockStorage) removeObject:_mockObject1];
+    assertThatUnsignedInteger(currentCost, is(equalToUnsignedInteger(previousCost-1)));
+}
+
+- (void)test_shouldRemoveAllObjects_whenRemoveAllObjectCalled {
     [_list removeAllObjects];
-    [_list touchObject:_mockObject3];
-    [_list touchObject:_mockObject4];
     
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject1];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject4];
-}
-
-- (void)test_shouldSpill_whenTotalObjectCostIsMoreThanConstraint {
-    [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject2]) willReturnUnsignedInteger:2];
-    
-    [_list touchObject:_mockObject1];
-    [_list touchObject:_mockObject2];
-    
-    [verify(mockSpiller) onSpilled:_mockObject1];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject2];
-}
-
-- (void)test_shouldSpillBoth_whenTotalObjectCostIsMoreThanConstraint {
-    [given([mockCoster costForObject:_mockObject1]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject2]) willReturnUnsignedInteger:1];
-    [given([mockCoster costForObject:_mockObject3]) willReturnUnsignedInteger:2];
-    
-    [_list touchObject:_mockObject1];
-    [_list touchObject:_mockObject2];
-    [_list touchObject:_mockObject3];
-    
-    [verify(mockSpiller) onSpilled:_mockObject1];
-    [verify(mockSpiller) onSpilled:_mockObject2];
-    [verifyCount(mockSpiller, never()) onSpilled:_mockObject3];
+    NSUInteger currentCost = _list.cost;
+    [verify(mockStorage) removeAllObjects];
+    assertThatUnsignedInteger(currentCost, is(equalToUnsignedInteger(0)));
 }
 
 @end

@@ -30,7 +30,7 @@
     _coster = coster;
     _spiller = spiller;
     _dictionary = [[NSMutableDictionary alloc] init];
-    _keyLruList = [[SKLruList alloc] initWithConstraint:capacity andCoster:self andSpiller:self];
+    _keyLruList = [[SKLruList alloc] initWithConstraint:capacity andStorage:[[NSMutableArray alloc] init] andCoster:self andSpiller:self];
     return self;
 }
 
