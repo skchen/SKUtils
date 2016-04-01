@@ -4,18 +4,17 @@ xcode_project: SKUtils.xcodeproj
 xcode_scheme: SKUtils
 xcode_sdk: iphonesimulator
 before_install:
-  - brew update
-  - brew install carthage
+- brew update
+- brew install carthage
 before_script:
-  - carthage bootstrap --platform iOS
+- carthage bootstrap --platform iOS
 before_deploy:
-  - carthage build --no-skip-current --platform iOS
-  - carthage archive SKUtils
-
+- carthage build --no-skip-current --platform iOS
+- carthage archive SKUtils
 deploy:
   provider: releases
   api_key:
-    secure: kB27dXDvTOCk6OZAStzIdvVL6OH2KoDgqPWYcvJr8bx3amXzOYmmL/rEHqoldMwkXnQnI2vgNTONYSYitppw87TORmTFFby3fsDUDeZc6SIzv9KvL3d7Yd1GFHI4hzylB9We94qFIP4jKkLw7vABhISK5fUOMSg4O17l/+uAAQQ5IOwsRKbA3Co/vjEtw3EeH8V2xECBJuIICdoRPfcEHJm8g0OoTh7QhpZs2Olate+sXx7RgbibPFVZWDxgdJ0NVMhfOxsjLmwvcJ92xkbinkpzvmX/cN+5NZQSBHimz/wOuWkjA2D72TUpR+E+YpWlljpLoE+GOz9YAUl/UXcc4sdJ8xfcObJb4DpNYljv65QqP6+G4PT7TtvB58qQSEH+reHxiapkwa3NvYyQmgcUbng0ld2glJLWAyjoO9bs2MGhP/il9dbp9Vo9shkIl4wVSG3ZOlSSL7k3wP1B3VowSWEqNDH6AX/pKtzPU59PJsP1jDc1ioxCU667xVC45dnL3lDdCvIANSPb4W1H+9P7QUWNwjz7qzHAijLJa7SI6feIZ3ED22icBZHfN5E1jTx4gIvmBhzSFSrIUK7T4at1bTGxsN2nGVpSxCDd29wiPCZupm4SwOxD8itp9iFEGVTEW5dKQqpP31okrIgUSgfSRoLsosOKcTf/6rg9zYT/f28=
+    secure: pUkB5IecV7Qb/bSDor4TE+HuZ5p8FPnP8ciL2M2SxKwAG8shIc6MgeQYU3ZbdaO3fETpUHpoD/9y3Xkx8gmkLYGU1vb+DuQsyZ21hWfA1khcDrEqDxv4c8mmEmHIFidcgwuvtzGyzEf5xO3mnROktbYp01ux6EGlncHmD2oUnirr96XarxkAJ7/1QPIJ34XrmswgdD+vDJvhwmotbwHa4Y1WfGs6Vufe8nAjk2/sbQ1FglRXQCEghbjdW5BJOP4DTgZRu4XpFo1YWM+QvsocDiDyqFPFbqz1FwdDdMHvF2M0QRoJhVeEykZaoqYR5yi5eAhZQ6+DykP0ebmyu2frCWBAG2VN0VmEctMb1iQTSOamkjZKjhCFmn4wGj1aMhUObYBLZshUughoV13dhZuCdaUzE/FmhwQ6wnp4MnbuRByrO1zD3G+A+WDHIQrkL69rmmdSAIxEdrTP5r0E5zRbPhQh706ESnwXV84l7kopbtaGJ1s0uols/7DH3qBrS03z7rYJeJCHvvxPYoWzh7b1ma5aVZ8eIy4YSLAn8bbZHt/pnPjFma83iNf2XlBuO81BF+VxTGLuF6puX3l4/PhoEzebzN0EkP2UYtaYxNObi7EoDCk02M1yyTFqPifpJjP0ijF57PBLIZmAVsFMvX2G3CPTj3ZHsLV/YS3DdSv97Hk=
   file: SKUtils.framework.zip
   skip_cleanup: true
   on:
