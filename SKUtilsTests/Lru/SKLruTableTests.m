@@ -89,6 +89,12 @@
     [verify(mockLruList) touchObject:mockKey1];
 }
 
+- (void)test_shouldListAllValues {
+    [lruTable allValues];
+    
+    [verify(mockStorage) allValues];
+}
+
 - (void)test_shouldRemoveObject {
     [lruTable removeObjectForKey:mockKey1];
     

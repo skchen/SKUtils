@@ -12,8 +12,6 @@
 
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *storage;
 @property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
-@property(nonatomic, weak, readonly, nullable) id<SKLruTableCoster> coster;
-@property(nonatomic, weak, readonly, nullable) id<SKLruTableSpiller> spiller;
 
 - (void)onSpilled:(id)object;
 
@@ -35,7 +33,7 @@
 }
 
 - (NSUInteger)count {
-    return [_storage count];
+    return _keyLruList.count;
 }
 
 - (NSUInteger)cost {
@@ -44,13 +42,6 @@
 
 - (NSUInteger)constraint {
     return _keyLruList.constraint;
-}
-
-- (void)removeAllObjects {
-    @synchronized(self) {
-        [_storage removeAllObjects];
-        [_keyLruList removeAllObjects];
-    }
 }
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
@@ -70,6 +61,10 @@
     }
 }
 
+- (nonnull NSArray *)allValues {
+    return [_storage allValues];
+}
+
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key {
     @synchronized(self) {
         [_storage removeObjectForKey:key];
@@ -77,12 +72,21 @@
     }
 }
 
-#pragma mark - SKLruListSpiller
+- (void)removeAllObjects {
+    @synchronized(self) {
+        [_storage removeAllObjects];
+        [_keyLruList removeAllObjects];
+    }
+}
+
+#pragma mark - SKLruListCoster
 
 - (NSUInteger)costForObject:(id)key {
     id object = [_storage objectForKey:key];
     return [_coster costForObject:object];
 }
+
+#pragma mark - SKLruListSpiller
 
 - (void)onSpilled:(id)key {
     @synchronized(self) {

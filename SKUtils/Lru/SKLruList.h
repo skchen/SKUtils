@@ -27,8 +27,8 @@
 @property(nonatomic, readonly) NSUInteger constraint;
 @property(nonatomic, readonly) NSUInteger cost;
 
-@property(nonatomic, weak) id<SKLruListCoster> coster;
-@property(nonatomic, weak) id<SKLruListSpiller> spiller;
+@property(nonatomic, weak, nullable) id<SKLruListCoster> coster;
+@property(nonatomic, weak, nullable) id<SKLruListSpiller> spiller;
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nonnull NSMutableArray *)storage andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nullable id<SKLruListSpiller>)spiller;
 
