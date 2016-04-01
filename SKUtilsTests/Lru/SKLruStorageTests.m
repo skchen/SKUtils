@@ -22,8 +22,8 @@
     
     NSFileManager *mockFileManager;
     SKLruTable *mockTable;
-    id<SKLruStorageCoster> mockCoster;
-    id<SKLruStorageSpiller> mockSpiller;
+    id<SKLruTableCoster> mockCoster;
+    id<SKLruTableSpiller> mockSpiller;
     
     id<NSCopying> mockKey1;
     NSURL *mockUrl1;
@@ -39,8 +39,8 @@
     
     mockFileManager = mock([NSFileManager class]);
     mockTable = mock([SKLruTable class]);
-    mockCoster = mockProtocol(@protocol(SKLruStorageCoster));
-    mockSpiller = mockProtocol(@protocol(SKLruStorageSpiller));
+    mockCoster = mockProtocol(@protocol(SKLruTableCoster));
+    mockSpiller = mockProtocol(@protocol(SKLruTableSpiller));
     
     mockKey1 = mockProtocol(@protocol(NSCopying));
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];

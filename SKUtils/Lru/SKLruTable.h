@@ -22,7 +22,11 @@
 
 @end
 
-@interface SKLruTable : NSObject
+@interface SKLruTable : NSObject {
+    @protected
+    __weak id<SKLruTableCoster> _coster;
+    __weak id<SKLruTableSpiller> _spiller;
+}
 
 @property(nonatomic, assign, readonly) NSUInteger count;
 

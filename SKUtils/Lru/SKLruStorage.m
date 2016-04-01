@@ -12,20 +12,32 @@
 
 @property(nonatomic, copy, readonly, nonnull) NSFileManager *fileManager;
 @property(nonatomic, copy, readonly, nonnull) SKLruTable *urlLruTable;
-@property(nonatomic, weak, readonly, nullable) id<SKLruStorageCoster> coster;
-@property(nonatomic, weak, readonly, nullable) id<SKLruStorageSpiller> spiller;
 
 @end
 
 @implementation SKLruStorage
 
-- (nonnull instancetype)initWithFileManager:(nonnull NSFileManager *)fileManager andLruTable:(nonnull SKLruTable *)lruTable andCoster:(nonnull id<SKLruStorageCoster>)coster andSpiller:(nullable id<SKLruStorageSpiller>)spiller {
+- (id)init {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"-init is not a valid initializer for the class SKLruStorage"
+                                 userInfo:nil];
+}
+
+- (nonnull instancetype)initWithStorage:(NSMutableDictionary *)storage andLruList:(SKLruList *)lruList andCoster:(id<SKLruTableCoster>)coster andSpiller:(id<SKLruTableSpiller>)spiller {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"-initWithStorage:andLruList:andCoster:andSpiller is not a valid initializer for the class SKLruStorage"
+                                 userInfo:nil];
+}
+
+- (nonnull instancetype)initWithFileManager:(nonnull NSFileManager *)fileManager andLruTable:(nonnull SKLruTable *)lruTable andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller {
+    
     self = [super init];
     
     _fileManager = fileManager;
     _urlLruTable = lruTable;
     _urlLruTable.coster = self;
     _urlLruTable.spiller = self;
+    
     _coster = coster;
     _spiller = spiller;
     
@@ -90,9 +102,11 @@
 #pragma mark - SKLruTableSpiller
 
 - (void)onSpilled:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
-    NSURL *url = (NSURL *)object;
-    [_fileManager removeItemAtURL:url error:nil];
-    [_spiller onSpilled:object forKey:key];
+    @synchronized(self) {
+        NSURL *url = (NSURL *)object;
+        [_fileManager removeItemAtURL:url error:nil];
+        [_spiller onSpilled:object forKey:key];
+    }
 }
 
 @end
