@@ -20,3 +20,4 @@ FOUNDATION_EXPORT const unsigned char SKUtilsVersionString[];
 #import <SKUtils/SKLruCache.h>
 #import <SKUtils/SKLruTable.h>
 #import <SKUtils/SKLruList.h>
+#import <SKUtils/SKLruStorage.h>

@@ -24,7 +24,7 @@
 		8268040E1CAC26E400C8B952 /* SKLruList.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804081CAC26E400C8B952 /* SKLruList.m */; };
 		8268040F1CAC26E400C8B952 /* SKLruTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804091CAC26E400C8B952 /* SKLruTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		826804101CAC26E400C8B952 /* SKLruTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8268040A1CAC26E400C8B952 /* SKLruTable.m */; };
-		828D198E1CAD8C0300F4CFC4 /* SKLruStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 828D198C1CAD8C0300F4CFC4 /* SKLruStorage.h */; };
+		828D198E1CAD8C0300F4CFC4 /* SKLruStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 828D198C1CAD8C0300F4CFC4 /* SKLruStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		828D198F1CAD8C0300F4CFC4 /* SKLruStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 828D198D1CAD8C0300F4CFC4 /* SKLruStorage.m */; };
 		828D19911CAD8C1900F4CFC4 /* SKLruStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 828D19901CAD8C1900F4CFC4 /* SKLruStorageTests.m */; };
 /* End PBXBuildFile section */
