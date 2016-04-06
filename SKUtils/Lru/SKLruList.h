@@ -34,8 +34,6 @@
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nullable NSMutableArray *)storage andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
-
 - (void)touchObject:(nonnull id)object;
 - (void)removeObject:(nonnull id)object;
 - (void)removeAllObjects;

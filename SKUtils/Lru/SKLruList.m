@@ -18,26 +18,18 @@
 
 @implementation SKLruList
 
-+ (NSMutableArray *)defaultStorage {
-    return [[NSMutableArray alloc] init];
-}
-
 + (id<SKLruCoster>)defaultCoster {
     return [[SKLruSimpleCoster alloc] init];
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nullable NSMutableArray *)storage andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
     
     self = [super init];
     
     _cost = 0;
     _constraint = constraint;
     
-    if(storage) {
-        _storage = storage;
-    } else {
-        _storage = [SKLruList defaultStorage];
-    }
+    _storage = [[NSMutableArray alloc] init];
     
     if(coster) {
         _coster = coster;
@@ -51,11 +43,7 @@
 }
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nonnull id<SKLruListSpiller>)spiller {
-    return [self initWithConstraint:constraint andStorage:nil andCoster:nil andSpiller:spiller];
-}
-
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
-    return [self initWithConstraint:constraint andStorage:nil andCoster:coster andSpiller:spiller];
+    return [self initWithConstraint:constraint andCoster:nil andSpiller:spiller];
 }
 
 - (NSUInteger)count {

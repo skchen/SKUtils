@@ -19,17 +19,32 @@
 
 @implementation SKLruTable
 
-- (nonnull instancetype)initWithStorage:(nonnull NSMutableDictionary *)storage andLruList:(nonnull SKLruList *)lruList andCoster:(nonnull id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
++ (id<SKLruCoster>)defaultCoster {
+    return [[SKLruSimpleCoster alloc] init];
+}
+
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller {
     self = [super init];
     
-    _storage = storage;
-    _keyLruList = lruList;
-    _keyLruList.coster = self;
-    _keyLruList.spiller = self;
-    _coster = coster;
+    _constraint = constraint;
+    
+    _storage = [[NSMutableDictionary alloc] init];
+    
+    _keyLruList = [[SKLruList alloc] initWithConstraint:constraint andCoster:self andSpiller:self];
+    
+    if(coster) {
+        _coster = coster;
+    } else {
+        _coster = [SKLruTable defaultCoster];
+    }
+    
     _spiller = spiller;
     
     return self;
+}
+
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nullable id<SKLruTableSpiller>)spiller {
+    return [self initWithConstraint:constraint andCoster:nil andSpiller:spiller];
 }
 
 - (NSUInteger)count {
@@ -38,10 +53,6 @@
 
 - (NSUInteger)cost {
     return _keyLruList.cost;
-}
-
-- (NSUInteger)constraint {
-    return _keyLruList.constraint;
 }
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
