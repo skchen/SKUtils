@@ -61,8 +61,9 @@
 
 - (void)addObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
     [_dictionary setObject:object forKey:key];
-    [_array removeObject:key];
-    [_array addObject:key];
+    if(![_array containsObject:key]) {
+        [_array addObject:key];
+    }
 }
 
 @end
