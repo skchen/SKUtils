@@ -22,7 +22,7 @@
     
     NSFileManager *mockFileManager;
     SKLruTable *mockTable;
-    id<SKLruTableCoster> mockCoster;
+    id<SKLruCoster> mockCoster;
     id<SKLruTableSpiller> mockSpiller;
     
     id<NSCopying> mockKey1;
@@ -39,7 +39,7 @@
     
     mockFileManager = mock([NSFileManager class]);
     mockTable = mock([SKLruTable class]);
-    mockCoster = mockProtocol(@protocol(SKLruTableCoster));
+    mockCoster = mockProtocol(@protocol(SKLruCoster));
     mockSpiller = mockProtocol(@protocol(SKLruTableSpiller));
     
     mockKey1 = mockProtocol(@protocol(NSCopying));
@@ -57,9 +57,10 @@
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
     [given([mockKey2 copyWithZone:nil]) willReturn:mockKey2];
     
-    lruStorage = [[SKLruStorage alloc] initWithFileManager:mockFileManager andLruTable:mockTable andCoster:mockCoster andSpiller:mockSpiller];
+    lruStorage = [[SKLruStorage alloc] initWithConstraint:1 andCoster:mockCoster andSpiller:mockSpiller andFileManager:mockFileManager];
+    [lruStorage setValue:mockTable forKey:@"urlLruTable"];
     
-    [given([mockTable coster]) willReturn:(id<SKLruTableCoster>)lruStorage];
+    [given([mockTable coster]) willReturn:(id<SKLruCoster>)lruStorage];
     [given([mockTable spiller]) willReturn:(id<SKLruTableSpiller>)lruStorage];
 }
 
@@ -138,24 +139,6 @@
     [verify(mockFileManager) removeItemAtURL:mockUrl1 error:nil];
     [verify(mockFileManager) removeItemAtURL:mockUrl2 error:nil];
     [verify(mockTable) removeAllObjects];
-}
-
-- (void)test_shouldGetCost {
-    [given([mockTable objectForKey:mockKey1]) willReturn:mockUrl1];
-    [given([mockCoster costForObject:mockUrl1]) willReturnUnsignedInteger:3];
-    
-    NSUInteger costForObject1 = [mockTable.coster costForObject:mockUrl1];
-    
-    assertThatUnsignedInteger(costForObject1, is(equalToUnsignedInteger(3)));
-}
-
-- (void)test_shouldInvokeSpill {
-    [given([mockTable objectForKey:mockKey1]) willReturn:mockUrl1];
-    
-    [mockTable.spiller onSpilled:mockUrl1 forKey:mockKey1];
-    
-    [verify(mockFileManager) removeItemAtURL:mockUrl1 error:nil];
-    [verify(mockSpiller) onSpilled:mockUrl1 forKey:mockKey1];
 }
 
 @end

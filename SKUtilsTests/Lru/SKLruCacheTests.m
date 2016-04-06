@@ -23,6 +23,8 @@
     id<SKLruCacheLoader> mockLruCacheLoader;
     SKLruTable *mockLruTable;
     
+    id<SKLruCoster> mockCoster;
+    
     id<NSCopying> mockKey1;
     id mockObject1;
     
@@ -36,6 +38,8 @@
     mockLruTable = mock([SKLruTable class]);
     mockLruCacheLoader = mockProtocol(@protocol(SKLruCacheLoader));
     
+    mockCoster = mockProtocol(@protocol(SKLruCoster));
+    
     mockKey1 = mockProtocol(@protocol(NSCopying));
     mockKey2 = mockProtocol(@protocol(NSCopying));
     
@@ -48,7 +52,8 @@
     [given([mockLruCacheLoader loadObjectForKey:mockKey1]) willReturn:mockObject1];
     [given([mockLruCacheLoader loadObjectForKey:mockKey2]) willReturn:mockObject2];
     
-    lruCache = [[SKLruCache alloc] initWithLruTable:mockLruTable andLoader:mockLruCacheLoader];
+    lruCache = [[SKLruCache alloc] initWithConstraint:1 andCoster:mockCoster andLoader:mockLruCacheLoader];
+    [lruCache setValue:mockLruTable forKey:@"lruTable"];
 }
 
 - (void)tearDown {

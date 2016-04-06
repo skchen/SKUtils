@@ -24,7 +24,7 @@
 
 @implementation SKLruListTests {
     NSMutableArray *mockStorage;
-    id<SKLruListCoster> mockCoster;
+    id<SKLruCoster> mockCoster;
     id<SKLruListSpiller> mockSpiller;
 }
 
@@ -32,13 +32,14 @@
     [super setUp];
     
     mockStorage = mock([NSMutableArray class]);
-    mockCoster = mockProtocol(@protocol(SKLruListCoster));
+    mockCoster = mockProtocol(@protocol(SKLruCoster));
     mockSpiller = mockProtocol(@protocol(SKLruListSpiller));
     
     _mockObject1 = mock([NSObject class]);
     _mockObject2 = mock([NSObject class]);
     
-    _list = [[SKLruList alloc] initWithConstraint:1 andStorage:mockStorage andCoster:mockCoster andSpiller:mockSpiller];
+    _list = [[SKLruList alloc] initWithConstraint:1 andCoster:mockCoster andSpiller:mockSpiller];
+    [_list setValue:mockStorage forKey:@"storage"];
 }
 
 - (void)tearDown {

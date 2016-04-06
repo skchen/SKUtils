@@ -22,7 +22,7 @@
     
     NSMutableDictionary *mockStorage;
     SKLruList *mockLruList;
-    id<SKLruTableCoster> mockCoster;
+    id<SKLruCoster> mockCoster;
     id<SKLruTableSpiller> mockSpiller;
     
     id<NSCopying> mockKey1;
@@ -37,10 +37,10 @@
     [super setUp];
     
     mockStorage = mock([NSMutableDictionary class]);
-    mockLruList = mock([SKLruList class]);
     
-    mockCoster = mockProtocol(@protocol(SKLruTableCoster));
+    mockCoster = mockProtocol(@protocol(SKLruCoster));
     mockSpiller = mockProtocol(@protocol(SKLruTableSpiller));
+    mockLruList = mock([SKLruList class]);
     
     mockKey1 = mockProtocol(@protocol(NSCopying));
     mockKey2 = mockProtocol(@protocol(NSCopying));
@@ -52,10 +52,11 @@
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
     [given([mockKey2 copyWithZone:nil]) willReturn:mockKey2];
     
-    lruTable = [[SKLruTable alloc] initWithStorage:mockStorage andLruList:mockLruList andCoster:mockCoster andSpiller:mockSpiller];
-    
-    [given([mockLruList coster]) willReturn:(id<SKLruListCoster>)lruTable];
-    [given([mockLruList spiller]) willReturn:(id<SKLruListSpiller>)lruTable];
+    lruTable = [[SKLruTable alloc] initWithConstraint:1 andCoster:mockCoster andSpiller:mockSpiller];
+    [lruTable setValue:mockStorage forKey:@"storage"];
+    [lruTable setValue:mockLruList forKey:@"keyLruList"];
+    [lruTable setValue:lruTable forKey:@"coster"];
+    [lruTable setValue:lruTable forKey:@"spiller"];
 }
 
 - (void)tearDown {
@@ -107,36 +108,6 @@
     
     [verify(mockStorage) removeAllObjects];
     [verify(mockLruList) removeAllObjects];
-}
-
-- (void)test_shouldGetCost {
-    [given([mockStorage objectForKey:mockKey1]) willReturn:mockObject1];
-    [given([mockCoster costForObject:mockObject1]) willReturnUnsignedInteger:3];
-    
-    NSUInteger costForObject1 = [mockLruList.coster costForObject:mockKey1];
-    
-    assertThatUnsignedInteger(costForObject1, is(equalToUnsignedInteger(3)));
-}
-
-- (void)test_shouldInvokeSpill {
-    [given([mockStorage objectForKey:mockKey1]) willReturn:mockObject1];
-    
-    [mockLruList.spiller onSpilled:mockKey1];
-    
-    [verify(mockSpiller) onSpilled:mockObject1 forKey:mockKey1];
-}
-
-- (void)test_shouldRemoveObject_whenSpilled {
-    [given([mockStorage objectForKey:mockKey2]) willReturn:mockObject2];
-    [givenVoid([mockLruList touchObject:mockKey1]) willDo:^id(NSInvocation *invocation) {
-        [mockLruList.spiller onSpilled:mockKey2];
-        return nil;
-    }];
-    
-    [lruTable setObject:mockObject1 forKey:mockKey1];
-    
-    [verify(mockStorage) removeObjectForKey:mockKey2];
-    [verify(mockSpiller) onSpilled:mockObject2 forKey:mockKey2];
 }
 
 @end
