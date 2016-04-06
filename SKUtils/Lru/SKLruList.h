@@ -14,6 +14,10 @@
 
 @end
 
+@interface SKLruListDefaultCoster : NSObject<SKLruListCoster>
+
+@end
+
 @protocol SKLruListSpiller <NSObject>
 
 - (void)onSpilled:(nonnull id)object;
@@ -30,7 +34,11 @@
 @property(nonatomic, weak, nullable) id<SKLruListCoster> coster;
 @property(nonatomic, weak, nullable) id<SKLruListSpiller> spiller;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nonnull NSMutableArray *)storage andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nullable id<SKLruListSpiller>)spiller;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nonnull id<SKLruListSpiller>)spiller;
+
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
+
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nullable NSMutableArray *)storage andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
 - (void)touchObject:(nonnull id)object;
 - (void)removeObject:(nonnull id)object;
