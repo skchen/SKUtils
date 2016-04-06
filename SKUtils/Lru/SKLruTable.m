@@ -23,7 +23,7 @@
     return [[SKLruSimpleCoster alloc] init];
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
     self = [super init];
     
     _constraint = constraint;

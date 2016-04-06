@@ -33,7 +33,7 @@
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nullable id<SKLruTableSpiller>)spiller;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller;
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;

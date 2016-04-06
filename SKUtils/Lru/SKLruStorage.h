@@ -12,6 +12,6 @@
 
 @interface SKLruStorage : SKLruTable
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller andFileManager:(nullable NSFileManager *)fileManager;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller andFileManager:(nullable NSFileManager *)fileManager;
 
 @end

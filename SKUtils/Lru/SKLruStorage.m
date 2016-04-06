@@ -31,7 +31,7 @@
                                  userInfo:nil];
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller andFileManager:(nullable NSFileManager *)fileManager {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller andFileManager:(nullable NSFileManager *)fileManager {
     
     self = [super init];
     
@@ -56,7 +56,7 @@
     return self;
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(id<SKLruCoster>)coster andSpiller:(id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
     return [self initWithConstraint:constraint andCoster:coster andSpiller:spiller andFileManager:nil];
 }
 

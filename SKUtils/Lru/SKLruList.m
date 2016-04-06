@@ -22,7 +22,7 @@
     return [[SKLruSimpleCoster alloc] init];
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruListSpiller>)spiller {
     
     self = [super init];
     
@@ -42,7 +42,7 @@
     return self;
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nullable id<SKLruListSpiller>)spiller {
     return [self initWithConstraint:constraint andCoster:nil andSpiller:spiller];
 }
 
