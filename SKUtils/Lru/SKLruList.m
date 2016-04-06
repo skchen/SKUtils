@@ -8,14 +8,6 @@
 
 #import "SKLruList.h"
 
-@implementation SKLruListDefaultCoster
-
-- (NSUInteger)costForObject:(nonnull id)object {
-    return 1;
-}
-
-@end
-
 @interface SKLruList ()
 
 @property(nonatomic, copy, readonly, nonnull) NSMutableArray *storage;
@@ -30,11 +22,11 @@
     return [[NSMutableArray alloc] init];
 }
 
-+ (id<SKLruListCoster>)defaultCoster {
-    return [[SKLruListDefaultCoster alloc] init];
++ (id<SKLruCoster>)defaultCoster {
+    return [[SKLruSimpleCoster alloc] init];
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nullable NSMutableArray *)storage andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nullable NSMutableArray *)storage andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
     
     self = [super init];
     
@@ -62,7 +54,7 @@
     return [self initWithConstraint:constraint andStorage:nil andCoster:nil andSpiller:spiller];
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller {
     return [self initWithConstraint:constraint andStorage:nil andCoster:coster andSpiller:spiller];
 }
 
@@ -112,6 +104,14 @@
             [_spiller onSpilled:objectToSpill];
         }
     }
+}
+
+@end
+
+@implementation SKLruSimpleCoster
+
+- (NSUInteger)costForObject:(nonnull id)object {
+    return 1;
 }
 
 @end

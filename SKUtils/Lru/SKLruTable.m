@@ -8,7 +8,7 @@
 
 #import "SKLruTable.h"
 
-@interface SKLruTable () <SKLruListCoster, SKLruListSpiller>
+@interface SKLruTable () <SKLruCoster, SKLruListSpiller>
 
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *storage;
 @property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
@@ -19,7 +19,7 @@
 
 @implementation SKLruTable
 
-- (nonnull instancetype)initWithStorage:(nonnull NSMutableDictionary *)storage andLruList:(nonnull SKLruList *)lruList andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithStorage:(nonnull NSMutableDictionary *)storage andLruList:(nonnull SKLruList *)lruList andCoster:(nonnull id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
     self = [super init];
     
     _storage = storage;

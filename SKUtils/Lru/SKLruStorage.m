@@ -8,7 +8,7 @@
 
 #import "SKLruStorage.h"
 
-@interface SKLruStorage () <SKLruTableCoster, SKLruTableSpiller>
+@interface SKLruStorage () <SKLruCoster, SKLruTableSpiller>
 
 @property(nonatomic, copy, readonly, nonnull) NSFileManager *fileManager;
 @property(nonatomic, copy, readonly, nonnull) SKLruTable *urlLruTable;
@@ -23,13 +23,13 @@
                                  userInfo:nil];
 }
 
-- (nonnull instancetype)initWithStorage:(NSMutableDictionary *)storage andLruList:(SKLruList *)lruList andCoster:(id<SKLruTableCoster>)coster andSpiller:(id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithStorage:(NSMutableDictionary *)storage andLruList:(SKLruList *)lruList andCoster:(id<SKLruCoster>)coster andSpiller:(id<SKLruTableSpiller>)spiller {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:@"-initWithStorage:andLruList:andCoster:andSpiller is not a valid initializer for the class SKLruStorage"
                                  userInfo:nil];
 }
 
-- (nonnull instancetype)initWithFileManager:(nonnull NSFileManager *)fileManager andLruTable:(nonnull SKLruTable *)lruTable andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithFileManager:(nonnull NSFileManager *)fileManager andLruTable:(nonnull SKLruTable *)lruTable andCoster:(nonnull id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller {
     
     self = [super init];
     

@@ -8,13 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SKLruListCoster <NSObject>
+@protocol SKLruCoster <NSObject>
 
 - (NSUInteger)costForObject:(nonnull id)object;
-
-@end
-
-@interface SKLruListDefaultCoster : NSObject<SKLruListCoster>
 
 @end
 
@@ -31,17 +27,20 @@
 @property(nonatomic, readonly) NSUInteger constraint;
 @property(nonatomic, readonly) NSUInteger cost;
 
-@property(nonatomic, weak, nullable) id<SKLruListCoster> coster;
+@property(nonatomic, weak, nullable) id<SKLruCoster> coster;
 @property(nonatomic, weak, nullable) id<SKLruListSpiller> spiller;
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nullable NSMutableArray *)storage andCoster:(nullable id<SKLruListCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andStorage:(nullable NSMutableArray *)storage andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruListSpiller>)spiller;
 
 - (void)touchObject:(nonnull id)object;
 - (void)removeObject:(nonnull id)object;
 - (void)removeAllObjects;
 
+@end
+
+@interface SKLruSimpleCoster : NSObject<SKLruCoster>
 @end

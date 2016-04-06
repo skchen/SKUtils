@@ -10,12 +10,6 @@
 
 #import "SKLruList.h"
 
-@protocol SKLruTableCoster <NSObject>
-
-- (NSUInteger)costForObject:(nonnull id)object;
-
-@end
-
 @protocol SKLruTableSpiller <NSObject>
 
 - (void)onSpilled:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
@@ -24,7 +18,7 @@
 
 @interface SKLruTable : NSObject {
     @protected
-    __weak id<SKLruTableCoster> _coster;
+    __weak id<SKLruCoster> _coster;
     __weak id<SKLruTableSpiller> _spiller;
 }
 
@@ -33,10 +27,10 @@
 @property(nonatomic, assign, readonly) NSUInteger constraint;
 @property(nonatomic, assign, readonly) NSUInteger cost;
 
-@property(nonatomic, weak, nullable) id<SKLruTableCoster> coster;
+@property(nonatomic, weak, nullable) id<SKLruCoster> coster;
 @property(nonatomic, weak, nullable) id<SKLruTableSpiller> spiller;
 
-- (nonnull instancetype)initWithStorage:(nonnull NSMutableDictionary *)storage andLruList:(nonnull SKLruList *)lruList andCoster:(nonnull id<SKLruTableCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller;
+- (nonnull instancetype)initWithStorage:(nonnull NSMutableDictionary *)storage andLruList:(nonnull SKLruList *)lruList andCoster:(nonnull id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller;
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
