@@ -26,11 +26,9 @@
     id<SKLruTableSpiller> mockSpiller;
     
     id<NSCopying> mockKey1;
-    NSURL *mockUrl1;
     NSString *mockPath1;
     
     id<NSCopying> mockKey2;
-    NSURL *mockUrl2;
     NSString *mockPath2;
 }
 
@@ -44,15 +42,11 @@
     
     mockKey1 = mockProtocol(@protocol(NSCopying));
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
-    mockUrl1 = mock([NSURL class]);
     mockPath1 = mock([NSString class]);
-    [given([mockUrl1 absoluteString]) willReturn:mockPath1];
     
     mockKey2 = mockProtocol(@protocol(NSCopying));
     [given([mockKey2 copyWithZone:nil]) willReturn:mockKey2];
-    mockUrl2 = mock([NSURL class]);
     mockPath2 = mock([NSString class]);
-    [given([mockUrl2 absoluteString]) willReturn:mockPath2];
     
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
     [given([mockKey2 copyWithZone:nil]) willReturn:mockKey2];
@@ -76,17 +70,17 @@
     assertThat(object1, is(nilValue()));
 }
 
-- (void)test_shouldGetUrl_whenObjectIsInCacheAndStorage {
-    [given([mockTable objectForKey:mockKey1]) willReturn:mockUrl1];
+- (void)test_shouldGetPath_whenObjectIsInCacheAndStorage {
+    [given([mockTable objectForKey:mockKey1]) willReturn:mockPath1];
     [given([mockFileManager fileExistsAtPath:mockPath1]) willReturnBool:YES];
     
     id object1 = [lruStorage objectForKey:mockKey1];
     
-    assertThat(object1, is(mockUrl1));
+    assertThat(object1, is(mockPath1));
 }
 
 - (void)test_shouldGetNilAndRemoveCache_whenObjectIsInCacheButNotInStorage {
-    [given([mockTable objectForKey:mockKey1]) willReturn:mockUrl1];
+    [given([mockTable objectForKey:mockKey1]) willReturn:mockPath1];
     [given([mockFileManager fileExistsAtPath:mockPath1]) willReturnBool:NO];
     
     id object1 = [lruStorage objectForKey:mockKey1];
@@ -95,29 +89,29 @@
     assertThat(object1, is(nilValue()));
 }
 
-- (void)test_shouldSetUrl_whenFileIsInStorage {
+- (void)test_shouldSetPath_whenFileIsInStorage {
     [given([mockFileManager fileExistsAtPath:mockPath1]) willReturnBool:YES];
     
-    [lruStorage setObject:mockUrl1 forKey:mockKey1];
+    [lruStorage setObject:mockPath1 forKey:mockKey1];
     
-    [verify(mockTable) setObject:mockUrl1 forKey:mockKey1];
+    [verify(mockTable) setObject:mockPath1 forKey:mockKey1];
 }
 
-- (void)test_shouldNotSetUrl_whenFileIsNotInStorage {
+- (void)test_shouldNotSetPath_whenFileIsNotInStorage {
     [given([mockFileManager fileExistsAtPath:mockPath1]) willReturnBool:NO];
     
-    [lruStorage setObject:mockUrl1 forKey:mockKey1];
+    [lruStorage setObject:mockPath1 forKey:mockKey1];
     
-    [verifyCount(mockTable, never()) setObject:mockUrl1 forKey:mockKey1];
+    [verifyCount(mockTable, never()) setObject:mockPath1 forKey:mockKey1];
 }
 
 - (void)test_shouldRemoveCacheAndFile_whenFileIsCached {
-    [given([mockTable objectForKey:mockKey1]) willReturn:mockUrl1];
+    [given([mockTable objectForKey:mockKey1]) willReturn:mockPath1];
     
     [lruStorage removeObjectForKey:mockKey1];
     
     [verify(mockTable) removeObjectForKey:mockKey1];
-    [verify(mockFileManager) removeItemAtURL:mockUrl1 error:nil];
+    [verify(mockFileManager) removeItemAtPath:mockPath1 error:nil];
 }
 
 - (void)test_shouldRemoveCacheOnly_whenFileIsNotCached {
@@ -130,14 +124,14 @@
 }
 
 - (void)test_shouldRemoveAllObjects {
-    [given([mockTable allValues]) willReturn:@[mockUrl1, mockUrl2]];
-    [given([mockTable objectForKey:mockKey1]) willReturn:mockUrl1];
-    [given([mockTable objectForKey:mockKey2]) willReturn:mockUrl2];
+    [given([mockTable allValues]) willReturn:@[mockPath1, mockPath2]];
+    [given([mockTable objectForKey:mockKey1]) willReturn:mockPath1];
+    [given([mockTable objectForKey:mockKey2]) willReturn:mockPath2];
     
     [lruStorage removeAllObjects];
     
-    [verify(mockFileManager) removeItemAtURL:mockUrl1 error:nil];
-    [verify(mockFileManager) removeItemAtURL:mockUrl2 error:nil];
+    [verify(mockFileManager) removeItemAtPath:mockPath1 error:nil];
+    [verify(mockFileManager) removeItemAtPath:mockPath2 error:nil];
     [verify(mockTable) removeAllObjects];
 }
 

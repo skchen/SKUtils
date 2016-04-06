@@ -73,10 +73,10 @@
 }
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
-    NSURL *url = [_urlLruTable objectForKey:key];
-    if(url) {
-        if([_fileManager fileExistsAtPath:[url absoluteString]]) {
-            return url;
+    NSString *path = [_urlLruTable objectForKey:key];
+    if(path) {
+        if([_fileManager fileExistsAtPath:path]) {
+            return path;
         } else {
             [_urlLruTable removeObjectForKey:key];
         }
@@ -86,25 +86,25 @@
 }
 
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
-    NSURL *url = (NSURL *)object;
-    if([_fileManager fileExistsAtPath:[url absoluteString]]) {
-        [_urlLruTable setObject:url forKey:key];
+    NSString *path = (NSString *)object;
+    if([_fileManager fileExistsAtPath:path]) {
+        [_urlLruTable setObject:path forKey:key];
     }
 }
 
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key {
-    NSURL *url = [_urlLruTable objectForKey:key];
+    NSString *path = [_urlLruTable objectForKey:key];
     [_urlLruTable removeObjectForKey:key];
     
-    if(url) {
-        [_fileManager removeItemAtURL:url error:nil];
+    if(path) {
+        [_fileManager removeItemAtPath:path error:nil];
     }
 }
 
 - (void)removeAllObjects {
-    NSArray *urls = [_urlLruTable allValues];
-    for(NSURL *url in urls) {
-        [_fileManager removeItemAtURL:url error:nil];
+    NSArray *paths = [_urlLruTable allValues];
+    for(NSString *path in paths) {
+        [_fileManager removeItemAtPath:path error:nil];
     }
     [_urlLruTable removeAllObjects];
 }
