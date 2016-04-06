@@ -18,7 +18,8 @@
 
 @interface SKLruCache : NSObject
 
-- (nonnull instancetype)initWithLruTable:(nonnull SKLruTable *)lruTable andLoader:(nonnull id<SKLruCacheLoader>)loader;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andLoader:(nonnull id<SKLruCacheLoader>)loader;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andLoader:(nonnull id<SKLruCacheLoader>)loader;
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key;

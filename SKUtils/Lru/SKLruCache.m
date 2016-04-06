@@ -17,11 +17,15 @@
 
 @implementation SKLruCache
 
-- (nonnull instancetype)initWithLruTable:(nonnull SKLruTable *)lruTable andLoader:(nonnull id<SKLruCacheLoader>)loader {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andLoader:(nonnull id<SKLruCacheLoader>)loader {
     self = [super init];
-    _lruTable = lruTable;
+    _lruTable = [[SKLruTable alloc] initWithConstraint:constraint andCoster:coster andSpiller:nil];
     _loader = loader;
     return self;
+}
+
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andLoader:(nonnull id<SKLruCacheLoader>)loader {
+    return [self initWithConstraint:constraint andCoster:nil andLoader:loader];
 }
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
