@@ -17,31 +17,47 @@
 
 @implementation SKLruStorage
 
++ (id<SKLruCoster>)defaultCoster {
+    return [[SKLruSimpleCoster alloc] init];
+}
+
++ (NSFileManager *)defaultFileManager {
+    return [NSFileManager defaultManager];
+}
+
 - (id)init {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:@"-init is not a valid initializer for the class SKLruStorage"
                                  userInfo:nil];
 }
 
-- (nonnull instancetype)initWithStorage:(NSMutableDictionary *)storage andLruList:(SKLruList *)lruList andCoster:(id<SKLruCoster>)coster andSpiller:(id<SKLruTableSpiller>)spiller {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"-initWithStorage:andLruList:andCoster:andSpiller is not a valid initializer for the class SKLruStorage"
-                                 userInfo:nil];
-}
-
-- (nonnull instancetype)initWithFileManager:(nonnull NSFileManager *)fileManager andLruTable:(nonnull SKLruTable *)lruTable andCoster:(nonnull id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nonnull id<SKLruTableSpiller>)spiller andFileManager:(nullable NSFileManager *)fileManager {
     
     self = [super init];
     
-    _fileManager = fileManager;
-    _urlLruTable = lruTable;
-    _urlLruTable.coster = self;
-    _urlLruTable.spiller = self;
+    _constraint = constraint;
     
-    _coster = coster;
+    if(coster) {
+        _coster = coster;
+    } else {
+        _coster = [SKLruStorage defaultCoster];
+    }
+    
     _spiller = spiller;
     
+    if(fileManager) {
+        _fileManager = fileManager;
+    } else {
+        _fileManager = [SKLruStorage defaultFileManager];
+    }
+    
+    _urlLruTable = [[SKLruTable alloc] initWithConstraint:constraint andCoster:coster andSpiller:self];
+    
     return self;
+}
+
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(id<SKLruCoster>)coster andSpiller:(id<SKLruTableSpiller>)spiller {
+    return [self initWithConstraint:constraint andCoster:coster andSpiller:spiller andFileManager:nil];
 }
 
 - (NSUInteger)count {

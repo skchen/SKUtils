@@ -18,6 +18,7 @@
 
 @interface SKLruTable : NSObject {
     @protected
+    NSUInteger _constraint;
     __weak id<SKLruCoster> _coster;
     __weak id<SKLruTableSpiller> _spiller;
 }
