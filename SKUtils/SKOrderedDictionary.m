@@ -25,44 +25,60 @@
 }
 
 - (NSUInteger)count {
-    return [_dictionary count];
+    @synchronized(self) {
+        return [_dictionary count];
+    }
 }
 
 - (void)removeAllObjects {
-    [_dictionary removeAllObjects];
-    [_array removeAllObjects];
+    @synchronized(self) {
+        [_dictionary removeAllObjects];
+        [_array removeAllObjects];
+    }
 }
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
-    return [_dictionary objectForKey:key];
+    @synchronized(self) {
+        return [_dictionary objectForKey:key];
+    }
 }
 
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key {
-    [_dictionary removeObjectForKey:key];
-    [_array removeObject:key];
+    @synchronized(self) {
+        [_dictionary removeObjectForKey:key];
+        [_array removeObject:key];
+    }
 }
 
 - (nullable id)objectAtIndex:(NSUInteger)index {
-    id key = [_array objectAtIndex:index];
-    return [_dictionary objectForKey:key];
+    @synchronized(self) {
+        id key = [_array objectAtIndex:index];
+        return [_dictionary objectForKey:key];
+    }
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
-    id key = [_array objectAtIndex:index];
-    [_dictionary removeObjectForKey:key];
-    [_array removeObject:key];
+    @synchronized(self) {
+        id key = [_array objectAtIndex:index];
+        [_dictionary removeObjectForKey:key];
+        [_array removeObject:key];
+    }
 }
 
 - (void)insertObject:(nonnull id)object atIndex:(NSUInteger)index forKey:(nonnull id<NSCopying>)key {
-    [_dictionary setObject:object forKey:key];
-    [_array removeObject:key];
-    [_array insertObject:key atIndex:index];
+    @synchronized(self) {
+        [_dictionary setObject:object forKey:key];
+        [_array removeObject:key];
+        [_array insertObject:key atIndex:index];
+    }
 }
 
 - (void)addObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
-    [_dictionary setObject:object forKey:key];
-    if(![_array containsObject:key]) {
-        [_array addObject:key];
+    @synchronized(self) {
+        [_dictionary setObject:object forKey:key];
+        if(![_array containsObject:key]) {
+            [_array addObject:key];
+        }
     }
 }
 
