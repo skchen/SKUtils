@@ -55,4 +55,5 @@ fastlane/screenshots
 .DS_Store
 
 # to deploy
+Output/
 *.framework.zip
