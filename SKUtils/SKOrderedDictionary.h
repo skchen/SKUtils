@@ -12,15 +12,16 @@
 
 @property (readonly) NSUInteger count;
 
-- (void)removeAllObjects;
-
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
-- (void)removeObjectForKey:(nonnull id<NSCopying>)key;
-
 - (nullable id)objectAtIndex:(NSUInteger)index;
-- (void)removeObjectAtIndex:(NSUInteger)index;
+- (nullable id)lastObject;
 
 - (void)insertObject:(nonnull id)object atIndex:(NSUInteger)index forKey:(nonnull id<NSCopying>)key;
 - (void)addObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
+
+- (void)removeObjectForKey:(nonnull id<NSCopying>)key;
+- (void)removeObjectAtIndex:(NSUInteger)index;
+- (void)removeLastObject;
+- (void)removeAllObjects;
 
 @end

@@ -13,99 +13,144 @@
 @import OCHamcrest;
 @import OCMockito;
 
-static NSString *const kKeyObject1 = @"key1";
-static NSString *const kKeyObject2 = @"key2";
-
 @interface SKOrderedDictionaryTest : XCTestCase
-
-@property(nonatomic, strong) SKOrderedDictionary *orderedDictionary;
-
-@property(nonatomic, strong) NSObject *dummyObject1;
-@property(nonatomic, strong) NSObject *dummyObject2;
 
 @end
 
-@implementation SKOrderedDictionaryTest
+@implementation SKOrderedDictionaryTest {
+    SKOrderedDictionary *orderedDictionary;
+    
+    NSMutableDictionary *mockMutableDictionary;
+    NSMutableArray *mockMutableArray;
+    
+    id<NSCopying> mockKey1;
+    id mockObject1;
+}
 
 - (void)setUp {
     [super setUp];
-    _orderedDictionary = [[SKOrderedDictionary alloc] init];
-    _dummyObject1 = mock([NSObject class]);
-    _dummyObject2 = mock([NSObject class]);
+    orderedDictionary = [[SKOrderedDictionary alloc] init];
+    
+    mockMutableDictionary = mock([NSMutableDictionary class]);
+    mockMutableArray = mock([NSMutableArray class]);
+    [orderedDictionary setValue:mockMutableDictionary forKey:@"dictionary"];
+    [orderedDictionary setValue:mockMutableArray forKey:@"array"];
+    
+    mockKey1 = mockProtocol(@protocol(NSCopying));
+    [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
+    mockObject1 = mock([NSObject class]);
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)test_countShouldBeOne_whenSetObjectForEmptyDictionary {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
+- (void)test_shouldGetObjectForKey_whenObjectExist {
+    [given([mockMutableDictionary objectForKey:mockKey1]) willReturn:mockObject1];
     
-    assertThatUnsignedInteger(_orderedDictionary.count, is(equalToUnsignedInteger(1)));
+    id object = [orderedDictionary objectForKey:mockKey1];
+    
+    assertThat(object, is(equalTo(mockObject1)));
 }
 
-- (void)test_countShouldBeTwo_whenSetObjectForDictionaryWithOneObject {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
+- (void)test_shouldGetNilAsObjectForKey_whenObjectNotExist {
+    [given([mockMutableDictionary objectForKey:mockKey1]) willReturn:nil];
     
-    [_orderedDictionary addObject:_dummyObject2 forKey:kKeyObject2];
+    id object = [orderedDictionary objectForKey:mockKey1];
     
-    assertThatUnsignedInteger(_orderedDictionary.count, is(equalToUnsignedInteger(2)));
-}
-
-- (void)test_countShouldBeZero_whenRemoveAllObjects {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
-    
-    [_orderedDictionary removeAllObjects];
-    
-    assertThatUnsignedInteger(_orderedDictionary.count, is(equalToUnsignedInteger(0)));
-}
-
-- (void)test_objectShouldMatch_whenRetriveObjectWithSpecificKey {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
-    
-    id object = [_orderedDictionary objectForKey:kKeyObject1];
-    
-    assertThat(object, is(notNilValue()));
-    assertThat(object, is(equalTo(_dummyObject1)));
-}
-
-- (void)test_objectShouldBeRemoved_whenRemoveObjectForSpecificKey {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
-    
-    [_orderedDictionary removeObjectForKey:kKeyObject1];
-    
-    id object = [_orderedDictionary objectForKey:kKeyObject1];
     assertThat(object, is(nilValue()));
 }
 
-- (void)test_objectShouldMatch_whenRetriveObjectWithSpecificIndex {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
+- (void)test_shouldGetObjectAtIndex_whenObjectExist {
+    [given([mockMutableArray count]) willReturnUnsignedInteger:5];
+    [given([mockMutableArray objectAtIndex:3]) willReturn:mockKey1];
+    [given([mockMutableDictionary objectForKey:mockKey1]) willReturn:mockObject1];
     
-    id object = [_orderedDictionary objectAtIndex:0];
+    id object = [orderedDictionary objectForKey:mockKey1];
     
-    assertThat(object, is(notNilValue()));
-    assertThat(object, is(equalTo(_dummyObject1)));
+    assertThat(object, is(equalTo(mockObject1)));
 }
 
-- (void)test_objectShouldMatch_whenInsertObjectWithSpecificIndex {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
+- (void)test_shouldGetNilAsObjectAtIndex_whenObjectNotExist {
+    [given([mockMutableArray count]) willReturnUnsignedInteger:5];
+    [given([mockMutableArray objectAtIndex:3]) willReturn:mockKey1];
+    [given([mockMutableDictionary objectForKey:mockKey1]) willReturn:nil];
     
-    [_orderedDictionary insertObject:_dummyObject2 atIndex:0 forKey:kKeyObject2];
+    id object = [orderedDictionary objectAtIndex:3];
     
-    id object = [_orderedDictionary objectAtIndex:0];
-    
-    assertThat(object, is(notNilValue()));
-    assertThat(object, is(equalTo(_dummyObject2)));
-}
-
-- (void)test_objectShouldBeRemoved_whenRemoveObjectForSpecificIndex {
-    [_orderedDictionary addObject:_dummyObject1 forKey:kKeyObject1];
-    
-    [_orderedDictionary removeObjectAtIndex:0];
-    
-    id object = [_orderedDictionary objectForKey:kKeyObject1];
     assertThat(object, is(nilValue()));
+}
+
+- (void)test_shouldGetLastObject_whenNotEmpty {
+    [given([mockMutableArray lastObject]) willReturn:mockKey1];
+    [given([mockMutableDictionary objectForKey:mockKey1]) willReturn:mockObject1];
+    
+    id object = [orderedDictionary lastObject];
+    
+    assertThat(object, is(equalTo(mockObject1)));
+}
+
+- (void)test_shouldGetNilAsLastObject_whenEmpty {
+    [given([mockMutableArray lastObject]) willReturn:nil];
+    
+    id object = [orderedDictionary lastObject];
+    
+    assertThat(object, is(nilValue()));
+}
+
+- (void)test_shouldInsertObjectAtIndexForKey {
+    [orderedDictionary insertObject:mockObject1 atIndex:3 forKey:mockKey1];
+    
+    [verify(mockMutableDictionary) setObject:mockObject1 forKey:mockKey1];
+    [verify(mockMutableArray) insertObject:mockKey1 atIndex:3];
+}
+
+- (void)test_shouldAddObject {
+    [orderedDictionary addObject:mockObject1 forKey:mockKey1];
+    
+    [verify(mockMutableDictionary) setObject:mockObject1 forKey:mockKey1];
+    [verify(mockMutableArray) addObject:mockKey1];
+}
+
+- (void)test_shouldRemoveObjectForKey {
+    [orderedDictionary removeObjectForKey:mockKey1];
+    
+    [verify(mockMutableDictionary) removeObjectForKey:mockKey1];
+    [verify(mockMutableArray) removeObject:mockKey1];
+}
+
+- (void)test_shouldRemoveObjectAtIndex {
+    [given([mockMutableArray objectAtIndex:3]) willReturn:mockKey1];
+    
+    [orderedDictionary removeObjectAtIndex:3];
+    
+    [verify(mockMutableDictionary) removeObjectForKey:mockKey1];
+    [verify(mockMutableArray) removeObject:mockKey1];
+}
+
+- (void)test_shouldRemoveLastObject_whenNotEmpty {
+    [given([mockMutableArray lastObject]) willReturn:mockKey1];
+    
+    [orderedDictionary removeLastObject];
+    
+    [verify(mockMutableDictionary) removeObjectForKey:mockKey1];
+    [verify(mockMutableArray) removeObject:mockKey1];
+}
+
+- (void)test_shouldNotRemoveAnythingAsLastObject_whenNotEmpty {
+    [given([mockMutableArray lastObject]) willReturn:nil];
+    
+    [orderedDictionary removeLastObject];
+    
+    [verifyCount(mockMutableDictionary, never()) removeObjectForKey:(id)anything()];
+    [verifyCount(mockMutableArray, never()) removeObject:(id)anything()];
+}
+
+- (void)test_shouldRemoveAllObjects {
+    [orderedDictionary removeAllObjects];
+    
+    [verify(mockMutableDictionary) removeAllObjects];
+    [verify(mockMutableArray) removeAllObjects];
 }
 
 @end

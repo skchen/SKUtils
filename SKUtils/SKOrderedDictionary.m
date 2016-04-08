@@ -30,23 +30,9 @@
     }
 }
 
-- (void)removeAllObjects {
-    @synchronized(self) {
-        [_dictionary removeAllObjects];
-        [_array removeAllObjects];
-    }
-}
-
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
     @synchronized(self) {
         return [_dictionary objectForKey:key];
-    }
-}
-
-- (void)removeObjectForKey:(nonnull id<NSCopying>)key {
-    @synchronized(self) {
-        [_dictionary removeObjectForKey:key];
-        [_array removeObject:key];
     }
 }
 
@@ -57,11 +43,13 @@
     }
 }
 
-- (void)removeObjectAtIndex:(NSUInteger)index {
+- (nullable id)lastObject {
     @synchronized(self) {
-        id key = [_array objectAtIndex:index];
-        [_dictionary removeObjectForKey:key];
-        [_array removeObject:key];
+        id key = [_array lastObject];
+        if(key) {
+            return [_dictionary objectForKey:key];
+        }
+        return nil;
     }
 }
 
@@ -79,6 +67,38 @@
         if(![_array containsObject:key]) {
             [_array addObject:key];
         }
+    }
+}
+
+- (void)removeObjectForKey:(nonnull id<NSCopying>)key {
+    @synchronized(self) {
+        [_dictionary removeObjectForKey:key];
+        [_array removeObject:key];
+    }
+}
+
+- (void)removeObjectAtIndex:(NSUInteger)index {
+    @synchronized(self) {
+        id key = [_array objectAtIndex:index];
+        [_dictionary removeObjectForKey:key];
+        [_array removeObject:key];
+    }
+}
+
+- (void)removeLastObject {
+    @synchronized(self) {
+        id<NSCopying> key = [_array lastObject];
+        if(key) {
+            [_array removeObject:key];
+            [_dictionary removeObjectForKey:key];
+        }
+    }
+}
+
+- (void)removeAllObjects {
+    @synchronized(self) {
+        [_dictionary removeAllObjects];
+        [_array removeAllObjects];
     }
 }
 
