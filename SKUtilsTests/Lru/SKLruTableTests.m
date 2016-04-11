@@ -52,11 +52,13 @@
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
     [given([mockKey2 copyWithZone:nil]) willReturn:mockKey2];
     
-    lruTable = [[SKLruTable alloc] initWithConstraint:1 andCoster:mockCoster andSpiller:mockSpiller];
+    lruTable = [[SKLruTable alloc] initWithConstraint:1];
+    [lruTable setCoster:mockCoster];
+    [lruTable setSpiller:mockSpiller];
     [lruTable setValue:mockStorage forKey:@"storage"];
     [lruTable setValue:mockLruList forKey:@"keyLruList"];
-    [lruTable setValue:lruTable forKey:@"coster"];
-    [lruTable setValue:lruTable forKey:@"spiller"];
+    [mockLruList setValue:lruTable forKey:@"coster"];
+    [mockLruList setValue:lruTable forKey:@"spiller"];
 }
 
 - (void)tearDown {

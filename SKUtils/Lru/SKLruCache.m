@@ -19,7 +19,8 @@
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andLoader:(nonnull id<SKLruCacheLoader>)loader {
     self = [super init];
-    _lruTable = [[SKLruTable alloc] initWithConstraint:constraint andCoster:coster andSpiller:nil];
+    _lruTable = [[SKLruTable alloc] initWithConstraint:constraint];
+    _lruTable.coster = coster;
     _loader = loader;
     return self;
 }

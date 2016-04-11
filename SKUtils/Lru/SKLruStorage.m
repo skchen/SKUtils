@@ -43,7 +43,9 @@
         _fileManager = [SKLruStorage defaultFileManager];
     }
     
-    _urlLruTable = [[SKLruTable alloc] initWithConstraint:constraint andCoster:coster andSpiller:self];
+    _urlLruTable = [[SKLruTable alloc] initWithConstraint:constraint];
+    _urlLruTable.coster = coster;
+    _urlLruTable.spiller = self;
     
     return self;
 }

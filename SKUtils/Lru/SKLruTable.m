@@ -19,10 +19,8 @@
 
 @implementation SKLruTable
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
     self = [super init];
-    
-    _constraint = constraint;
     
     _storage = [[NSMutableDictionary alloc] init];
     
@@ -30,15 +28,11 @@
     _keyLruList.coster = self;
     _keyLruList.spiller = self;
     
-    _coster = coster;
-    
-    _spiller = spiller;
-    
     return self;
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nullable id<SKLruTableSpiller>)spiller {
-    return [self initWithConstraint:constraint andCoster:nil andSpiller:spiller];
+- (NSUInteger)constraint {
+    return _keyLruList.constraint;
 }
 
 - (NSUInteger)count {
@@ -84,11 +78,34 @@
     }
 }
 
+#pragma mark - NSCoding
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    
+    _storage = [aDecoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"storage"];
+    
+    _keyLruList = [aDecoder decodeObjectOfClass:[SKLruList class] forKey:@"keyLruList"];
+    _keyLruList.coster = self;
+    _keyLruList.spiller = self;
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_storage forKey:@"storage"];
+    [aCoder encodeObject:_keyLruList forKey:@"keyLruList"];
+}
+
 #pragma mark - SKLruListCoster
 
 - (NSUInteger)costForObject:(id)key {
-    id object = [_storage objectForKey:key];
-    return [_coster costForObject:object];
+    if(_coster) {
+        id object = [_storage objectForKey:key];
+        return [_coster costForObject:object];
+    } else {
+        return 1;
+    }
 }
 
 #pragma mark - SKLruListSpiller

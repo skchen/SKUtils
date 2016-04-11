@@ -16,7 +16,7 @@
 
 @end
 
-@interface SKLruTable : NSObject {
+@interface SKLruTable : NSObject <NSCoding> {
     @protected
     NSUInteger _constraint;
     __weak id<SKLruCoster> _coster;
@@ -31,9 +31,7 @@
 @property(nonatomic, weak, nullable) id<SKLruCoster> coster;
 @property(nonatomic, weak, nullable) id<SKLruTableSpiller> spiller;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nullable id<SKLruTableSpiller>)spiller;
-
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint;
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
