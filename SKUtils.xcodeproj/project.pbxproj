@@ -37,9 +37,6 @@
 		826803791CA95DEF00C8B952 /* SKOrderedDictionaryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */; };
 		826803F31CAC25E900C8B952 /* SKLruListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803F11CAC25E900C8B952 /* SKLruListTests.m */; };
 		826803F41CAC25E900C8B952 /* SKLruTableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803F21CAC25E900C8B952 /* SKLruTableTests.m */; };
-		826804031CAC264200C8B952 /* SKLruCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804021CAC264200C8B952 /* SKLruCacheTests.m */; };
-		8268040B1CAC26E400C8B952 /* SKLruCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804051CAC26E400C8B952 /* SKLruCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8268040C1CAC26E400C8B952 /* SKLruCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804061CAC26E400C8B952 /* SKLruCache.m */; };
 		8268040D1CAC26E400C8B952 /* SKLruList.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804071CAC26E400C8B952 /* SKLruList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8268040E1CAC26E400C8B952 /* SKLruList.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804081CAC26E400C8B952 /* SKLruList.m */; };
 		8268040F1CAC26E400C8B952 /* SKLruTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804091CAC26E400C8B952 /* SKLruTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -49,10 +46,8 @@
 		828D19911CAD8C1900F4CFC4 /* SKLruStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 828D19901CAD8C1900F4CFC4 /* SKLruStorageTests.m */; };
 		82FB6D851CB6E5AE000DE9E9 /* SKLruTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8268040A1CAC26E400C8B952 /* SKLruTable.m */; };
 		82FB6D861CB6E5AE000DE9E9 /* SKLruStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 828D198D1CAD8C0300F4CFC4 /* SKLruStorage.m */; };
-		82FB6D871CB6E5AE000DE9E9 /* SKLruCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804061CAC26E400C8B952 /* SKLruCache.m */; };
 		82FB6D881CB6E5AE000DE9E9 /* SKLruList.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804081CAC26E400C8B952 /* SKLruList.m */; };
 		82FB6D891CB6E5AE000DE9E9 /* SKOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803751CA95DE500C8B952 /* SKOrderedDictionary.m */; };
-		82FB6D8C1CB6E5AE000DE9E9 /* SKLruCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804051CAC26E400C8B952 /* SKLruCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82FB6D8D1CB6E5AE000DE9E9 /* SKOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803741CA95DE500C8B952 /* SKOrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82FB6D8E1CB6E5AE000DE9E9 /* SKLruStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 828D198C1CAD8C0300F4CFC4 /* SKLruStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82FB6D8F1CB6E5AE000DE9E9 /* SKLruTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 826804091CAC26E400C8B952 /* SKLruTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -96,9 +91,6 @@
 		826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKOrderedDictionaryTest.m; sourceTree = "<group>"; };
 		826803F11CAC25E900C8B952 /* SKLruListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruListTests.m; sourceTree = "<group>"; };
 		826803F21CAC25E900C8B952 /* SKLruTableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruTableTests.m; sourceTree = "<group>"; };
-		826804021CAC264200C8B952 /* SKLruCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruCacheTests.m; sourceTree = "<group>"; };
-		826804051CAC26E400C8B952 /* SKLruCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruCache.h; sourceTree = "<group>"; };
-		826804061CAC26E400C8B952 /* SKLruCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruCache.m; sourceTree = "<group>"; };
 		826804071CAC26E400C8B952 /* SKLruList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruList.h; sourceTree = "<group>"; };
 		826804081CAC26E400C8B952 /* SKLruList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruList.m; sourceTree = "<group>"; };
 		826804091CAC26E400C8B952 /* SKLruTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruTable.h; sourceTree = "<group>"; };
@@ -216,7 +208,6 @@
 				826803F11CAC25E900C8B952 /* SKLruListTests.m */,
 				826803F21CAC25E900C8B952 /* SKLruTableTests.m */,
 				828D19901CAD8C1900F4CFC4 /* SKLruStorageTests.m */,
-				826804021CAC264200C8B952 /* SKLruCacheTests.m */,
 			);
 			path = Lru;
 			sourceTree = "<group>";
@@ -230,8 +221,6 @@
 				8268040A1CAC26E400C8B952 /* SKLruTable.m */,
 				828D198C1CAD8C0300F4CFC4 /* SKLruStorage.h */,
 				828D198D1CAD8C0300F4CFC4 /* SKLruStorage.m */,
-				826804051CAC26E400C8B952 /* SKLruCache.h */,
-				826804061CAC26E400C8B952 /* SKLruCache.m */,
 			);
 			path = Lru;
 			sourceTree = "<group>";
@@ -245,7 +234,6 @@
 			files = (
 				822586CB1CBC003D00E01E7D /* SKTaskQueue.h in Headers */,
 				822586C91CBC003D00E01E7D /* SKTask.h in Headers */,
-				8268040B1CAC26E400C8B952 /* SKLruCache.h in Headers */,
 				826803761CA95DE500C8B952 /* SKOrderedDictionary.h in Headers */,
 				828D198E1CAD8C0300F4CFC4 /* SKLruStorage.h in Headers */,
 				8268040F1CAC26E400C8B952 /* SKLruTable.h in Headers */,
@@ -258,7 +246,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82FB6D8C1CB6E5AE000DE9E9 /* SKLruCache.h in Headers */,
 				82FB6D8D1CB6E5AE000DE9E9 /* SKOrderedDictionary.h in Headers */,
 				82FB6D8E1CB6E5AE000DE9E9 /* SKLruStorage.h in Headers */,
 				82FB6D8F1CB6E5AE000DE9E9 /* SKLruTable.h in Headers */,
@@ -427,7 +414,6 @@
 			files = (
 				826804101CAC26E400C8B952 /* SKLruTable.m in Sources */,
 				828D198F1CAD8C0300F4CFC4 /* SKLruStorage.m in Sources */,
-				8268040C1CAC26E400C8B952 /* SKLruCache.m in Sources */,
 				822586CC1CBC003D00E01E7D /* SKTaskQueue.m in Sources */,
 				8268040E1CAC26E400C8B952 /* SKLruList.m in Sources */,
 				822586CA1CBC003D00E01E7D /* SKTask.m in Sources */,
@@ -444,7 +430,6 @@
 				822586CF1CBC004600E01E7D /* SKTaskQueueTest.m in Sources */,
 				826803F31CAC25E900C8B952 /* SKLruListTests.m in Sources */,
 				828D19911CAD8C1900F4CFC4 /* SKLruStorageTests.m in Sources */,
-				826804031CAC264200C8B952 /* SKLruCacheTests.m in Sources */,
 				826803791CA95DEF00C8B952 /* SKOrderedDictionaryTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,7 +440,6 @@
 			files = (
 				82FB6D851CB6E5AE000DE9E9 /* SKLruTable.m in Sources */,
 				82FB6D861CB6E5AE000DE9E9 /* SKLruStorage.m in Sources */,
-				82FB6D871CB6E5AE000DE9E9 /* SKLruCache.m in Sources */,
 				82FB6D881CB6E5AE000DE9E9 /* SKLruList.m in Sources */,
 				82FB6D891CB6E5AE000DE9E9 /* SKOrderedDictionary.m in Sources */,
 			);
