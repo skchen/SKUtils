@@ -20,7 +20,7 @@
 
 @end
 
-@interface SKLruList : NSObject
+@interface SKLruList : NSObject <NSCoding>
 
 @property(nonatomic, assign, readonly) NSUInteger count;
 
@@ -30,15 +30,10 @@
 @property(nonatomic, weak, nullable) id<SKLruCoster> coster;
 @property(nonatomic, weak, nullable) id<SKLruListSpiller> spiller;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nullable id<SKLruListSpiller>)spiller;
-
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruListSpiller>)spiller;
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint;
 
 - (void)touchObject:(nonnull id)object;
 - (void)removeObject:(nonnull id)object;
 - (void)removeAllObjects;
 
-@end
-
-@interface SKLruSimpleCoster : NSObject<SKLruCoster>
 @end

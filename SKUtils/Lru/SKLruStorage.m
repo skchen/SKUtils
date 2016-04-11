@@ -17,10 +17,6 @@
 
 @implementation SKLruStorage
 
-+ (id<SKLruCoster>)defaultCoster {
-    return [[SKLruSimpleCoster alloc] init];
-}
-
 + (NSFileManager *)defaultFileManager {
     return [NSFileManager defaultManager];
 }
@@ -37,11 +33,7 @@
     
     _constraint = constraint;
     
-    if(coster) {
-        _coster = coster;
-    } else {
-        _coster = [SKLruStorage defaultCoster];
-    }
+    _coster = coster;
     
     _spiller = spiller;
     

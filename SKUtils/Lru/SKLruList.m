@@ -18,11 +18,7 @@
 
 @implementation SKLruList
 
-+ (id<SKLruCoster>)defaultCoster {
-    return [[SKLruSimpleCoster alloc] init];
-}
-
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruListSpiller>)spiller {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
     
     self = [super init];
     
@@ -31,23 +27,26 @@
     
     _storage = [[NSMutableArray alloc] init];
     
-    if(coster) {
-        _coster = coster;
-    } else {
-        _coster = [SKLruList defaultCoster];
-    }
-    
-    _spiller = spiller;
-    
     return self;
-}
-
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andSpiller:(nullable id<SKLruListSpiller>)spiller {
-    return [self initWithConstraint:constraint andCoster:nil andSpiller:spiller];
 }
 
 - (NSUInteger)count {
     return [_storage count];
+}
+
+- (void)setCoster:(id<SKLruCoster>)coster {
+    @synchronized(self) {
+        _coster = coster;
+        
+        if(_coster) {
+            _cost = 0;
+            for(id object in _storage) {
+                _cost += [coster costForObject:object];
+            }
+        } else {
+            _cost = _storage.count;
+        }
+    }
 }
 
 - (void)touchObject:(id)object {
@@ -55,7 +54,8 @@
         if([_storage containsObject:object]) {
             [_storage removeObject:object];
         } else {
-            _cost += [_coster costForObject:object];
+            NSUInteger costOfObject = (_coster)?([_coster costForObject:object]):(1);
+            _cost += costOfObject;
         }
         
         [_storage insertObject:object atIndex:0];
@@ -80,6 +80,23 @@
     }
 }
 
+#pragma mark - NSCoding
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder {
+    self = [super init];
+    
+    _constraint = [[aDecoder decodeObjectForKey:@"constraint"] unsignedIntegerValue];
+    _storage = [aDecoder decodeObjectForKey:@"storage"];
+    _cost = _storage.count;
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:@(_constraint) forKey:@"constraint"];
+    [aCoder encodeObject:_storage forKey:@"storage"];
+}
+
 #pragma mark - Local
 
 - (void)checkSpill {
@@ -92,14 +109,6 @@
             [_spiller onSpilled:objectToSpill];
         }
     }
-}
-
-@end
-
-@implementation SKLruSimpleCoster
-
-- (NSUInteger)costForObject:(nonnull id)object {
-    return 1;
 }
 
 @end

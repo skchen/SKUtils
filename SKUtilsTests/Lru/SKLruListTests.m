@@ -38,7 +38,9 @@
     _mockObject1 = mock([NSObject class]);
     _mockObject2 = mock([NSObject class]);
     
-    _list = [[SKLruList alloc] initWithConstraint:1 andCoster:mockCoster andSpiller:mockSpiller];
+    _list = [[SKLruList alloc] initWithConstraint:1];
+    _list.coster = mockCoster;
+    _list.spiller = mockSpiller;
     [_list setValue:mockStorage forKey:@"storage"];
 }
 

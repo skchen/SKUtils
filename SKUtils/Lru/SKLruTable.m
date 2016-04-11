@@ -19,10 +19,6 @@
 
 @implementation SKLruTable
 
-+ (id<SKLruCoster>)defaultCoster {
-    return [[SKLruSimpleCoster alloc] init];
-}
-
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
     self = [super init];
     
@@ -30,13 +26,11 @@
     
     _storage = [[NSMutableDictionary alloc] init];
     
-    _keyLruList = [[SKLruList alloc] initWithConstraint:constraint andCoster:self andSpiller:self];
+    _keyLruList = [[SKLruList alloc] initWithConstraint:constraint];
+    _keyLruList.coster = self;
+    _keyLruList.spiller = self;
     
-    if(coster) {
-        _coster = coster;
-    } else {
-        _coster = [SKLruTable defaultCoster];
-    }
+    _coster = coster;
     
     _spiller = spiller;
     
