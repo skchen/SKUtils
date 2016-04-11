@@ -21,3 +21,5 @@ FOUNDATION_EXPORT const unsigned char SKUtilsVersionString[];
 #import <SKUtils/SKLruTable.h>
 #import <SKUtils/SKLruList.h>
 #import <SKUtils/SKLruStorage.h>
+#import <SKUtils/SKTaskQueue.h>
+#import <SKUtils/SKTask.h>

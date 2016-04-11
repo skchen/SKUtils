@@ -22,6 +22,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		822586C91CBC003D00E01E7D /* SKTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 822586C51CBC003D00E01E7D /* SKTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		822586CA1CBC003D00E01E7D /* SKTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586C61CBC003D00E01E7D /* SKTask.m */; };
+		822586CB1CBC003D00E01E7D /* SKTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 822586C71CBC003D00E01E7D /* SKTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		822586CC1CBC003D00E01E7D /* SKTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586C81CBC003D00E01E7D /* SKTaskQueue.m */; };
+		822586CF1CBC004600E01E7D /* SKTaskQueueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586CE1CBC004600E01E7D /* SKTaskQueueTest.m */; };
 		826803581CA94AE700C8B952 /* SKUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803571CA94AE700C8B952 /* SKUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8268035F1CA94AE700C8B952 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 826803541CA94AE600C8B952 /* SKUtils.framework */; };
 		826803641CA94AE700C8B952 /* SKUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803631CA94AE700C8B952 /* SKUtilsTests.m */; };
@@ -73,6 +78,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		822586C51CBC003D00E01E7D /* SKTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTask.h; sourceTree = "<group>"; };
+		822586C61CBC003D00E01E7D /* SKTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTask.m; sourceTree = "<group>"; };
+		822586C71CBC003D00E01E7D /* SKTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTaskQueue.h; sourceTree = "<group>"; };
+		822586C81CBC003D00E01E7D /* SKTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTaskQueue.m; sourceTree = "<group>"; };
+		822586CE1CBC004600E01E7D /* SKTaskQueueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTaskQueueTest.m; sourceTree = "<group>"; };
 		826803541CA94AE600C8B952 /* SKUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SKUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		826803571CA94AE700C8B952 /* SKUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKUtils.h; sourceTree = "<group>"; };
 		826803591CA94AE700C8B952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,6 +137,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		822586C41CBC003D00E01E7D /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				822586C51CBC003D00E01E7D /* SKTask.h */,
+				822586C61CBC003D00E01E7D /* SKTask.m */,
+				822586C71CBC003D00E01E7D /* SKTaskQueue.h */,
+				822586C81CBC003D00E01E7D /* SKTaskQueue.m */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		822586CD1CBC004600E01E7D /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				822586CE1CBC004600E01E7D /* SKTaskQueueTest.m */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		8268034A1CA94AE600C8B952 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +178,7 @@
 		826803561CA94AE600C8B952 /* SKUtils */ = {
 			isa = PBXGroup;
 			children = (
+				822586C41CBC003D00E01E7D /* Task */,
 				826804041CAC26E400C8B952 /* Lru */,
 				826803741CA95DE500C8B952 /* SKOrderedDictionary.h */,
 				826803751CA95DE500C8B952 /* SKOrderedDictionary.m */,
@@ -161,6 +191,7 @@
 		826803621CA94AE700C8B952 /* SKUtilsTests */ = {
 			isa = PBXGroup;
 			children = (
+				822586CD1CBC004600E01E7D /* Task */,
 				826803F01CAC25E900C8B952 /* Lru */,
 				826803781CA95DEF00C8B952 /* SKOrderedDictionaryTest.m */,
 				826803631CA94AE700C8B952 /* SKUtilsTests.m */,
@@ -212,6 +243,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822586CB1CBC003D00E01E7D /* SKTaskQueue.h in Headers */,
+				822586C91CBC003D00E01E7D /* SKTask.h in Headers */,
 				8268040B1CAC26E400C8B952 /* SKLruCache.h in Headers */,
 				826803761CA95DE500C8B952 /* SKOrderedDictionary.h in Headers */,
 				828D198E1CAD8C0300F4CFC4 /* SKLruStorage.h in Headers */,
@@ -395,7 +428,9 @@
 				826804101CAC26E400C8B952 /* SKLruTable.m in Sources */,
 				828D198F1CAD8C0300F4CFC4 /* SKLruStorage.m in Sources */,
 				8268040C1CAC26E400C8B952 /* SKLruCache.m in Sources */,
+				822586CC1CBC003D00E01E7D /* SKTaskQueue.m in Sources */,
 				8268040E1CAC26E400C8B952 /* SKLruList.m in Sources */,
+				822586CA1CBC003D00E01E7D /* SKTask.m in Sources */,
 				826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,6 +441,7 @@
 			files = (
 				826803F41CAC25E900C8B952 /* SKLruTableTests.m in Sources */,
 				826803641CA94AE700C8B952 /* SKUtilsTests.m in Sources */,
+				822586CF1CBC004600E01E7D /* SKTaskQueueTest.m in Sources */,
 				826803F31CAC25E900C8B952 /* SKLruListTests.m in Sources */,
 				828D19911CAD8C1900F4CFC4 /* SKLruStorageTests.m in Sources */,
 				826804031CAC264200C8B952 /* SKLruCacheTests.m in Sources */,
