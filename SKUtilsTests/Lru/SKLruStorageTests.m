@@ -51,7 +51,10 @@
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
     [given([mockKey2 copyWithZone:nil]) willReturn:mockKey2];
     
-    lruStorage = [[SKLruStorage alloc] initWithConstraint:1 andCoster:mockCoster andSpiller:mockSpiller andFileManager:mockFileManager];
+    lruStorage = [[SKLruStorage alloc] initWithConstraint:1];
+    lruStorage.coster = mockCoster;
+    lruStorage.spiller = mockSpiller;
+    lruStorage.fileManager = mockFileManager;
     [lruStorage setValue:mockTable forKey:@"urlLruTable"];
     
     [given([mockTable coster]) willReturn:(id<SKLruCoster>)lruStorage];

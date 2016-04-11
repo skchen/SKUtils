@@ -8,18 +8,13 @@
 
 #import "SKLruStorage.h"
 
-@interface SKLruStorage () <SKLruCoster, SKLruTableSpiller>
+@interface SKLruStorage () <SKLruTableSpiller>
 
-@property(nonatomic, copy, readonly, nonnull) NSFileManager *fileManager;
 @property(nonatomic, copy, readonly, nonnull) SKLruTable *urlLruTable;
 
 @end
 
 @implementation SKLruStorage
-
-+ (NSFileManager *)defaultFileManager {
-    return [NSFileManager defaultManager];
-}
 
 - (id)init {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -27,31 +22,20 @@
                                  userInfo:nil];
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller andFileManager:(nullable NSFileManager *)fileManager {
+- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
     
     self = [super init];
     
-    _constraint = constraint;
-    
-    _coster = coster;
-    
-    _spiller = spiller;
-    
-    if(fileManager) {
-        _fileManager = fileManager;
-    } else {
-        _fileManager = [SKLruStorage defaultFileManager];
-    }
+    _fileManager = [NSFileManager defaultManager];
     
     _urlLruTable = [[SKLruTable alloc] initWithConstraint:constraint];
-    _urlLruTable.coster = coster;
     _urlLruTable.spiller = self;
     
     return self;
 }
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint andCoster:(nullable id<SKLruCoster>)coster andSpiller:(nullable id<SKLruTableSpiller>)spiller {
-    return [self initWithConstraint:constraint andCoster:coster andSpiller:spiller andFileManager:nil];
+- (NSUInteger)constraint {
+    return _urlLruTable.constraint;
 }
 
 - (NSUInteger)count {
@@ -62,51 +46,75 @@
     return _urlLruTable.cost;
 }
 
-- (NSUInteger)constraint {
-    return _urlLruTable.constraint;
+- (void)setCoster:(id<SKLruCoster>)coster {
+    [_urlLruTable setCoster:coster];
 }
 
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key {
-    NSString *path = [_urlLruTable objectForKey:key];
-    if(path) {
-        if([_fileManager fileExistsAtPath:path]) {
-            return path;
-        } else {
-            [_urlLruTable removeObjectForKey:key];
+    @synchronized (self) {
+        NSString *path = [_urlLruTable objectForKey:key];
+        if(path) {
+            if([_fileManager fileExistsAtPath:path]) {
+                return path;
+            } else {
+                [_urlLruTable removeObjectForKey:key];
+            }
         }
+        
+        return nil;
     }
-    
-    return nil;
 }
 
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
-    NSString *path = (NSString *)object;
-    if([_fileManager fileExistsAtPath:path]) {
-        [_urlLruTable setObject:path forKey:key];
+    @synchronized (self) {
+        NSString *path = (NSString *)object;
+        if([_fileManager fileExistsAtPath:path]) {
+            [_urlLruTable setObject:path forKey:key];
+        }
     }
 }
 
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key {
-    NSString *path = [_urlLruTable objectForKey:key];
-    [_urlLruTable removeObjectForKey:key];
-    
-    if(path) {
-        [_fileManager removeItemAtPath:path error:nil];
+    @synchronized (self) {
+        NSString *path = [_urlLruTable objectForKey:key];
+        [_urlLruTable removeObjectForKey:key];
+        
+        if(path) {
+            [_fileManager removeItemAtPath:path error:nil];
+        }
     }
 }
 
 - (void)removeAllObjects {
-    NSArray *paths = [_urlLruTable allValues];
-    for(NSString *path in paths) {
-        [_fileManager removeItemAtPath:path error:nil];
+    @synchronized (self) {
+        NSArray *paths = [_urlLruTable allValues];
+        for(NSString *path in paths) {
+            [_fileManager removeItemAtPath:path error:nil];
+        }
+        [_urlLruTable removeAllObjects];
     }
-    [_urlLruTable removeAllObjects];
 }
 
-#pragma mark - SKLruTableCoster
+#pragma mark - NSCopying
 
-- (NSUInteger)costForObject:(id)object {
-    return [_coster costForObject:object];
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    
+    _fileManager = [NSFileManager defaultManager];
+    
+    _urlLruTable = [aDecoder decodeObjectOfClass:[SKLruTable class] forKey:@"urlLruTable"];
+    _urlLruTable.spiller = self;
+    
+    NSArray *keys = [_urlLruTable allKeys];
+    for(id<NSCopying> key in keys) {
+        [self objectForKey:key];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_urlLruTable forKey:@"urlLruTable"];
 }
 
 #pragma mark - SKLruTableSpiller

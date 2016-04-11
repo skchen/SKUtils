@@ -60,6 +60,10 @@
     }
 }
 
+- (nonnull NSArray *)allKeys {
+    return [_storage allKeys];
+}
+
 - (nonnull NSArray *)allValues {
     return [_storage allValues];
 }

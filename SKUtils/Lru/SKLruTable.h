@@ -36,6 +36,7 @@
 - (nullable id)objectForKey:(nonnull id<NSCopying>)key;
 - (void)setObject:(nonnull id)object forKey:(nonnull id<NSCopying>)key;
 
+- (nonnull NSArray *)allKeys;
 - (nonnull NSArray *)allValues;
 
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key;
