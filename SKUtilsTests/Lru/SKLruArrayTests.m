@@ -1,5 +1,5 @@
 //
-//  SKLruListTest.m
+//  SKLruArrayTests.m
 //  SKUtils
 //
 //  Created by Shin-Kai Chen on 2016/3/29.
@@ -8,24 +8,24 @@
 
 #import <XCTest/XCTest.h>
 
-#import "SKLruList.h"
+#import "SKLruArray.h"
 
 @import OCHamcrest;
 @import OCMockito;
 
-@interface SKLruListTests : XCTestCase
+@interface SKLruArrayTests : XCTestCase
 
-@property(nonatomic, strong) SKLruList *list;
+@property(nonatomic, strong) SKLruArray *list;
 
 @property(nonatomic, strong) id mockObject1;
 @property(nonatomic, strong) id mockObject2;
 
 @end
 
-@implementation SKLruListTests {
+@implementation SKLruArrayTests {
     NSMutableArray *mockStorage;
     id<SKLruCoster> mockCoster;
-    id<SKLruListSpiller> mockSpiller;
+    id<SKLruArraySpiller> mockSpiller;
 }
 
 - (void)setUp {
@@ -33,12 +33,12 @@
     
     mockStorage = mock([NSMutableArray class]);
     mockCoster = mockProtocol(@protocol(SKLruCoster));
-    mockSpiller = mockProtocol(@protocol(SKLruListSpiller));
+    mockSpiller = mockProtocol(@protocol(SKLruArraySpiller));
     
     _mockObject1 = mock([NSObject class]);
     _mockObject2 = mock([NSObject class]);
     
-    _list = [[SKLruList alloc] initWithConstraint:1];
+    _list = [[SKLruArray alloc] initWithConstraint:1];
     _list.coster = mockCoster;
     _list.spiller = mockSpiller;
     [_list setValue:mockStorage forKey:@"storage"];

@@ -21,7 +21,7 @@
     SKLruStorage *lruStorage;
     
     NSFileManager *mockFileManager;
-    SKLruTable *mockTable;
+    SKLruDictionary *mockTable;
     id<SKLruCoster> mockCoster;
     id<SKLruTableSpiller> mockSpiller;
     
@@ -36,7 +36,7 @@
     [super setUp];
     
     mockFileManager = mock([NSFileManager class]);
-    mockTable = mock([SKLruTable class]);
+    mockTable = mock([SKLruDictionary class]);
     mockCoster = mockProtocol(@protocol(SKLruCoster));
     mockSpiller = mockProtocol(@protocol(SKLruTableSpiller));
     

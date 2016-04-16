@@ -1,5 +1,5 @@
 //
-//  SKLruList.h
+//  SKLruArray.h
 //  SKUtils
 //
 //  Created by Shin-Kai Chen on 2016/3/29.
@@ -14,13 +14,13 @@
 
 @end
 
-@protocol SKLruListSpiller <NSObject>
+@protocol SKLruArraySpiller <NSObject>
 
 - (void)onSpilled:(nonnull id)object;
 
 @end
 
-@interface SKLruList : NSObject <NSCoding>
+@interface SKLruArray : NSObject <NSCoding>
 
 @property(nonatomic, assign, readonly) NSUInteger count;
 
@@ -28,7 +28,7 @@
 @property(nonatomic, readonly) NSUInteger cost;
 
 @property(nonatomic, weak, nullable) id<SKLruCoster> coster;
-@property(nonatomic, weak, nullable) id<SKLruListSpiller> spiller;
+@property(nonatomic, weak, nullable) id<SKLruArraySpiller> spiller;
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint;
 

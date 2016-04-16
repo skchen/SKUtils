@@ -1,14 +1,14 @@
 //
-//  SKLruList.m
+//  SKLruArray.m
 //  SKUtils
 //
 //  Created by Shin-Kai Chen on 2016/3/29.
 //  Copyright © 2016年 SK. All rights reserved.
 //
 
-#import "SKLruList.h"
+#import "SKLruArray.h"
 
-@interface SKLruList ()
+@interface SKLruArray ()
 
 @property(nonatomic, copy, readonly, nonnull) NSMutableArray *storage;
 
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation SKLruList
+@implementation SKLruArray
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
     

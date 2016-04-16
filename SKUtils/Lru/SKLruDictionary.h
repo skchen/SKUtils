@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SKLruList.h"
+#import "SKLruArray.h"
 
 @protocol SKLruTableSpiller <NSObject>
 
@@ -16,7 +16,7 @@
 
 @end
 
-@interface SKLruTable : NSObject <NSCoding> {
+@interface SKLruDictionary : NSObject <NSCoding> {
     @protected
     NSUInteger _constraint;
     __weak id<SKLruCoster> _coster;

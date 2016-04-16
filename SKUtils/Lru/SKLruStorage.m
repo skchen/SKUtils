@@ -10,7 +10,7 @@
 
 @interface SKLruStorage () <SKLruTableSpiller>
 
-@property(nonatomic, copy, readonly, nonnull) SKLruTable *urlLruTable;
+@property(nonatomic, copy, readonly, nonnull) SKLruDictionary *urlLruTable;
 
 @end
 
@@ -28,7 +28,7 @@
     
     _fileManager = [NSFileManager defaultManager];
     
-    _urlLruTable = [[SKLruTable alloc] initWithConstraint:constraint];
+    _urlLruTable = [[SKLruDictionary alloc] initWithConstraint:constraint];
     _urlLruTable.spiller = self;
     
     return self;
@@ -102,7 +102,7 @@
     
     _fileManager = [NSFileManager defaultManager];
     
-    _urlLruTable = [aDecoder decodeObjectOfClass:[SKLruTable class] forKey:@"urlLruTable"];
+    _urlLruTable = [aDecoder decodeObjectOfClass:[SKLruDictionary class] forKey:@"urlLruTable"];
     _urlLruTable.spiller = self;
     
     NSArray *keys = [_urlLruTable allKeys];

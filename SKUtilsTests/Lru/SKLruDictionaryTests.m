@@ -8,20 +8,20 @@
 
 #import <XCTest/XCTest.h>
 
-#import "SKLruTable.h"
+#import "SKLruDictionary.h"
 
 @import OCHamcrest;
 @import OCMockito;
 
-@interface SKLruTableTests : XCTestCase
+@interface SKLruDictionaryTests : XCTestCase
 
 @end
 
-@implementation SKLruTableTests {
-    SKLruTable *lruTable;
+@implementation SKLruDictionaryTests {
+    SKLruDictionary *lruTable;
     
     NSMutableDictionary *mockStorage;
-    SKLruList *mockLruList;
+    SKLruArray *mockLruList;
     id<SKLruCoster> mockCoster;
     id<SKLruTableSpiller> mockSpiller;
     
@@ -40,7 +40,7 @@
     
     mockCoster = mockProtocol(@protocol(SKLruCoster));
     mockSpiller = mockProtocol(@protocol(SKLruTableSpiller));
-    mockLruList = mock([SKLruList class]);
+    mockLruList = mock([SKLruArray class]);
     
     mockKey1 = mockProtocol(@protocol(NSCopying));
     mockKey2 = mockProtocol(@protocol(NSCopying));
@@ -52,7 +52,7 @@
     [given([mockKey1 copyWithZone:nil]) willReturn:mockKey1];
     [given([mockKey2 copyWithZone:nil]) willReturn:mockKey2];
     
-    lruTable = [[SKLruTable alloc] initWithConstraint:1];
+    lruTable = [[SKLruDictionary alloc] initWithConstraint:1];
     [lruTable setCoster:mockCoster];
     [lruTable setSpiller:mockSpiller];
     [lruTable setValue:mockStorage forKey:@"storage"];

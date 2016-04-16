@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SKLruTable.h"
+#import "SKLruDictionary.h"
 
-@interface SKLruStorage : SKLruTable
+@interface SKLruStorage : SKLruDictionary
 
 @property(nonatomic, strong, nonnull) NSFileManager *fileManager;
 

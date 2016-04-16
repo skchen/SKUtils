@@ -6,25 +6,25 @@
 //  Copyright © 2016年 SK. All rights reserved.
 //
 
-#import "SKLruTable.h"
+#import "SKLruDictionary.h"
 
-@interface SKLruTable () <SKLruCoster, SKLruListSpiller>
+@interface SKLruDictionary () <SKLruCoster, SKLruArraySpiller>
 
 @property(nonatomic, copy, readonly, nonnull) NSMutableDictionary *storage;
-@property(nonatomic, copy, readonly, nonnull) SKLruList *keyLruList;
+@property(nonatomic, copy, readonly, nonnull) SKLruArray *keyLruList;
 
 - (void)onSpilled:(id)object;
 
 @end
 
-@implementation SKLruTable
+@implementation SKLruDictionary
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
     self = [super init];
     
     _storage = [[NSMutableDictionary alloc] init];
     
-    _keyLruList = [[SKLruList alloc] initWithConstraint:constraint];
+    _keyLruList = [[SKLruArray alloc] initWithConstraint:constraint];
     _keyLruList.coster = self;
     _keyLruList.spiller = self;
     
@@ -89,7 +89,7 @@
     
     _storage = [aDecoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"storage"];
     
-    _keyLruList = [aDecoder decodeObjectOfClass:[SKLruList class] forKey:@"keyLruList"];
+    _keyLruList = [aDecoder decodeObjectOfClass:[SKLruArray class] forKey:@"keyLruList"];
     _keyLruList.coster = self;
     _keyLruList.spiller = self;
     
