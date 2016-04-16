@@ -95,7 +95,7 @@
     }
 }
 
-#pragma mark - NSCopying
+#pragma mark - NSCoding
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
