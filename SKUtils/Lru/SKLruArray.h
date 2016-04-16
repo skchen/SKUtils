@@ -22,10 +22,10 @@
 
 @interface SKLruArray : NSObject <NSCoding>
 
-@property(nonatomic, assign, readonly) NSUInteger count;
+@property(nonatomic, assign) NSUInteger constraint;
 
-@property(nonatomic, readonly) NSUInteger constraint;
-@property(nonatomic, readonly) NSUInteger cost;
+@property(nonatomic, assign, readonly) NSUInteger count;
+@property(nonatomic, assign, readonly) NSUInteger cost;
 
 @property(nonatomic, weak, nullable) id<SKLruCoster> coster;
 @property(nonatomic, weak, nullable) id<SKLruArraySpiller> spiller;

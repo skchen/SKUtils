@@ -23,9 +23,9 @@
     __weak id<SKLruTableSpiller> _spiller;
 }
 
-@property(nonatomic, assign, readonly) NSUInteger count;
+@property(nonatomic, assign) NSUInteger constraint;
 
-@property(nonatomic, assign, readonly) NSUInteger constraint;
+@property(nonatomic, assign, readonly) NSUInteger count;
 @property(nonatomic, assign, readonly) NSUInteger cost;
 
 @property(nonatomic, weak, nullable) id<SKLruCoster> coster;

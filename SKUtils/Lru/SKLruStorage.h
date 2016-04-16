@@ -14,6 +14,4 @@
 
 @property(nonatomic, strong, nonnull) NSFileManager *fileManager;
 
-- (nonnull instancetype)initWithConstraint:(NSUInteger)constraint;
-
 @end

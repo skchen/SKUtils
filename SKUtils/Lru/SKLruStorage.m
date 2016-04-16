@@ -17,14 +17,11 @@
 @implementation SKLruStorage
 
 - (id)init {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"-init is not a valid initializer for the class SKLruStorage"
-                                 userInfo:nil];
+    return [self initWithConstraint:0];
 }
 
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
-    
-    self = [super init];
+    self = [super initWithConstraint:constraint];
     
     _fileManager = [NSFileManager defaultManager];
     
@@ -36,6 +33,10 @@
 
 - (NSUInteger)constraint {
     return _urlLruTable.constraint;
+}
+
+- (void)setConstraint:(NSUInteger)constraint {
+    _urlLruTable.constraint = constraint;
 }
 
 - (NSUInteger)count {

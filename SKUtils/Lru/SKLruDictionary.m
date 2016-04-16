@@ -19,6 +19,10 @@
 
 @implementation SKLruDictionary
 
+- (nonnull instancetype)init {
+    return [self initWithConstraint:0];
+}
+
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
     self = [super init];
     
@@ -33,6 +37,10 @@
 
 - (NSUInteger)constraint {
     return _keyLruList.constraint;
+}
+
+- (void)setConstraint:(NSUInteger)constraint {
+    _keyLruList.constraint = constraint;
 }
 
 - (NSUInteger)count {

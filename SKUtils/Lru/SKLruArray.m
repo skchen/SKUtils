@@ -18,16 +18,24 @@
 
 @implementation SKLruArray
 
+- (nonnull instancetype)init {
+    return [self initWithConstraint:0];
+}
+
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint {
-    
     self = [super init];
     
-    _cost = 0;
     _constraint = constraint;
+    _cost = 0;
     
     _storage = [[NSMutableArray alloc] init];
     
     return self;
+}
+
+- (void)setConstraint:(NSUInteger)constraint {
+    _constraint = constraint;
+    [self checkSpill];
 }
 
 - (NSUInteger)count {
@@ -100,13 +108,15 @@
 #pragma mark - Local
 
 - (void)checkSpill {
-    while(_cost>_constraint) {
-        id objectToSpill = [_storage lastObject];
-        [_storage removeObject:objectToSpill];
-        _cost -= [_coster costForObject:objectToSpill];
-        
-        if([_spiller respondsToSelector:@selector(onSpilled:)]) {
-            [_spiller onSpilled:objectToSpill];
+    if(_constraint>0) {
+        while(_cost>_constraint) {
+            id objectToSpill = [_storage lastObject];
+            [_storage removeObject:objectToSpill];
+            _cost -= [_coster costForObject:objectToSpill];
+            
+            if([_spiller respondsToSelector:@selector(onSpilled:)]) {
+                [_spiller onSpilled:objectToSpill];
+            }
         }
     }
 }
