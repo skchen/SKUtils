@@ -122,6 +122,7 @@
 
 - (void)onSpilled:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
     @synchronized(self) {
+        NSLog(@"SKLruStorage.onSpilled:%@ forKey:%@", object, key);
         NSString *path = (NSString *)object;
         [_fileManager removeItemAtPath:path error:nil];
         [_spiller onSpilled:object forKey:key];
