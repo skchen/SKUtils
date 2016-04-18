@@ -15,7 +15,7 @@ $ brew install carthage
 To integrate SKUtils into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "skchen/SKUtils" ~> 0.4
+github "skchen/SKUtils" ~> 0.1
 ```
 
 Run `carthage` to build the framework and drag the built `SKUtils.framework` into your Xcode project.
