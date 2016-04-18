@@ -122,8 +122,8 @@
 
 - (void)onSpilled:(nonnull id)object forKey:(nonnull id<NSCopying>)key {
     @synchronized(self) {
-        NSURL *url = (NSURL *)object;
-        [_fileManager removeItemAtURL:url error:nil];
+        NSString *path = (NSString *)object;
+        [_fileManager removeItemAtPath:path error:nil];
         [_spiller onSpilled:object forKey:key];
     }
 }
