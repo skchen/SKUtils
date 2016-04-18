@@ -121,7 +121,7 @@
 
 - (void)checkSpill {
     if(_constraint>0) {
-        NSLog(@"Cost/Constraint: %@/%@", @(_cost), @(_constraint));
+        // NSLog(@"Cost/Constraint: %@/%@", @(_cost), @(_constraint));
         
         while(_cost>_constraint) {
             id objectToSpill = [_storage lastObject];
