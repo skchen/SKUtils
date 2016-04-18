@@ -4,8 +4,6 @@ xcode_project: SKUtils.xcodeproj
 xcode_scheme: SKUtils
 xcode_sdk: iphonesimulator
 before_install:
-- brew update
-- brew install carthage
 before_script:
 - carthage bootstrap --platform iOS
 before_deploy:
