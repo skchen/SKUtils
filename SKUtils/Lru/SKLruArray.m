@@ -72,12 +72,24 @@
     }
 }
 
+- (nullable id)lastObject {
+    return [_storage lastObject];
+}
+
 - (void)removeObject:(nonnull id)object {
     @synchronized(self) {
         if([_storage containsObject:object]) {
             [_storage removeObject:object];
             _cost -= [_coster costForObject:object];
         }
+    }
+}
+
+- (void)removeLastObject {
+    @synchronized(self) {
+        id lastObject = [_storage lastObject];
+        [_storage removeLastObject];
+        _cost -= [_coster costForObject:lastObject];
     }
 }
 

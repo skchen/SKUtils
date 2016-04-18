@@ -33,7 +33,11 @@
 - (nonnull instancetype)initWithConstraint:(NSUInteger)constraint;
 
 - (void)touchObject:(nonnull id)object;
+
+- (nullable id)lastObject;
+
 - (void)removeObject:(nonnull id)object;
+- (void)removeLastObject;
 - (void)removeAllObjects;
 
 @end

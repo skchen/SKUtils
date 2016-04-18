@@ -83,6 +83,13 @@
     }
 }
 
+- (void)removeLastObject {
+    @synchronized(self) {
+        id<NSCopying> lastKey = [_keyLruList lastObject];
+        [self removeObjectForKey:lastKey];
+    }
+}
+
 - (void)removeAllObjects {
     @synchronized(self) {
         [_storage removeAllObjects];

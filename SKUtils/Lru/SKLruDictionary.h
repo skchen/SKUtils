@@ -40,6 +40,7 @@
 - (nonnull NSArray *)allValues;
 
 - (void)removeObjectForKey:(nonnull id<NSCopying>)key;
+- (void)removeLastObject;
 - (void)removeAllObjects;
 
 @end
