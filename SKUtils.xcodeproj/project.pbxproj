@@ -48,6 +48,12 @@
 		829412B81CC521B8002F6594 /* SKTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 822586C71CBC003D00E01E7D /* SKTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		829412B91CC524C7002F6594 /* SKTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586C61CBC003D00E01E7D /* SKTask.m */; };
 		829412BA1CC524C9002F6594 /* SKTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586C81CBC003D00E01E7D /* SKTaskQueue.m */; };
+		8294139D1CC66A32002F6594 /* SKPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8294139B1CC66A32002F6594 /* SKPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8294139E1CC66A32002F6594 /* SKPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8294139B1CC66A32002F6594 /* SKPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8294139F1CC66A32002F6594 /* SKPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8294139C1CC66A32002F6594 /* SKPlayer.m */; };
+		829413A01CC66A32002F6594 /* SKPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8294139C1CC66A32002F6594 /* SKPlayer.m */; };
+		829413A21CC66B71002F6594 /* SKPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 829413A11CC66B71002F6594 /* SKPlayer_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		829413A31CC66B71002F6594 /* SKPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 829413A11CC66B71002F6594 /* SKPlayer_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82FB6D851CB6E5AE000DE9E9 /* SKLruDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8268040A1CAC26E400C8B952 /* SKLruDictionary.m */; };
 		82FB6D861CB6E5AE000DE9E9 /* SKLruStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 828D198D1CAD8C0300F4CFC4 /* SKLruStorage.m */; };
 		82FB6D881CB6E5AE000DE9E9 /* SKLruArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804081CAC26E400C8B952 /* SKLruArray.m */; };
@@ -102,6 +108,9 @@
 		828D198C1CAD8C0300F4CFC4 /* SKLruStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLruStorage.h; sourceTree = "<group>"; };
 		828D198D1CAD8C0300F4CFC4 /* SKLruStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruStorage.m; sourceTree = "<group>"; };
 		828D19901CAD8C1900F4CFC4 /* SKLruStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLruStorageTests.m; sourceTree = "<group>"; };
+		8294139B1CC66A32002F6594 /* SKPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPlayer.h; sourceTree = "<group>"; };
+		8294139C1CC66A32002F6594 /* SKPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPlayer.m; sourceTree = "<group>"; };
+		829413A11CC66B71002F6594 /* SKPlayer_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPlayer_Protected.h; sourceTree = "<group>"; };
 		82FB6D961CB6E5AE000DE9E9 /* SKUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SKUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -174,6 +183,7 @@
 		826803561CA94AE600C8B952 /* SKUtils */ = {
 			isa = PBXGroup;
 			children = (
+				8294139A1CC669EE002F6594 /* Media */,
 				822586C41CBC003D00E01E7D /* Task */,
 				826804041CAC26E400C8B952 /* Lru */,
 				826803741CA95DE500C8B952 /* SKOrderedDictionary.h */,
@@ -229,6 +239,16 @@
 			path = Lru;
 			sourceTree = "<group>";
 		};
+		8294139A1CC669EE002F6594 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				8294139B1CC66A32002F6594 /* SKPlayer.h */,
+				829413A11CC66B71002F6594 /* SKPlayer_Protected.h */,
+				8294139C1CC66A32002F6594 /* SKPlayer.m */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -241,6 +261,8 @@
 				826803761CA95DE500C8B952 /* SKOrderedDictionary.h in Headers */,
 				828D198E1CAD8C0300F4CFC4 /* SKLruStorage.h in Headers */,
 				8268040F1CAC26E400C8B952 /* SKLruDictionary.h in Headers */,
+				829413A21CC66B71002F6594 /* SKPlayer_Protected.h in Headers */,
+				8294139D1CC66A32002F6594 /* SKPlayer.h in Headers */,
 				8268040D1CAC26E400C8B952 /* SKLruArray.h in Headers */,
 				826803581CA94AE700C8B952 /* SKUtils.h in Headers */,
 			);
@@ -255,6 +277,8 @@
 				82FB6D8F1CB6E5AE000DE9E9 /* SKLruDictionary.h in Headers */,
 				82FB6D901CB6E5AE000DE9E9 /* SKLruArray.h in Headers */,
 				829412B71CC521B5002F6594 /* SKTask.h in Headers */,
+				829413A31CC66B71002F6594 /* SKPlayer_Protected.h in Headers */,
+				8294139E1CC66A32002F6594 /* SKPlayer.h in Headers */,
 				829412B81CC521B8002F6594 /* SKTaskQueue.h in Headers */,
 				82FB6D911CB6E5AE000DE9E9 /* SKUtils.h in Headers */,
 			);
@@ -421,6 +445,7 @@
 				826804101CAC26E400C8B952 /* SKLruDictionary.m in Sources */,
 				828D198F1CAD8C0300F4CFC4 /* SKLruStorage.m in Sources */,
 				822586CC1CBC003D00E01E7D /* SKTaskQueue.m in Sources */,
+				8294139F1CC66A32002F6594 /* SKPlayer.m in Sources */,
 				8268040E1CAC26E400C8B952 /* SKLruArray.m in Sources */,
 				822586CA1CBC003D00E01E7D /* SKTask.m in Sources */,
 				826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */,
@@ -447,6 +472,7 @@
 				82FB6D851CB6E5AE000DE9E9 /* SKLruDictionary.m in Sources */,
 				82FB6D861CB6E5AE000DE9E9 /* SKLruStorage.m in Sources */,
 				82FB6D881CB6E5AE000DE9E9 /* SKLruArray.m in Sources */,
+				829413A01CC66A32002F6594 /* SKPlayer.m in Sources */,
 				82FB6D891CB6E5AE000DE9E9 /* SKOrderedDictionary.m in Sources */,
 				829412B91CC524C7002F6594 /* SKTask.m in Sources */,
 				829412BA1CC524C9002F6594 /* SKTaskQueue.m in Sources */,
