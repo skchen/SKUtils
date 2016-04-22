@@ -20,7 +20,8 @@
 
 - (nullable NSError *)setDataSource:(nonnull id)source {
     switch (_state) {
-        case SKPlayerIdle: {
+        case SKPlayerIdle:
+        case SKPlayerStopped: {
             NSError *setDataSourceError = [self _setDataSource:source];
             if(!setDataSourceError) {
                 _state = SKPlayerInitialized;
