@@ -23,3 +23,4 @@ FOUNDATION_EXPORT const unsigned char SKUtilsVersionString[];
 #import <SKUtils/SKTaskQueue.h>
 #import <SKUtils/SKTask.h>
 #import <SKUtils/SKPlayer.h>
+#import <SKUtils/SKPlayer_Protected.h>
