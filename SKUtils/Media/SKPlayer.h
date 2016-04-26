@@ -14,6 +14,9 @@
 
 @optional
 - (void)onPlayerPrepared:(nonnull SKPlayer *)player;
+- (void)onPlayerStarted:(nonnull SKPlayer *)player atPosition:(int)position;
+- (void)onPlayerPaused:(nonnull SKPlayer *)player;
+- (void)onPlayerStopped:(nonnull SKPlayer *)player;
 - (void)onPlayerCompletion:(nonnull SKPlayer *)player;
 - (void)onPlayer:(nonnull SKPlayer *)player error:(nonnull NSError *)error;
 
@@ -21,7 +24,10 @@
 
 @interface SKPlayer<DataSourceType> : NSObject
 
-@property(nonatomic, weak, nullable) NSObject<SKPlayerDelegate> *delegate;
+@property(nonatomic, strong, readonly, nullable) DataSourceType source;
+@property(nonatomic, weak, nullable) id<SKPlayerDelegate> delegate;
+
+@property(nonatomic, readonly) BOOL loop;
 
 - (nullable NSError *)setDataSource:(nonnull DataSourceType)source;
 

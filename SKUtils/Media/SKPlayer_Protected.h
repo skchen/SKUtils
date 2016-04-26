@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger, SKPlayerState) {
 @interface SKPlayer<DataSourceType> () {
 @protected
     SKPlayerState _state;
+    DataSourceType _source;
+    __weak id<SKPlayerDelegate> _delegate;
 }
 
 @property(nonatomic, readonly) SKPlayerState state;
@@ -42,6 +44,9 @@ typedef NS_ENUM(NSUInteger, SKPlayerState) {
 
 #pragma mark - Protected
 
+- (void)notifyPrepared;
+- (void)notifyStarted;
+- (void)notifyStopped;
 - (void)notifyCompletion;
 - (void)notifyErrorMessage:(nonnull NSString *)message;
 

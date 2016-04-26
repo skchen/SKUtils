@@ -24,6 +24,7 @@
         case SKPlayerStopped: {
             NSError *setDataSourceError = [self _setDataSource:source];
             if(!setDataSourceError) {
+                _source = source;
                 _state = SKPlayerInitialized;
             }
             return setDataSourceError;
@@ -81,9 +82,13 @@
             
         case SKPlayerStopped:
         case SKPlayerPrepared:
-        case SKPlayerPaused:
-            _state = SKPlayerStarted;
-            return [self _start];
+        case SKPlayerPaused: {
+            NSError *startError = [self _start];
+            if(!startError) {
+                [self notifyStarted];
+            }
+            return startError;
+        }
             
         default:
             return [self illegalStateExceptionError];
@@ -98,9 +103,13 @@
 
 - (NSError *)pause {
     switch (_state) {
-        case SKPlayerStarted:
-            _state = SKPlayerPaused;
-            return [self _pause];
+        case SKPlayerStarted: {
+            NSError *pauseError = [self _pause];
+            if(!pauseError) {
+                [self notifyPaused];
+            }
+            return pauseError;
+        }
             
         default:
             return [self illegalStateExceptionError];
@@ -171,6 +180,31 @@
     
     if([_delegate respondsToSelector:@selector(onPlayerPrepared:)]) {
         [_delegate onPlayerPrepared:self];
+    }
+}
+
+- (void)notifyStarted {
+    _state = SKPlayerStarted;
+    int position = [self getCurrentPosition];
+    
+    if([_delegate respondsToSelector:@selector(onPlayerStarted:atPosition:)]) {
+        [_delegate onPlayerStarted:self atPosition:position];
+    }
+}
+
+- (void)notifyPaused {
+    _state = SKPlayerPaused;
+    
+    if([_delegate respondsToSelector:@selector(onPlayerPaused:)]) {
+        [_delegate onPlayerPaused:self];
+    }
+}
+
+- (void)notifyStopped {
+    _state = SKPlayerStopped;
+    
+    if([_delegate respondsToSelector:@selector(onPlayerStopped:)]) {
+        [_delegate onPlayerStopped:self];
     }
 }
 
