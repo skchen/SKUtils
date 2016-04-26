@@ -11,8 +11,8 @@
 @interface SKListPlayer<DataSourceType> : SKPlayer <NSArray<DataSourceType> *>
 
 @property(nonatomic, readonly) NSUInteger index;
-@property(nonatomic, readonly) BOOL repeat;
-@property(nonatomic, readonly) BOOL random;
+@property(nonatomic, assign) BOOL repeat;
+@property(nonatomic, assign) BOOL random;
 
 - (nonnull instancetype)initWithPlayer:(SKPlayer<DataSourceType> *)player;
 

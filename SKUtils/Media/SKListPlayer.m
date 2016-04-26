@@ -31,9 +31,28 @@
     return [_innerPlayer setDataSource:singleSource];
 }
 
+- (NSUInteger)randomTarget {
+    NSUInteger randomIndex = arc4random() % ([_source count]-1);
+    if(randomIndex>=_index) {
+        randomIndex++;
+    }
+    return randomIndex;
+}
+
 - (nullable NSError *)previous {
     if([self hasPrevious]) {
-        NSUInteger target = _index - 1;
+        NSUInteger target = NSNotFound;
+        
+        if(_random) {
+            target = [self randomTarget];
+        } else {
+            target = _index -1;
+            
+            if(_index<=0) {
+                target = [_source count]-1;
+            }
+        }
+        
         return [self go:target];
     } else {
         return [NSError errorWithDomain:@"Previous not exist" code:0 userInfo:nil];
@@ -42,7 +61,18 @@
 
 - (nullable NSError *)next {
     if([self hasNext]) {
-        NSUInteger target = _index + 1;
+        NSUInteger target = NSNotFound;
+        
+        if(_random) {
+            target = [self randomTarget];
+        } else {
+            target = _index + 1;
+            
+            if(target>=[_source count]) {
+                target = 0;
+            }
+        }
+        
         return [self go:target];
     } else {
         return [NSError errorWithDomain:@"Next not exist" code:0 userInfo:nil];
@@ -76,7 +106,7 @@
 }
 
 - (BOOL)hasPrevious {
-    if(_repeat) {
+    if(_repeat || _random) {
         return YES;
     } else {
         NSUInteger numberOfSource = [(NSArray *)self.source count];
@@ -90,7 +120,7 @@
 }
 
 - (BOOL)hasNext {
-    if(_repeat) {
+    if(_repeat || _random) {
         return YES;
     } else {
         NSUInteger numberOfSource = [(NSArray *)self.source count];
