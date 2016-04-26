@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         _state = SKPlayerIdle;
+        _looping = NO;
     }
     return self;
 }
@@ -209,10 +210,15 @@
 }
 
 - (void)notifyCompletion {
-    _state = SKPlayerPlaybackCompleted;
-    
-    if([_delegate respondsToSelector:@selector(onPlayerCompletion:)]) {
-        [_delegate onPlayerCompletion:self];
+    if(_looping) {
+        [self _stop];
+        [self _start];
+    } else {
+        _state = SKPlayerPlaybackCompleted;
+        
+        if([_delegate respondsToSelector:@selector(onPlayerCompletion:)]) {
+            [_delegate onPlayerCompletion:self];
+        }
     }
 }
 

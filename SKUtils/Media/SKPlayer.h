@@ -27,7 +27,7 @@
 @property(nonatomic, strong, readonly, nullable) DataSourceType source;
 @property(nonatomic, weak, nullable) id<SKPlayerDelegate> delegate;
 
-@property(nonatomic, readonly) BOOL loop;
+@property(nonatomic, assign) BOOL looping;
 
 - (nullable NSError *)setDataSource:(nonnull DataSourceType)source;
 

@@ -8,7 +8,7 @@
 
 #import "SKListPlayer_Protected.h"
 
-@interface SKListPlayer ()
+@interface SKListPlayer () <SKPlayerDelegate>
 
 @property(nonatomic, strong, readonly, nonnull) SKPlayer *innerPlayer;
 
@@ -19,7 +19,7 @@
 - (nonnull instancetype)initWithPlayer:(SKPlayer *)player {
     self = [super init];
     _innerPlayer = player;
-    _innerPlayer.delegate = _delegate;
+    _innerPlayer.delegate = self;
     return self;
 }
 
@@ -105,9 +105,12 @@
 
 #pragma mark - SKPlayer
 
-- (void)setDelegate:(id<SKPlayerDelegate>)delegate {
-    [super setDelegate:delegate];
-    _innerPlayer.delegate = delegate;
+- (BOOL)looping {
+    return _innerPlayer.looping;
+}
+
+- (void)setLooping:(BOOL)looping {
+    _innerPlayer.looping = looping;
 }
 
 - (nullable NSError *)setDataSource:(id)source {
@@ -148,6 +151,40 @@
 
 - (nullable NSError *)seekTo:(int)msec {
     return [_innerPlayer seekTo:msec];
+}
+
+#pragma mark - SKPlayerDelegate for innerPlayer
+
+- (void)onPlayerPrepared:(nonnull SKPlayer *)player {
+    if([_delegate respondsToSelector:@selector(onPlayerPrepared:)]) {
+        [_delegate onPlayerPrepared:self];
+    }
+}
+
+- (void)onPlayerStarted:(nonnull SKPlayer *)player atPosition:(int)position {
+    [self notifyStarted];
+}
+
+- (void)onPlayerPaused:(nonnull SKPlayer *)player {
+    [self notifyPaused];
+}
+
+- (void)onPlayerStopped:(nonnull SKPlayer *)player {
+    [self notifyStopped];
+}
+
+- (void)onPlayerCompletion:(nonnull SKPlayer *)player {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if([self hasNext]) {
+            [self next];
+        } else {
+            [self notifyCompletion];
+        }
+    });
+}
+
+- (void)onPlayer:(nonnull SKPlayer *)player error:(nonnull NSError *)error {
+    [self notifyError:error];
 }
 
 @end
