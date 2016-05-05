@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, SKPlayerState) {
 - (void)notifyPaused;
 - (void)notifyStopped;
 - (void)notifyCompletion;
-- (void)notifyError:(NSError *)error;
+- (void)notifyError:(nonnull NSError *)error;
 - (void)notifyErrorMessage:(nonnull NSString *)message;
 
 @end

@@ -109,8 +109,6 @@
     if(_repeat || _random) {
         return YES;
     } else {
-        NSUInteger numberOfSource = [(NSArray *)self.source count];
-        
         if( (_index!=NSNotFound) && (_index>0) ) {
             return YES;
         }

@@ -14,9 +14,9 @@
 @property(nonatomic, assign) BOOL repeat;
 @property(nonatomic, assign) BOOL random;
 
-- (nonnull instancetype)initWithPlayer:(SKPlayer<DataSourceType> *)player;
+- (nonnull instancetype)initWithPlayer:(nonnull SKPlayer<DataSourceType> *)player;
 
-- (nullable NSError *)setDataSource:(id)source atIndex:(NSUInteger)index;
+- (nullable NSError *)setDataSource:(nonnull id)source atIndex:(NSUInteger)index;
 
 - (nullable NSError *)previous;
 - (nullable NSError *)next;
