@@ -19,6 +19,10 @@
     return self;
 }
 
+- (nullable id)current {
+    return _source;
+}
+
 - (nullable NSError *)setDataSource:(nonnull id)source {
     switch (_state) {
         case SKPlayerIdle:

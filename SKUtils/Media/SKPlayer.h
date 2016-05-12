@@ -25,11 +25,12 @@
 @interface SKPlayer<DataSourceType> : NSObject
 
 @property(nonatomic, strong, readonly, nullable) DataSourceType source;
+@property(nonatomic, strong, readonly, nullable) DataSourceType current;
 @property(nonatomic, weak, nullable) id<SKPlayerDelegate> delegate;
 
 @property(nonatomic, assign) BOOL looping;
 
-- (nullable NSError *)setDataSource:(nonnull DataSourceType)source;
+- (nullable NSError *)setDataSource:(nonnull id)source;
 
 - (nullable NSError *)prepare;
 - (void)prepareAsync;

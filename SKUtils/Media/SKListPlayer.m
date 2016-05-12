@@ -23,6 +23,10 @@
     return self;
 }
 
+- (nullable id)current {
+    return [_source objectAtIndex:_index];
+}
+
 - (nullable NSError *)setDataSource:(id)source atIndex:(NSUInteger)index {
     _source = source;
     NSArray *sourceAsArray = (NSArray *)source;
@@ -142,7 +146,12 @@
 }
 
 - (nullable NSError *)setDataSource:(id)source {
-    return [self setDataSource:source atIndex:0];
+    if([source isKindOfClass:[NSArray class]]) {
+        return [self setDataSource:source atIndex:0];
+    } else {
+        NSArray *playlist = @[source];
+        return [self setDataSource:playlist atIndex:0];
+    }
 }
 
 - (nullable NSError *)prepare {
