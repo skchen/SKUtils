@@ -35,6 +35,29 @@
     return [_innerPlayer setDataSource:singleSource];
 }
 
+- (nullable NSError *)addDataSource:(nonnull id)source {
+    return [self addDataSource:source atIndex:NSUIntegerMax];
+}
+
+- (nullable NSError *)addDataSource:(nonnull id)source atIndex:(NSUInteger)index {
+    if(_source) {
+        NSArray *originalPlaylist = (NSArray *)_source;
+        
+        NSMutableArray *sourceToEdit = [[NSMutableArray alloc] initWithArray:originalPlaylist];
+        if(index>=originalPlaylist.count) {
+            [sourceToEdit addObject:source];
+        } else {
+            [sourceToEdit insertObject:source atIndex:index];
+        }
+        
+        _source = sourceToEdit;
+        
+        return nil;
+    } else {
+        return [self setDataSource:source];
+    }
+}
+
 - (NSUInteger)randomTarget {
     NSUInteger randomIndex = arc4random() % ([_source count]-1);
     if(randomIndex>=_index) {

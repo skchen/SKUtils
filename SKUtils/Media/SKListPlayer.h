@@ -19,6 +19,8 @@
 - (nonnull instancetype)initWithPlayer:(nonnull SKPlayer<DataSourceType> *)player;
 
 - (nullable NSError *)setDataSource:(nonnull id)source atIndex:(NSUInteger)index;
+- (nullable NSError *)addDataSource:(nonnull DataSourceType)source;
+- (nullable NSError *)addDataSource:(nonnull DataSourceType)source atIndex:(NSUInteger)index;
 
 - (nullable NSError *)previous;
 - (nullable NSError *)next;
