@@ -18,13 +18,13 @@
 
 - (nonnull instancetype)initWithPlayer:(nonnull SKPlayer<DataSourceType> *)player;
 
-- (nullable NSError *)setDataSource:(nonnull id)source atIndex:(NSUInteger)index;
-- (nullable NSError *)addDataSource:(nonnull DataSourceType)source;
-- (nullable NSError *)addDataSource:(nonnull DataSourceType)source atIndex:(NSUInteger)index;
+- (void)setDataSource:(nonnull id)source atIndex:(NSUInteger)index;
+- (void)addDataSource:(nonnull DataSourceType)source;
+- (void)addDataSource:(nonnull DataSourceType)source atIndex:(NSUInteger)index;
 
-- (nullable NSError *)previous;
-- (nullable NSError *)next;
-- (nullable NSError *)go:(NSUInteger)index;
+- (void)previous:(nullable SKErrorCallback)callback;
+- (void)next:(nullable SKErrorCallback)callback;
+- (void)go:(NSUInteger)index callback:(nullable SKErrorCallback)callback;
 
 - (BOOL)hasPrevious;
 - (BOOL)hasNext;

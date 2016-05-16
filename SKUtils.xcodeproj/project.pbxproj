@@ -54,12 +54,18 @@
 		829413A01CC66A32002F6594 /* SKPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8294139C1CC66A32002F6594 /* SKPlayer.m */; };
 		829413A21CC66B71002F6594 /* SKPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 829413A11CC66B71002F6594 /* SKPlayer_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		829413A31CC66B71002F6594 /* SKPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 829413A11CC66B71002F6594 /* SKPlayer_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82A78AB61CE5A93D00629C64 /* SKAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A78AB41CE5A93D00629C64 /* SKAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82A78AB71CE5A93D00629C64 /* SKAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A78AB41CE5A93D00629C64 /* SKAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82A78AB81CE5A93D00629C64 /* SKAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A78AB51CE5A93D00629C64 /* SKAsync.m */; };
+		82A78AB91CE5A93D00629C64 /* SKAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A78AB51CE5A93D00629C64 /* SKAsync.m */; };
+		82A78ABB1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82A78ABC1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82B901DB1CCE4F50008473EF /* SKListPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901D91CCE4F50008473EF /* SKListPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82B901DC1CCE4F50008473EF /* SKListPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901D91CCE4F50008473EF /* SKListPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82B901DD1CCE4F50008473EF /* SKListPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B901DA1CCE4F50008473EF /* SKListPlayer.m */; };
 		82B901DE1CCE4F50008473EF /* SKListPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B901DA1CCE4F50008473EF /* SKListPlayer.m */; };
-		82B901E41CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901E31CCF3EB2008473EF /* SKListPlayer_Protected.h */; };
-		82B901E51CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901E31CCF3EB2008473EF /* SKListPlayer_Protected.h */; };
+		82B901E41CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901E31CCF3EB2008473EF /* SKListPlayer_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82B901E51CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901E31CCF3EB2008473EF /* SKListPlayer_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82FB6D851CB6E5AE000DE9E9 /* SKLruDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8268040A1CAC26E400C8B952 /* SKLruDictionary.m */; };
 		82FB6D861CB6E5AE000DE9E9 /* SKLruStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 828D198D1CAD8C0300F4CFC4 /* SKLruStorage.m */; };
 		82FB6D881CB6E5AE000DE9E9 /* SKLruArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 826804081CAC26E400C8B952 /* SKLruArray.m */; };
@@ -117,6 +123,9 @@
 		8294139B1CC66A32002F6594 /* SKPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPlayer.h; sourceTree = "<group>"; };
 		8294139C1CC66A32002F6594 /* SKPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPlayer.m; sourceTree = "<group>"; };
 		829413A11CC66B71002F6594 /* SKPlayer_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPlayer_Protected.h; sourceTree = "<group>"; };
+		82A78AB41CE5A93D00629C64 /* SKAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAsync.h; sourceTree = "<group>"; };
+		82A78AB51CE5A93D00629C64 /* SKAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAsync.m; sourceTree = "<group>"; };
+		82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAsync_Protected.h; sourceTree = "<group>"; };
 		82B901D91CCE4F50008473EF /* SKListPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKListPlayer.h; sourceTree = "<group>"; };
 		82B901DA1CCE4F50008473EF /* SKListPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKListPlayer.m; sourceTree = "<group>"; };
 		82B901E31CCF3EB2008473EF /* SKListPlayer_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKListPlayer_Protected.h; sourceTree = "<group>"; };
@@ -192,6 +201,7 @@
 		826803561CA94AE600C8B952 /* SKUtils */ = {
 			isa = PBXGroup;
 			children = (
+				82A78AB31CE5A92300629C64 /* Async */,
 				8294139A1CC669EE002F6594 /* Media */,
 				822586C41CBC003D00E01E7D /* Task */,
 				826804041CAC26E400C8B952 /* Lru */,
@@ -261,6 +271,16 @@
 			path = Media;
 			sourceTree = "<group>";
 		};
+		82A78AB31CE5A92300629C64 /* Async */ = {
+			isa = PBXGroup;
+			children = (
+				82A78AB41CE5A93D00629C64 /* SKAsync.h */,
+				82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */,
+				82A78AB51CE5A93D00629C64 /* SKAsync.m */,
+			);
+			path = Async;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -268,7 +288,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82B901E41CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
 				822586CB1CBC003D00E01E7D /* SKTaskQueue.h in Headers */,
 				822586C91CBC003D00E01E7D /* SKTask.h in Headers */,
 				826803761CA95DE500C8B952 /* SKOrderedDictionary.h in Headers */,
@@ -277,6 +296,9 @@
 				8294139D1CC66A32002F6594 /* SKPlayer.h in Headers */,
 				829413A21CC66B71002F6594 /* SKPlayer_Protected.h in Headers */,
 				82B901DB1CCE4F50008473EF /* SKListPlayer.h in Headers */,
+				82A78ABB1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */,
+				82A78AB61CE5A93D00629C64 /* SKAsync.h in Headers */,
+				82B901E41CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
 				8268040D1CAC26E400C8B952 /* SKLruArray.h in Headers */,
 				826803581CA94AE700C8B952 /* SKUtils.h in Headers */,
 			);
@@ -286,7 +308,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82B901E51CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
 				82FB6D8D1CB6E5AE000DE9E9 /* SKOrderedDictionary.h in Headers */,
 				82FB6D8E1CB6E5AE000DE9E9 /* SKLruStorage.h in Headers */,
 				82FB6D8F1CB6E5AE000DE9E9 /* SKLruDictionary.h in Headers */,
@@ -294,6 +315,9 @@
 				829412B71CC521B5002F6594 /* SKTask.h in Headers */,
 				829413A31CC66B71002F6594 /* SKPlayer_Protected.h in Headers */,
 				8294139E1CC66A32002F6594 /* SKPlayer.h in Headers */,
+				82B901E51CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
+				82A78ABC1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */,
+				82A78AB71CE5A93D00629C64 /* SKAsync.h in Headers */,
 				829412B81CC521B8002F6594 /* SKTaskQueue.h in Headers */,
 				82B901DC1CCE4F50008473EF /* SKListPlayer.h in Headers */,
 				82FB6D911CB6E5AE000DE9E9 /* SKUtils.h in Headers */,
@@ -464,6 +488,7 @@
 				822586CC1CBC003D00E01E7D /* SKTaskQueue.m in Sources */,
 				8294139F1CC66A32002F6594 /* SKPlayer.m in Sources */,
 				8268040E1CAC26E400C8B952 /* SKLruArray.m in Sources */,
+				82A78AB81CE5A93D00629C64 /* SKAsync.m in Sources */,
 				822586CA1CBC003D00E01E7D /* SKTask.m in Sources */,
 				826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */,
 			);
@@ -492,6 +517,7 @@
 				82FB6D881CB6E5AE000DE9E9 /* SKLruArray.m in Sources */,
 				829413A01CC66A32002F6594 /* SKPlayer.m in Sources */,
 				82FB6D891CB6E5AE000DE9E9 /* SKOrderedDictionary.m in Sources */,
+				82A78AB91CE5A93D00629C64 /* SKAsync.m in Sources */,
 				829412B91CC524C7002F6594 /* SKTask.m in Sources */,
 				829412BA1CC524C9002F6594 /* SKTaskQueue.m in Sources */,
 			);

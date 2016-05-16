@@ -23,23 +23,39 @@
     return self;
 }
 
-- (nullable id)current {
-    return [_source objectAtIndex:_index];
+- (dispatch_queue_t)workerQueue {
+    return _innerPlayer.workerQueue;
 }
 
-- (nullable NSError *)setDataSource:(id)source atIndex:(NSUInteger)index {
+- (dispatch_queue_t)callbackQueue {
+    return _innerPlayer.callbackQueue;
+}
+
+- (void)setWorkerQueue:(dispatch_queue_t)workerQueue {
+    _innerPlayer.workerQueue = workerQueue;
+}
+
+- (void)setCallbackQueue:(dispatch_queue_t)callbackQueue {
+    _innerPlayer.callbackQueue = callbackQueue;
+}
+
+- (nullable id)current {
+    return _innerPlayer.current;
+}
+
+- (void)setDataSource:(id)source atIndex:(NSUInteger)index {
     _source = source;
     NSArray *sourceAsArray = (NSArray *)source;
     id singleSource = [sourceAsArray objectAtIndex:index];
     _index = index;
-    return [_innerPlayer setDataSource:singleSource];
+    [_innerPlayer setDataSource:singleSource];
 }
 
-- (nullable NSError *)addDataSource:(nonnull id)source {
-    return [self addDataSource:source atIndex:NSUIntegerMax];
+- (void)addDataSource:(nonnull id)source {
+    [self addDataSource:source atIndex:NSUIntegerMax];
 }
 
-- (nullable NSError *)addDataSource:(nonnull id)source atIndex:(NSUInteger)index {
+- (void)addDataSource:(nonnull id)source atIndex:(NSUInteger)index {
     if(_source) {
         NSArray *originalPlaylist = (NSArray *)_source;
         
@@ -51,10 +67,8 @@
         }
         
         _source = sourceToEdit;
-        
-        return nil;
     } else {
-        return [self setDataSource:source];
+        [self setDataSource:source];
     }
 }
 
@@ -66,7 +80,7 @@
     return randomIndex;
 }
 
-- (nullable NSError *)previous {
+- (void)previous:(nullable SKErrorCallback)callback {
     if([self hasPrevious]) {
         NSUInteger target = NSNotFound;
         
@@ -80,13 +94,13 @@
             }
         }
         
-        return [self go:target];
+        [self go:target callback:callback];
     } else {
-        return [NSError errorWithDomain:@"Previous not exist" code:0 userInfo:nil];
+        [self notifyErrorMessage:@"Previous not exist" callback:callback];
     }
 }
 
-- (nullable NSError *)next {
+- (void)next:(nullable SKErrorCallback)callback {
     if([self hasNext]) {
         NSUInteger target = NSNotFound;
         
@@ -100,36 +114,24 @@
             }
         }
         
-        return [self go:target];
+        [self go:target callback:callback];
     } else {
-        return [NSError errorWithDomain:@"Next not exist" code:0 userInfo:nil];
+        [self notifyErrorMessage:@"Previous not exist" callback:callback];
     }
 }
 
-- (nullable NSError *)go:(NSUInteger)index {
-    NSError *stopError = [_innerPlayer stop];
-    if(stopError) return stopError;
-    
-    [self notifyStopped];
-    
-    id target = [self.source objectAtIndex:index];
-    
-    NSError *setDataSourceError = [_innerPlayer setDataSource:target];
-    if(setDataSourceError) return setDataSourceError;
-    
-    _index = index;
-    
-    NSError *prepareError = [_innerPlayer prepare];
-    if(prepareError) return prepareError;
-    
-    [self notifyPrepared];
-    
-    NSError *startError = [_innerPlayer start];
-    if(startError) return startError;
-    
-    [self notifyStarted];
-    
-    return nil;
+- (void)go:(NSUInteger)index callback:(nullable SKErrorCallback)callback {
+    [_innerPlayer stop:^(NSError * _Nullable error) {
+        if(error) {
+            [self notifyError:error callback:callback];
+        } else {
+            _index = index;
+            id target = [self.source objectAtIndex:index];
+            [_innerPlayer setDataSource:target];
+            
+            [_innerPlayer start:callback];
+        }
+    }];
 }
 
 - (BOOL)hasPrevious {
@@ -168,83 +170,73 @@
     _innerPlayer.looping = looping;
 }
 
-- (nullable NSError *)setDataSource:(id)source {
+- (void)setDataSource:(id)source {
     if([source isKindOfClass:[NSArray class]]) {
-        return [self setDataSource:source atIndex:0];
+        [self setDataSource:source atIndex:0];
     } else {
         NSArray *playlist = @[source];
-        return [self setDataSource:playlist atIndex:0];
+        [self setDataSource:playlist atIndex:0];
     }
 }
 
-- (nullable NSError *)prepare {
-    return [_innerPlayer prepare];
+- (void)prepare:(SKErrorCallback)callback {
+    [_innerPlayer prepare:callback];
 }
 
-- (void)prepareAsync {
-    [_innerPlayer prepareAsync];
+- (void)start:(SKErrorCallback)callback {
+    [_innerPlayer start:callback];
 }
 
-- (nullable NSError *)start {
-    return [_innerPlayer start];
+- (void)pause:(SKErrorCallback)callback {
+    [_innerPlayer pause:callback];
 }
 
-- (nullable NSError *)pause {
-    return [_innerPlayer pause];
-}
-
-- (nullable NSError *)stop {
-    return [_innerPlayer stop];
+- (void)stop:(SKErrorCallback)callback {
+    [_innerPlayer stop:callback];
 }
 
 - (BOOL)isPlaying {
     return [_innerPlayer isPlaying];
 }
 
-- (int)getCurrentPosition {
-    return [_innerPlayer getCurrentPosition];
+- (void)getCurrentPosition:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    [_innerPlayer getCurrentPosition:success failure:failure];
 }
 
-- (int)getDuration {
-    return [_innerPlayer getDuration];
+- (void)getDuration:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    [_innerPlayer getDuration:success failure:failure];
 }
 
-- (nullable NSError *)seekTo:(int)msec {
-    return [_innerPlayer seekTo:msec];
+- (void)seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    [_innerPlayer seekTo:time success:success failure:failure];
 }
 
 #pragma mark - SKPlayerDelegate for innerPlayer
 
-- (void)onPlayerPrepared:(nonnull SKPlayer *)player {
-    if([_delegate respondsToSelector:@selector(onPlayerPrepared:)]) {
-        [_delegate onPlayerPrepared:self];
+- (void)player:(SKPlayer *)player didChangeState:(SKPlayerState)newState {
+    if([_delegate respondsToSelector:@selector(player:didChangeState:)]) {
+        [_delegate player:self didChangeState:newState];
     }
 }
 
-- (void)onPlayerStarted:(nonnull SKPlayer *)player atPosition:(int)position {
-    [self notifyStarted];
-}
-
-- (void)onPlayerPaused:(nonnull SKPlayer *)player {
-    [self notifyPaused];
-}
-
-- (void)onPlayerStopped:(nonnull SKPlayer *)player {
-    [self notifyStopped];
-}
-
-- (void)onPlayerCompletion:(nonnull SKPlayer *)player {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if([self hasNext]) {
-            [self next];
-        } else {
-            [self notifyCompletion];
+- (void)playerDidComplete:(SKPlayer *)player {
+    if([self hasNext]) {
+        [self next:^(NSError * _Nullable error) {
+            if(error) {
+                [self notifyError:error callback:nil];
+            }
+        }];
+    } else {
+        if([_delegate respondsToSelector:@selector(playerDidComplete:)]) {
+            [_delegate playerDidComplete:self];
         }
-    });
+    }
 }
 
-- (void)onPlayer:(nonnull SKPlayer *)player error:(nonnull NSError *)error {
-    [self notifyError:error];
+- (void)player:(SKPlayer *)player didReceiveError:(NSError *)error {
+    if([_delegate respondsToSelector:@selector(player:didReceiveError:)]) {
+        [_delegate player:self didReceiveError:error];
+    }
 }
 
 @end

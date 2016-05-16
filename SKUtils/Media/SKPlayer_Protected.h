@@ -8,18 +8,7 @@
 
 #import "SKPlayer.h"
 
-typedef NS_ENUM(NSUInteger, SKPlayerState) {
-    SKPlayerIdle,
-    SKPlayerInitialized,
-    SKPlayerPreparing,
-    SKPlayerPrepared,
-    SKPlayerStarted,
-    SKPlayerPaused,
-    SKPlayerStopped,
-    SKPlayerPlaybackCompleted,
-    SKPlayerEnd,
-    SKPlayerError
-};
+#import "SKAsync_Protected.h"
 
 @interface SKPlayer<DataSourceType> () {
 @protected
@@ -28,28 +17,20 @@ typedef NS_ENUM(NSUInteger, SKPlayerState) {
     __weak id<SKPlayerDelegate> _delegate;
 }
 
-@property(nonatomic, readonly) SKPlayerState state;
-
 #pragma mark - Abstract
 
-- (nullable NSError *)_setDataSource:(nonnull DataSourceType)source;
-- (nullable NSError *)_prepare;
-- (nullable NSError *)_start;
-- (nullable NSError *)_pause;
-- (nullable NSError *)_stop;
-- (nullable NSError *)_seekTo:(int)msec;
-
-- (int)getCurrentPosition;
-- (int)getDuration;
+- (void)_setDataSource:(nonnull NSString *)source;
+- (void)_prepare:(nullable SKErrorCallback)callback;
+- (void)_start:(nullable SKErrorCallback)callback;
+- (void)_pause:(nullable SKErrorCallback)callback;
+- (void)_stop:(nullable SKErrorCallback)callback;
+- (void)_seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
 
 #pragma mark - Protected
 
-- (void)notifyPrepared;
-- (void)notifyStarted;
-- (void)notifyPaused;
-- (void)notifyStopped;
-- (void)notifyCompletion;
-- (void)notifyError:(nonnull NSError *)error;
-- (void)notifyErrorMessage:(nonnull NSString *)message;
+- (void)changeState:(SKPlayerState)newState callback:(nullable SKErrorCallback)callback;
+- (void)notifyCompletion:(nullable SKErrorCallback)callback;
+- (void)notifyError:(nonnull NSError *)error callback:(nullable SKErrorCallback)callback;
+- (void)notifyErrorMessage:(nonnull NSString *)message callback:(nullable SKErrorCallback)callback;
 
 @end

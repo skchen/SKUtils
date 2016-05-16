@@ -8,12 +8,17 @@
 
 #import "SKPlayer_Protected.h"
 
+//#define SKLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define SKLog(__FORMAT__, ...)
+
+static NSString * const kErrorMessageIllegalState = @"IllegalState";
+
 @implementation SKPlayer
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _state = SKPlayerIdle;
+        _state = SKPlayerStopped;
         _looping = NO;
     }
     return self;
@@ -23,125 +28,147 @@
     return _source;
 }
 
-- (nullable NSError *)setDataSource:(nonnull id)source {
-    switch (_state) {
-        case SKPlayerIdle:
-        case SKPlayerStopped: {
-            NSError *setDataSourceError = [self _setDataSource:source];
-            if(!setDataSourceError) {
-                _source = source;
-                _state = SKPlayerInitialized;
-            }
-            return setDataSourceError;
-        }
-            
-        default:
-            return [self illegalStateExceptionError];
+- (void)setDataSource:(nonnull id)source {
+    if(![source isEqual:_source]) {
+        [self changeState:SKPlayerStopped callback:nil];
     }
+    
+    _source = source;
+    
+    [self _setDataSource:source];
 }
 
-- (nullable NSError *)_setDataSource:(id)source {
+- (void)_setDataSource:(nonnull id)source {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (NSError *)prepare {
+- (void)prepare:(nullable SKErrorCallback)callback {
     switch (_state) {
-        case SKPlayerInitialized:
         case SKPlayerStopped: {
-            _state = SKPlayerPreparing;
-            NSError *prepareError = [self _prepare];
-            if(!prepareError) {
-                [self notifyPrepared];
-            }
-            return prepareError;
+            [self changeState:SKPlayerPreparing callback:nil];
+            
+            dispatch_async(self.workerQueue, ^{
+                [self _prepare:^(NSError * _Nullable error) {
+                    if(error) {
+                        [self notifyError:error callback:callback];
+                    } else {
+                        [self changeState:SKPlayerPrepared callback:callback];
+                    }
+                }];
+            });
         }
+            break;
             
         default:
-            return [self illegalStateExceptionError];
+            [self notifyIllegalStateException:callback];
+            break;
     }
 }
 
-- (void)prepareAsync {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self prepare];
-    });
-}
-
-- (nullable NSError *)_prepare {
+- (void)_prepare:(nullable SKErrorCallback)callback {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (NSError *)start {
+- (void)start:(nullable SKErrorCallback)callback {
+    SKLog(@"start @ %@", @(_state));
+    
     switch (_state) {
-        case SKPlayerPlaybackCompleted: {
-            NSError *stopError = [self stop];
-            if(stopError) {
-                return stopError;
-            }
+        case SKPlayerStopped: {
+            [self prepare:^(NSError * _Nullable error) {
+                if(error) {
+                    [self notifyError:error callback:callback];
+                } else {
+                    [self start:callback];
+                }
+            }];
         }
-            // Do not break here
+            break;
             
-        case SKPlayerStopped:
         case SKPlayerPrepared:
         case SKPlayerPaused: {
-            NSError *startError = [self _start];
-            if(!startError) {
-                [self notifyStarted];
-            }
-            return startError;
+            dispatch_async(self.workerQueue, ^{
+                [self _start:^(NSError * _Nullable error) {
+                    if(error) {
+                        [self notifyError:error callback:callback];
+                    } else {
+                        [self changeState:SKPlayerStarted callback:callback];
+                    }
+                }];
+            });
         }
+            break;
             
         default:
-            return [self illegalStateExceptionError];
+            [self notifyIllegalStateException:callback];
+            break;
     }
 }
 
-- (nullable NSError *)_start {
+- (void)_start:(nullable SKErrorCallback)callback {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (NSError *)pause {
+- (void)pause:(nullable SKErrorCallback)callback {
+    SKLog(@"pause @ %@", @(_state));
+    
     switch (_state) {
         case SKPlayerStarted: {
-            NSError *pauseError = [self _pause];
-            if(!pauseError) {
-                [self notifyPaused];
-            }
-            return pauseError;
+            dispatch_async(self.workerQueue, ^{
+                [self _pause:^(NSError * _Nullable error) {
+                    if(error) {
+                        [self notifyError:error callback:callback];
+                    } else {
+                        [self changeState:SKPlayerPaused callback:callback];
+                    }
+                }];
+            });
         }
+            break;
             
         default:
-            return [self illegalStateExceptionError];
+            [self notifyIllegalStateException:callback];
+            break;
     }
 }
 
-- (nullable NSError *)_pause {
+- (void)_pause:(nullable SKErrorCallback)callback {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (NSError *)stop {
+- (void)stop:(nullable SKErrorCallback)callback {
+    SKLog(@"stop @ %@", @(_state));
+    
     switch (_state) {
         case SKPlayerStarted:
         case SKPlayerPaused:
-        case SKPlayerPlaybackCompleted:
-        case SKPlayerStopped:
-            _state = SKPlayerStopped;
-            return [self _stop];
+        case SKPlayerStopped: {
+            dispatch_async(self.workerQueue, ^{
+                [self _stop:^(NSError * _Nullable error) {
+                    if(error) {
+                        [self notifyError:error callback:callback];
+                    } else {
+                        [self changeState:SKPlayerPrepared callback:callback];
+                    }
+                }];
+            });
+        }
+            break;
             
         default:
-            return [self illegalStateExceptionError];
+            [self notifyIllegalStateException:callback];
+            break;
     }
 }
 
-- (nullable NSError *)_stop {
+- (void)_stop:(nullable SKErrorCallback)callback {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
@@ -151,99 +178,105 @@
     return (_state==SKPlayerStarted);
 }
 
-- (int)getCurrentPosition {
+- (void)getCurrentPosition:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
+    dispatch_async(self.workerQueue, ^{
+        [self _getCurrentPosition:[self wrappedTimeCallback:success] failure:[self wrappedErrorCallback:failure]];
+    });
+}
+
+- (void)_getCurrentPosition:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (int)getDuration {
+- (void)getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
+    dispatch_async(self.workerQueue, ^{
+        [self _getDuration:[self wrappedTimeCallback:success] failure:[self wrappedErrorCallback:failure]];
+    });
+}
+
+- (void)_getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (NSError *)seekTo:(int)msec {
+- (void)seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
+    SKLog(@"seekTo @ %@", @(_state));
+    
     switch (_state) {
-        case SKPlayerStarted:
-            return [self _seekTo:msec];
+        case SKPlayerStarted: {
+            dispatch_async(self.workerQueue, ^{
+                [self _seekTo:time success:[self wrappedTimeCallback:success] failure:[self wrappedErrorCallback:failure]];
+            });
+        }
             break;
             
         default:
-            return [self illegalStateExceptionError];
+            [self notifyIllegalStateException:failure];
+            break;
     }
 }
 
-- (nullable NSError *)_seekTo:(int)msec {
+- (void)_seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (void)notifyPrepared {
-    _state = SKPlayerPrepared;
+- (void)changeState:(SKPlayerState)newState callback:(nullable SKErrorCallback)callback {
+    SKLog(@"changeState:%@", @(newState));
     
-    if([_delegate respondsToSelector:@selector(onPlayerPrepared:)]) {
-        [_delegate onPlayerPrepared:self];
-    }
-}
-
-- (void)notifyStarted {
-    _state = SKPlayerStarted;
-    int position = [self getCurrentPosition];
+    BOOL changeState = (_state!=newState);
+    _state = newState;
     
-    if([_delegate respondsToSelector:@selector(onPlayerStarted:atPosition:)]) {
-        [_delegate onPlayerStarted:self atPosition:position];
-    }
-}
-
-- (void)notifyPaused {
-    _state = SKPlayerPaused;
-    
-    if([_delegate respondsToSelector:@selector(onPlayerPaused:)]) {
-        [_delegate onPlayerPaused:self];
-    }
-}
-
-- (void)notifyStopped {
-    _state = SKPlayerStopped;
-    
-    if([_delegate respondsToSelector:@selector(onPlayerStopped:)]) {
-        [_delegate onPlayerStopped:self];
-    }
-}
-
-- (void)notifyCompletion {
-    if(_looping) {
-        [self _stop];
-        [self _start];
-    } else {
-        _state = SKPlayerPlaybackCompleted;
-        
-        if([_delegate respondsToSelector:@selector(onPlayerCompletion:)]) {
-            [_delegate onPlayerCompletion:self];
+    dispatch_async(self.callbackQueue, ^{
+        if(changeState) {
+            if([_delegate respondsToSelector:@selector(player:didChangeState:)]) {
+                [_delegate player:self didChangeState:newState];
+            }
         }
+        
+        if(callback) {
+            callback(nil);
+        }
+    });
+}
+
+- (void)notifyCompletion:(nullable SKErrorCallback)callback {
+    if(_looping) {
+        [self _stop:nil];
+        [self _start:nil];
+    } else {
+        [self changeState:SKPlayerPrepared callback:callback];
+        
+        dispatch_async(self.callbackQueue, ^{
+            if([_delegate respondsToSelector:@selector(playerDidComplete:)]) {
+                [_delegate playerDidComplete:self];
+            }
+        });
     }
 }
 
-- (void)notifyError:(NSError *)error {
-    _state = SKPlayerError;
+- (void)notifyError:(nonnull NSError *)error callback:(nullable SKErrorCallback)callback {
     
-    if([_delegate respondsToSelector:@selector(onPlayer:error:)]) {
-        [_delegate onPlayer:self error:error];
-    }
+    [self changeState:SKPlayerStopped callback:callback];
+    
+    dispatch_async(self.callbackQueue, ^{
+        if([_delegate respondsToSelector:@selector(player:didReceiveError:)]) {
+            [_delegate player:self didReceiveError:error];
+        }
+    });
+    
 }
 
-- (void)notifyErrorMessage:(NSString *)message {
-    [self notifyError:[NSError errorWithDomain:message code:0 userInfo:nil]];
+- (void)notifyErrorMessage:(nonnull NSString *)message callback:(nullable SKErrorCallback)callback {
+    [self notifyError:[NSError errorWithDomain:message code:0 userInfo:nil] callback:callback];
 }
 
-- (void)notifyIllegalStateException {
-    [self notifyErrorMessage:@"IllegalStateException"];
-}
-
-- (NSError *)illegalStateExceptionError {
-    return [NSError errorWithDomain:@"IllegalStateException" code:0 userInfo:nil];
+- (void)notifyIllegalStateException:(nullable SKErrorCallback)callback {
+    [self notifyErrorMessage:kErrorMessageIllegalState callback:callback];
 }
 
 @end
