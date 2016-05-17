@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^SKTimeCallback)(NSTimeInterval interval);
+typedef void (^SKListCallback)(NSArray  * _Nonnull list);
+typedef void (^SKExtendableListCallback)(NSArray  * _Nonnull list, BOOL finished);
 typedef void (^SKErrorCallback)(NSError * _Nullable error);
 
 @interface SKAsync : NSObject {
