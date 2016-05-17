@@ -8,6 +8,8 @@
 
 #import <SKUtils/SKUtils.h>
 
+typedef void (^SKPagedListCallback)(NSArray  * _Nonnull list, BOOL finished);
+
 @interface SKPagedAsync : SKAsync
 
 @end

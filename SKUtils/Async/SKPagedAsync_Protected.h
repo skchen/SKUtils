@@ -16,6 +16,6 @@ typedef NSError * _Nullable (^SKPagedListRequest)(SKPagedList * _Nonnull pagedLi
 
 @property(nonatomic, strong, readonly, nonnull) NSMutableDictionary *cache;
 
-- (void)pagedList:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKPagedListRequest)request success:(nonnull SKExtendableListCallback)success failure:(nonnull SKErrorCallback)failure;
+- (void)pagedList:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKPagedListRequest)request success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure;
 
 @end
