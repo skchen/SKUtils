@@ -8,6 +8,8 @@
 
 #import "SKPlayer_Protected.h"
 
+#import "SKAbstractClassUtils.h"
+
 //#define SKLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define SKLog(__FORMAT__, ...)
 
@@ -39,9 +41,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_setDataSource:(nonnull id)source {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (void)prepare:(nullable SKErrorCallback)callback {
@@ -68,9 +68,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_prepare:(nullable SKErrorCallback)callback {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (void)start:(nullable SKErrorCallback)callback {
@@ -109,9 +107,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_start:(nullable SKErrorCallback)callback {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (void)pause:(nullable SKErrorCallback)callback {
@@ -138,9 +134,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_pause:(nullable SKErrorCallback)callback {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (void)stop:(nullable SKErrorCallback)callback {
@@ -169,9 +163,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_stop:(nullable SKErrorCallback)callback {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (BOOL)isPlaying {
@@ -185,9 +177,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_getCurrentPosition:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (void)getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
@@ -197,9 +187,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (void)seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
@@ -220,9 +208,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)_seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-                                 userInfo:nil];
+    THROW_NOT_OVERRIDE_EXCEPTION
 }
 
 - (void)changeState:(SKPlayerState)newState callback:(nullable SKErrorCallback)callback {

@@ -34,3 +34,5 @@ FOUNDATION_EXPORT const unsigned char SKUtilsVersionString[];
 #import <SKUtils/SKPlayer_Protected.h>
 #import <SKUtils/SKListPlayer.h>
 #import <SKUtils/SKListPlayer_Protected.h>
+
+#import <SKUtils/SKAbstractClassUtils.h>
