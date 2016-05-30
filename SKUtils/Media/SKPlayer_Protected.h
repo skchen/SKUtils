@@ -25,6 +25,8 @@
 - (void)_pause:(nullable SKErrorCallback)callback;
 - (void)_stop:(nullable SKErrorCallback)callback;
 - (void)_seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
+- (void)_getCurrentPosition:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
+- (void)_getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
 
 #pragma mark - Protected
 
