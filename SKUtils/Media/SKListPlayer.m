@@ -162,6 +162,10 @@
 
 #pragma mark - SKPlayer
 
+- (SKPlayerState)state {
+    return _innerPlayer.state;
+}
+
 - (BOOL)looping {
     return _innerPlayer.looping;
 }
