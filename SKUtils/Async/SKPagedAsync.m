@@ -60,7 +60,7 @@
             [_cache setObject:appendedPage forKey:cacheKey];
             
             dispatch_async(_callbackQueue, ^{
-                success(cachedPagedList.list, cachedPagedList.finished);
+                success(appendedPage.list, appendedPage.finished);
             });
         };
         
