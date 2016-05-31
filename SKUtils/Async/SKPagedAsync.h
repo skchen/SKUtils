@@ -15,10 +15,10 @@ typedef void (^SKPagedListCallback)(NSArray  * _Nonnull list, BOOL finished);
 @property(nonatomic, strong, readonly, nonnull) NSArray *list;
 @property(nonatomic, readonly) BOOL finished;
 
+- (void)append:(nonnull id<SKPagedList>)newPage;
+
 @end
 
 @interface SKPagedAsync : SKAsync
-
-- (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ...;
 
 @end
