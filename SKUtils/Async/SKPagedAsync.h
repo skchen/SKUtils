@@ -15,7 +15,7 @@ typedef void (^SKPagedListCallback)(NSArray  * _Nonnull list, BOOL finished);
 @property(nonatomic, strong, readonly, nonnull) NSArray *list;
 @property(nonatomic, readonly) BOOL finished;
 
-- (void)append:(nonnull id<SKPagedList>)newPage;
+- (void)append:(nonnull id)newPage;
 
 @end
 
