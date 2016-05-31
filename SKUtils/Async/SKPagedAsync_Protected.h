@@ -8,9 +8,8 @@
 
 #import "SKPagedAsync.h"
 #import "SKAsync_Protected.h"
-#import "SKPagedList.h"
 
-typedef NSError * _Nullable (^SKPagedListRequest)(SKPagedList * _Nonnull pagedList);
+typedef NSError * _Nullable (^SKPagedListRequest)(id<SKPagedList> _Nullable pagedList);
 
 @interface SKPagedAsync ()
 

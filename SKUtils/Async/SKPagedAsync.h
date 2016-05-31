@@ -10,6 +10,13 @@
 
 typedef void (^SKPagedListCallback)(NSArray  * _Nonnull list, BOOL finished);
 
+@protocol SKPagedList <NSObject>
+
+@property(nonatomic, strong, readonly, nonnull) NSArray *list;
+@property(nonatomic, assign) BOOL finished;
+
+@end
+
 @interface SKPagedAsync : SKAsync
 
 @end

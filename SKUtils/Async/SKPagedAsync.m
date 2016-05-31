@@ -22,13 +22,9 @@
 
 - (void)pagedList:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKPagedListRequest)request success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
     
-    SKPagedList *cachedPagedList = [_cache objectForKey:cacheKey];
+    id<SKPagedList> cachedPagedList = [_cache objectForKey:cacheKey];
     
     if(refresh || (!cachedPagedList) || (extend && !cachedPagedList.finished) ) {
-        if(!cachedPagedList) {
-            cachedPagedList = [[SKPagedList alloc] init];
-        }
-        
         dispatch_async(_workerQueue, ^{
             NSError *error = request(cachedPagedList);
             
