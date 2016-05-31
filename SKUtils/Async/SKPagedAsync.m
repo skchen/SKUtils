@@ -20,11 +20,16 @@
     return self;
 }
 
-- (void)pagedList:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKPagedListRequest)request success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
+- (void)pagedList:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey initial:(nonnull SKPagedListInitial)initial request:(nonnull SKPagedListRequest)request success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
     
     id<SKPagedList> cachedPagedList = [_cache objectForKey:cacheKey];
     
     if(refresh || (!cachedPagedList) || (extend && !cachedPagedList.finished) ) {
+        
+        if( refresh || (!cachedPagedList) ) {
+            cachedPagedList = initial();
+        }
+        
         dispatch_async(_workerQueue, ^{
             NSError *error = request(cachedPagedList);
             
