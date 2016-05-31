@@ -19,4 +19,6 @@ typedef void (^SKPagedListCallback)(NSArray  * _Nonnull list, BOOL finished);
 
 @interface SKPagedAsync : SKAsync
 
+- (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ...;
+
 @end

@@ -52,4 +52,24 @@
     }
 }
 
+- (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ... {
+    NSMutableString *newContentString = [NSMutableString string];
+    
+    va_list args;
+    va_start(args, numberOfElements);
+    for(int i=0; i<numberOfElements; i++) {
+        if(i>0) {
+            [newContentString appendString:@"/"];
+        }
+        
+        NSString *arg = va_arg(args, NSString*);
+        if(arg) {
+            [newContentString appendString:arg];
+        }
+    }
+    va_end(args);
+    
+    return newContentString;
+}
+
 @end
