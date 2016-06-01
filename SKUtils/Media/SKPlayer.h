@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, SKPlayerState) {
 @property(nonatomic, readonly) SKPlayerState state;
 
 @property(nonatomic, strong, readonly, nullable) DataSourceType source;
-@property(nonatomic, strong, readonly, nullable) DataSourceType current;
+@property(nonatomic, strong, readonly, nullable) id current;
 @property(nonatomic, weak, nullable) id<SKPlayerDelegate> delegate;
 
 @property(nonatomic, assign) BOOL looping;

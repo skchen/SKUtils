@@ -19,7 +19,7 @@
 
 #pragma mark - Abstract
 
-- (void)_setDataSource:(nonnull NSString *)source;
+- (void)_setDataSource:(nonnull id)source;
 - (void)_prepare:(nullable SKErrorCallback)callback;
 - (void)_start:(nullable SKErrorCallback)callback;
 - (void)_pause:(nullable SKErrorCallback)callback;

@@ -17,8 +17,8 @@
 - (nonnull instancetype)initWithPlayer:(nonnull SKPlayer<DataSourceType> *)player;
 
 - (void)setDataSource:(nonnull id)source atIndex:(NSUInteger)index;
-- (void)addDataSource:(nonnull DataSourceType)source;
-- (void)addDataSource:(nonnull DataSourceType)source atIndex:(NSUInteger)index;
+- (void)addDataSource:(nonnull id)source;
+- (void)addDataSource:(nonnull id)source atIndex:(NSUInteger)index;
 
 - (void)previous:(nullable SKErrorCallback)callback;
 - (void)next:(nullable SKErrorCallback)callback;
