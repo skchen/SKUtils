@@ -14,12 +14,6 @@
 
 @implementation SKPagedAsync
 
-- (nonnull instancetype)init {
-    self = [super init];
-    _cache = [[NSMutableDictionary alloc] init];
-    return self;
-}
-
 - (void)pagedList:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKPagedListRequest)request success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
 
     [self pagedListAsync:refresh extend:extend cacheKey:cacheKey request:^(id<SKPagedList>  _Nullable pagedList, SKWrappedPagedListCallback  _Nonnull success, SKErrorCallback  _Nonnull failure) {

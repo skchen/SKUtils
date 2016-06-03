@@ -6,7 +6,7 @@
 //  Copyright © 2016年 SK. All rights reserved.
 //
 
-#import <SKUtils/SKUtils.h>
+#import "SKCachedAsync.h"
 
 typedef void (^SKPagedListCallback)(NSArray  * _Nonnull list, BOOL finished);
 
@@ -19,6 +19,6 @@ typedef void (^SKPagedListCallback)(NSArray  * _Nonnull list, BOOL finished);
 
 @end
 
-@interface SKPagedAsync : SKAsync
+@interface SKPagedAsync : SKCachedAsync
 
 @end
