@@ -27,6 +27,15 @@
 		822586CB1CBC003D00E01E7D /* SKTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 822586C71CBC003D00E01E7D /* SKTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		822586CC1CBC003D00E01E7D /* SKTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586C81CBC003D00E01E7D /* SKTaskQueue.m */; };
 		822586CF1CBC004600E01E7D /* SKTaskQueueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586CE1CBC004600E01E7D /* SKTaskQueueTest.m */; };
+		82269B451D0168020049C463 /* SKPagedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B421D0168020049C463 /* SKPagedAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82269B461D0168020049C463 /* SKPagedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82269B431D0168020049C463 /* SKPagedAsync.m */; };
+		82269B471D0168020049C463 /* SKPagedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B441D0168020049C463 /* SKPagedAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82269B4A1D01681F0049C463 /* SKCachedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B481D01681F0049C463 /* SKCachedAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82269B4B1D01681F0049C463 /* SKCachedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B481D01681F0049C463 /* SKCachedAsync.h */; };
+		82269B4C1D01681F0049C463 /* SKCachedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82269B491D01681F0049C463 /* SKCachedAsync.m */; };
+		82269B4D1D01681F0049C463 /* SKCachedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82269B491D01681F0049C463 /* SKCachedAsync.m */; };
+		82269B501D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82269B511D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */; };
 		826803581CA94AE700C8B952 /* SKUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803571CA94AE700C8B952 /* SKUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8268035F1CA94AE700C8B952 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 826803541CA94AE600C8B952 /* SKUtils.framework */; };
 		826803641CA94AE700C8B952 /* SKUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803631CA94AE700C8B952 /* SKUtilsTests.m */; };
@@ -60,12 +69,6 @@
 		82A78AB91CE5A93D00629C64 /* SKAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A78AB51CE5A93D00629C64 /* SKAsync.m */; };
 		82A78ABB1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82A78ABC1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82ABC7FA1CEAED6300056232 /* SKPagedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82ABC7F81CEAED6300056232 /* SKPagedAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82ABC7FB1CEAED6300056232 /* SKPagedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82ABC7F81CEAED6300056232 /* SKPagedAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82ABC7FC1CEAED6300056232 /* SKPagedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82ABC7F91CEAED6300056232 /* SKPagedAsync.m */; };
-		82ABC7FD1CEAED6300056232 /* SKPagedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82ABC7F91CEAED6300056232 /* SKPagedAsync.m */; };
-		82ABC7FF1CEAED9700056232 /* SKPagedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82ABC7FE1CEAED9700056232 /* SKPagedAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82ABC8001CEAED9700056232 /* SKPagedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82ABC7FE1CEAED9700056232 /* SKPagedAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82B901DB1CCE4F50008473EF /* SKListPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901D91CCE4F50008473EF /* SKListPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82B901DC1CCE4F50008473EF /* SKListPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 82B901D91CCE4F50008473EF /* SKListPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82B901DD1CCE4F50008473EF /* SKListPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B901DA1CCE4F50008473EF /* SKListPlayer.m */; };
@@ -108,6 +111,12 @@
 		822586C71CBC003D00E01E7D /* SKTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTaskQueue.h; sourceTree = "<group>"; };
 		822586C81CBC003D00E01E7D /* SKTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTaskQueue.m; sourceTree = "<group>"; };
 		822586CE1CBC004600E01E7D /* SKTaskQueueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTaskQueueTest.m; sourceTree = "<group>"; };
+		82269B421D0168020049C463 /* SKPagedAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPagedAsync.h; sourceTree = "<group>"; };
+		82269B431D0168020049C463 /* SKPagedAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPagedAsync.m; sourceTree = "<group>"; };
+		82269B441D0168020049C463 /* SKPagedAsync_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPagedAsync_Protected.h; sourceTree = "<group>"; };
+		82269B481D01681F0049C463 /* SKCachedAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCachedAsync.h; sourceTree = "<group>"; };
+		82269B491D01681F0049C463 /* SKCachedAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCachedAsync.m; sourceTree = "<group>"; };
+		82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCachedAsync_Protected.h; sourceTree = "<group>"; };
 		826803541CA94AE600C8B952 /* SKUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SKUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		826803571CA94AE700C8B952 /* SKUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKUtils.h; sourceTree = "<group>"; };
 		826803591CA94AE700C8B952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,9 +143,6 @@
 		82A78AB41CE5A93D00629C64 /* SKAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAsync.h; sourceTree = "<group>"; };
 		82A78AB51CE5A93D00629C64 /* SKAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAsync.m; sourceTree = "<group>"; };
 		82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAsync_Protected.h; sourceTree = "<group>"; };
-		82ABC7F81CEAED6300056232 /* SKPagedAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKPagedAsync.h; path = ../Async/SKPagedAsync.h; sourceTree = "<group>"; };
-		82ABC7F91CEAED6300056232 /* SKPagedAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKPagedAsync.m; path = ../Async/SKPagedAsync.m; sourceTree = "<group>"; };
-		82ABC7FE1CEAED9700056232 /* SKPagedAsync_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKPagedAsync_Protected.h; path = ../Async/SKPagedAsync_Protected.h; sourceTree = "<group>"; };
 		82B901D91CCE4F50008473EF /* SKListPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKListPlayer.h; sourceTree = "<group>"; };
 		82B901DA1CCE4F50008473EF /* SKListPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKListPlayer.m; sourceTree = "<group>"; };
 		82B901E31CCF3EB2008473EF /* SKListPlayer_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKListPlayer_Protected.h; sourceTree = "<group>"; };
@@ -191,6 +197,27 @@
 			path = Task;
 			sourceTree = "<group>";
 		};
+		82269B401D0168020049C463 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				82269B481D01681F0049C463 /* SKCachedAsync.h */,
+				82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */,
+				82269B491D01681F0049C463 /* SKCachedAsync.m */,
+				82269B411D0168020049C463 /* Page */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		82269B411D0168020049C463 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				82269B421D0168020049C463 /* SKPagedAsync.h */,
+				82269B441D0168020049C463 /* SKPagedAsync_Protected.h */,
+				82269B431D0168020049C463 /* SKPagedAsync.m */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
 		8268034A1CA94AE600C8B952 = {
 			isa = PBXGroup;
 			children = (
@@ -214,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				82D66FF41CFBBE1600FD8A19 /* Utils */,
-				82ABC7F11CEAEA4B00056232 /* Page */,
 				82A78AB31CE5A92300629C64 /* Async */,
 				8294139A1CC669EE002F6594 /* Media */,
 				822586C41CBC003D00E01E7D /* Task */,
@@ -291,18 +317,9 @@
 				82A78AB41CE5A93D00629C64 /* SKAsync.h */,
 				82A78ABA1CE5BC8000629C64 /* SKAsync_Protected.h */,
 				82A78AB51CE5A93D00629C64 /* SKAsync.m */,
+				82269B401D0168020049C463 /* Cache */,
 			);
 			path = Async;
-			sourceTree = "<group>";
-		};
-		82ABC7F11CEAEA4B00056232 /* Page */ = {
-			isa = PBXGroup;
-			children = (
-				82ABC7F81CEAED6300056232 /* SKPagedAsync.h */,
-				82ABC7FE1CEAED9700056232 /* SKPagedAsync_Protected.h */,
-				82ABC7F91CEAED6300056232 /* SKPagedAsync.m */,
-			);
-			path = Page;
 			sourceTree = "<group>";
 		};
 		82D66FF41CFBBE1600FD8A19 /* Utils */ = {
@@ -328,10 +345,12 @@
 				8294139D1CC66A32002F6594 /* SKPlayer.h in Headers */,
 				829413A21CC66B71002F6594 /* SKPlayer_Protected.h in Headers */,
 				82B901DB1CCE4F50008473EF /* SKListPlayer.h in Headers */,
+				82269B4A1D01681F0049C463 /* SKCachedAsync.h in Headers */,
+				82269B501D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */,
+				82269B471D0168020049C463 /* SKPagedAsync_Protected.h in Headers */,
+				82269B451D0168020049C463 /* SKPagedAsync.h in Headers */,
 				82A78ABB1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */,
 				82A78AB61CE5A93D00629C64 /* SKAsync.h in Headers */,
-				82ABC7FF1CEAED9700056232 /* SKPagedAsync_Protected.h in Headers */,
-				82ABC7FA1CEAED6300056232 /* SKPagedAsync.h in Headers */,
 				82B901E41CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
 				82D66FF61CFBBE3700FD8A19 /* SKAbstractClassUtils.h in Headers */,
 				8268040D1CAC26E400C8B952 /* SKLruArray.h in Headers */,
@@ -353,11 +372,11 @@
 				82B901E51CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
 				82A78ABC1CE5BC8000629C64 /* SKAsync_Protected.h in Headers */,
 				82A78AB71CE5A93D00629C64 /* SKAsync.h in Headers */,
-				82ABC8001CEAED9700056232 /* SKPagedAsync_Protected.h in Headers */,
-				82ABC7FB1CEAED6300056232 /* SKPagedAsync.h in Headers */,
 				829412B81CC521B8002F6594 /* SKTaskQueue.h in Headers */,
 				82D66FF71CFBBE3700FD8A19 /* SKAbstractClassUtils.h in Headers */,
+				82269B511D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */,
 				82B901DC1CCE4F50008473EF /* SKListPlayer.h in Headers */,
+				82269B4B1D01681F0049C463 /* SKCachedAsync.h in Headers */,
 				82FB6D911CB6E5AE000DE9E9 /* SKUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,10 +545,11 @@
 				822586CC1CBC003D00E01E7D /* SKTaskQueue.m in Sources */,
 				8294139F1CC66A32002F6594 /* SKPlayer.m in Sources */,
 				8268040E1CAC26E400C8B952 /* SKLruArray.m in Sources */,
+				82269B461D0168020049C463 /* SKPagedAsync.m in Sources */,
 				82A78AB81CE5A93D00629C64 /* SKAsync.m in Sources */,
 				822586CA1CBC003D00E01E7D /* SKTask.m in Sources */,
 				826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */,
-				82ABC7FC1CEAED6300056232 /* SKPagedAsync.m in Sources */,
+				82269B4C1D01681F0049C463 /* SKCachedAsync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,8 +578,8 @@
 				82FB6D891CB6E5AE000DE9E9 /* SKOrderedDictionary.m in Sources */,
 				82A78AB91CE5A93D00629C64 /* SKAsync.m in Sources */,
 				829412B91CC524C7002F6594 /* SKTask.m in Sources */,
+				82269B4D1D01681F0049C463 /* SKCachedAsync.m in Sources */,
 				829412BA1CC524C9002F6594 /* SKTaskQueue.m in Sources */,
-				82ABC7FD1CEAED6300056232 /* SKPagedAsync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

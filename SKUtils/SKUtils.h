@@ -25,6 +25,8 @@ FOUNDATION_EXPORT const unsigned char SKUtilsVersionString[];
 
 #import <SKUtils/SKAsync.h>
 #import <SKUtils/SKAsync_Protected.h>
+#import <SKUtils/SKCachedAsync.h>
+#import <SKUtils/SKCachedAsync_Protected.h>
 #import <SKUtils/SKPagedAsync.h>
 #import <SKUtils/SKPagedAsync_Protected.h>
 

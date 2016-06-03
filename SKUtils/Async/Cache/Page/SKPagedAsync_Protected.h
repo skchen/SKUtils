@@ -20,6 +20,4 @@ typedef void (^SKAsyncPagedListRequest)(id<SKPagedList> _Nullable pagedList, SKW
 - (void)pagedList:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKPagedListRequest)request success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure;
 - (void)pagedListAsync:(BOOL)refresh extend:(BOOL)extend cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKAsyncPagedListRequest)request success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure;
 
-- (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ...;
-
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^SKObjectCallback)(id _Nonnull object);
 typedef void (^SKTimeCallback)(NSTimeInterval interval);
 typedef void (^SKListCallback)(NSArray  * _Nonnull list);
 typedef void (^SKErrorCallback)(NSError * _Nullable error);
