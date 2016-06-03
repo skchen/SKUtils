@@ -20,6 +20,26 @@
     return self;
 }
 
++ (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ... {
+    NSMutableString *newContentString = [NSMutableString string];
+    
+    va_list args;
+    va_start(args, numberOfElements);
+    for(int i=0; i<numberOfElements; i++) {
+        if(i>0) {
+            [newContentString appendString:@"/"];
+        }
+        
+        NSString *arg = va_arg(args, NSString*);
+        if(arg) {
+            [newContentString appendString:arg];
+        }
+    }
+    va_end(args);
+    
+    return newContentString;
+}
+
 - (void)cache:(BOOL)refresh cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKObjectRequest)request success:(nonnull SKObjectCallback)success failure:(nonnull SKErrorCallback)failure {
     
     [self cacheAsync:refresh cacheKey:cacheKey request:^(SKObjectCallback  _Nonnull success, SKErrorCallback  _Nonnull failure) {
@@ -63,26 +83,6 @@
             success(cachedObject);
         });
     }
-}
-
-+ (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ... {
-    NSMutableString *newContentString = [NSMutableString string];
-    
-    va_list args;
-    va_start(args, numberOfElements);
-    for(int i=0; i<numberOfElements; i++) {
-        if(i>0) {
-            [newContentString appendString:@"/"];
-        }
-        
-        NSString *arg = va_arg(args, NSString*);
-        if(arg) {
-            [newContentString appendString:arg];
-        }
-    }
-    va_end(args);
-    
-    return newContentString;
 }
 
 @end

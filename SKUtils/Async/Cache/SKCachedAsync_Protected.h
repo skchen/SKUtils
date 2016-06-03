@@ -18,4 +18,7 @@ typedef void (^SKAsyncObjectRequest)(SKObjectCallback _Nonnull success, SKErrorC
 
 @property(nonatomic, strong, readonly, nonnull) NSMutableDictionary *cache;
 
+- (void)cache:(BOOL)refresh cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKObjectRequest)request success:(nonnull SKObjectCallback)success failure:(nonnull SKErrorCallback)failure;
+- (void)cacheAsync:(BOOL)refresh cacheKey:(nonnull id<NSCopying>)cacheKey request:(nonnull SKAsyncObjectRequest)asyncRequest success:(nonnull SKObjectCallback)success failure:(nonnull SKErrorCallback)failure;
+
 @end
