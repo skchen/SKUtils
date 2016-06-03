@@ -10,4 +10,6 @@
 
 @interface SKCachedAsync : SKAsync
 
++ (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ...;
+
 @end

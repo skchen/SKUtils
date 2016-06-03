@@ -65,7 +65,7 @@
     }
 }
 
-- (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ... {
++ (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ... {
     NSMutableString *newContentString = [NSMutableString string];
     
     va_list args;

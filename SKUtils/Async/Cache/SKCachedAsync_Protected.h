@@ -18,6 +18,4 @@ typedef void (^SKAsyncObjectRequest)(SKObjectCallback _Nonnull success, SKErrorC
 
 @property(nonatomic, strong, readonly, nonnull) NSMutableDictionary *cache;
 
-- (nonnull NSString *)cacheKeyWithElements:(NSUInteger)numberOfElements, ...;
-
 @end
