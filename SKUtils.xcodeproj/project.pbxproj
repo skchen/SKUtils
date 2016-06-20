@@ -31,11 +31,15 @@
 		82269B461D0168020049C463 /* SKPagedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82269B431D0168020049C463 /* SKPagedAsync.m */; };
 		82269B471D0168020049C463 /* SKPagedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B441D0168020049C463 /* SKPagedAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82269B4A1D01681F0049C463 /* SKCachedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B481D01681F0049C463 /* SKCachedAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82269B4B1D01681F0049C463 /* SKCachedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B481D01681F0049C463 /* SKCachedAsync.h */; };
+		82269B4B1D01681F0049C463 /* SKCachedAsync.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B481D01681F0049C463 /* SKCachedAsync.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82269B4C1D01681F0049C463 /* SKCachedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82269B491D01681F0049C463 /* SKCachedAsync.m */; };
 		82269B4D1D01681F0049C463 /* SKCachedAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 82269B491D01681F0049C463 /* SKCachedAsync.m */; };
 		82269B501D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82269B511D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */; };
+		82269B511D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8244FAD01D177F44005AAC67 /* SKBonjourDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 8244FACE1D177F44005AAC67 /* SKBonjourDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8244FAD11D177F44005AAC67 /* SKBonjourDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 8244FACE1D177F44005AAC67 /* SKBonjourDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8244FAD21D177F44005AAC67 /* SKBonjourDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8244FACF1D177F44005AAC67 /* SKBonjourDevice.m */; };
+		8244FAD31D177F44005AAC67 /* SKBonjourDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8244FACF1D177F44005AAC67 /* SKBonjourDevice.m */; };
 		826803581CA94AE700C8B952 /* SKUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 826803571CA94AE700C8B952 /* SKUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8268035F1CA94AE700C8B952 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 826803541CA94AE600C8B952 /* SKUtils.framework */; };
 		826803641CA94AE700C8B952 /* SKUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 826803631CA94AE700C8B952 /* SKUtilsTests.m */; };
@@ -117,6 +121,8 @@
 		82269B481D01681F0049C463 /* SKCachedAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCachedAsync.h; sourceTree = "<group>"; };
 		82269B491D01681F0049C463 /* SKCachedAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCachedAsync.m; sourceTree = "<group>"; };
 		82269B4F1D01693E0049C463 /* SKCachedAsync_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCachedAsync_Protected.h; sourceTree = "<group>"; };
+		8244FACE1D177F44005AAC67 /* SKBonjourDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKBonjourDevice.h; sourceTree = "<group>"; };
+		8244FACF1D177F44005AAC67 /* SKBonjourDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKBonjourDevice.m; sourceTree = "<group>"; };
 		826803541CA94AE600C8B952 /* SKUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SKUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		826803571CA94AE700C8B952 /* SKUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKUtils.h; sourceTree = "<group>"; };
 		826803591CA94AE700C8B952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -218,6 +224,15 @@
 			path = Page;
 			sourceTree = "<group>";
 		};
+		8244FACD1D177F25005AAC67 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				8244FACE1D177F44005AAC67 /* SKBonjourDevice.h */,
+				8244FACF1D177F44005AAC67 /* SKBonjourDevice.m */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
 		8268034A1CA94AE600C8B952 = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +255,7 @@
 		826803561CA94AE600C8B952 /* SKUtils */ = {
 			isa = PBXGroup;
 			children = (
+				8244FACD1D177F25005AAC67 /* Discovery */,
 				82D66FF41CFBBE1600FD8A19 /* Utils */,
 				82A78AB31CE5A92300629C64 /* Async */,
 				8294139A1CC669EE002F6594 /* Media */,
@@ -354,6 +370,7 @@
 				82B901E41CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
 				82D66FF61CFBBE3700FD8A19 /* SKAbstractClassUtils.h in Headers */,
 				8268040D1CAC26E400C8B952 /* SKLruArray.h in Headers */,
+				8244FAD01D177F44005AAC67 /* SKBonjourDevice.h in Headers */,
 				826803581CA94AE700C8B952 /* SKUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,9 +391,10 @@
 				82A78AB71CE5A93D00629C64 /* SKAsync.h in Headers */,
 				829412B81CC521B8002F6594 /* SKTaskQueue.h in Headers */,
 				82D66FF71CFBBE3700FD8A19 /* SKAbstractClassUtils.h in Headers */,
+				8244FAD11D177F44005AAC67 /* SKBonjourDevice.h in Headers */,
 				82269B511D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */,
-				82B901DC1CCE4F50008473EF /* SKListPlayer.h in Headers */,
 				82269B4B1D01681F0049C463 /* SKCachedAsync.h in Headers */,
+				82B901DC1CCE4F50008473EF /* SKListPlayer.h in Headers */,
 				82FB6D911CB6E5AE000DE9E9 /* SKUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -548,6 +566,7 @@
 				82269B461D0168020049C463 /* SKPagedAsync.m in Sources */,
 				82A78AB81CE5A93D00629C64 /* SKAsync.m in Sources */,
 				822586CA1CBC003D00E01E7D /* SKTask.m in Sources */,
+				8244FAD21D177F44005AAC67 /* SKBonjourDevice.m in Sources */,
 				826803771CA95DE500C8B952 /* SKOrderedDictionary.m in Sources */,
 				82269B4C1D01681F0049C463 /* SKCachedAsync.m in Sources */,
 			);
@@ -580,6 +599,7 @@
 				829412B91CC524C7002F6594 /* SKTask.m in Sources */,
 				82269B4D1D01681F0049C463 /* SKCachedAsync.m in Sources */,
 				829412BA1CC524C9002F6594 /* SKTaskQueue.m in Sources */,
+				8244FAD31D177F44005AAC67 /* SKBonjourDevice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
