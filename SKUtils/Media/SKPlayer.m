@@ -194,6 +194,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
     SKLog(@"seekTo @ %@", @(_state));
     
     switch (_state) {
+        case SKPlayerPrepared:
         case SKPlayerStarted: {
             dispatch_async(self.workerQueue, ^{
                 [self _seekTo:time success:[self wrappedTimeCallback:success] failure:[self wrappedErrorCallback:failure]];
