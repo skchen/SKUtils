@@ -22,6 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		822342921D2435700018E528 /* SKLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 822342911D2435700018E528 /* SKLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		822342931D2435700018E528 /* SKLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 822342911D2435700018E528 /* SKLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		822586C91CBC003D00E01E7D /* SKTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 822586C51CBC003D00E01E7D /* SKTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		822586CA1CBC003D00E01E7D /* SKTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 822586C61CBC003D00E01E7D /* SKTask.m */; };
 		822586CB1CBC003D00E01E7D /* SKTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 822586C71CBC003D00E01E7D /* SKTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -110,6 +112,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		822342911D2435700018E528 /* SKLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLog.h; sourceTree = "<group>"; };
 		822586C51CBC003D00E01E7D /* SKTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTask.h; sourceTree = "<group>"; };
 		822586C61CBC003D00E01E7D /* SKTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTask.m; sourceTree = "<group>"; };
 		822586C71CBC003D00E01E7D /* SKTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTaskQueue.h; sourceTree = "<group>"; };
@@ -184,6 +187,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		822342901D24355F0018E528 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				822342911D2435700018E528 /* SKLog.h */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
 		822586C41CBC003D00E01E7D /* Task */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +266,7 @@
 		826803561CA94AE600C8B952 /* SKUtils */ = {
 			isa = PBXGroup;
 			children = (
+				822342901D24355F0018E528 /* Log */,
 				8244FACD1D177F25005AAC67 /* Discovery */,
 				82D66FF41CFBBE1600FD8A19 /* Utils */,
 				82A78AB31CE5A92300629C64 /* Async */,
@@ -370,6 +382,7 @@
 				82B901E41CCF3EB2008473EF /* SKListPlayer_Protected.h in Headers */,
 				82D66FF61CFBBE3700FD8A19 /* SKAbstractClassUtils.h in Headers */,
 				8268040D1CAC26E400C8B952 /* SKLruArray.h in Headers */,
+				822342921D2435700018E528 /* SKLog.h in Headers */,
 				8244FAD01D177F44005AAC67 /* SKBonjourDevice.h in Headers */,
 				826803581CA94AE700C8B952 /* SKUtils.h in Headers */,
 			);
@@ -394,6 +407,7 @@
 				8244FAD11D177F44005AAC67 /* SKBonjourDevice.h in Headers */,
 				82269B511D01693E0049C463 /* SKCachedAsync_Protected.h in Headers */,
 				82269B4B1D01681F0049C463 /* SKCachedAsync.h in Headers */,
+				822342931D2435700018E528 /* SKLog.h in Headers */,
 				82B901DC1CCE4F50008473EF /* SKListPlayer.h in Headers */,
 				82FB6D911CB6E5AE000DE9E9 /* SKUtils.h in Headers */,
 			);

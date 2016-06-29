@@ -10,8 +10,9 @@
 
 #import "SKAbstractClassUtils.h"
 
-//#define SKLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-#define SKLog(__FORMAT__, ...)
+#import "SKLog.h"
+
+//#define SKLog(__FORMAT__, ...)
 
 static NSString * const kErrorMessageIllegalState = @"IllegalState";
 
@@ -191,10 +192,41 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 }
 
 - (void)seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure {
-    SKLog(@"seekTo @ %@", @(_state));
+    SKLog(@"seekTo %@ @ %@", @(time), @(_state));
     
     switch (_state) {
-        case SKPlayerPrepared:
+        case SKPlayerStopped: {
+            dispatch_async(self.workerQueue, ^{
+                [self prepare:^(NSError * _Nullable error) {
+                    if(error) {
+                        if(failure) {
+                            dispatch_async(self.callbackQueue, ^{
+                                failure(error);
+                            });
+                        }
+                    } else {
+                        [self seekTo:time success:success failure:failure];
+                    }
+                }];
+            });
+        }
+            break;
+            
+        case SKPlayerPrepared: {
+            [self start:^(NSError * _Nullable error) {
+                if(error) {
+                    if(failure) {
+                        dispatch_async(self.callbackQueue, ^{
+                            failure(error);
+                        });
+                    }
+                } else {
+                    [self seekTo:time success:success failure:failure];
+                }
+            }];
+        }
+            break;
+            
         case SKPlayerStarted: {
             dispatch_async(self.workerQueue, ^{
                 [self _seekTo:time success:[self wrappedTimeCallback:success] failure:[self wrappedErrorCallback:failure]];
@@ -248,14 +280,17 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 
 - (void)notifyError:(nonnull NSError *)error callback:(nullable SKErrorCallback)callback {
     
-    [self changeState:SKPlayerStopped callback:callback];
+    [self changeState:SKPlayerStopped callback:nil];
     
     dispatch_async(self.callbackQueue, ^{
         if([_delegate respondsToSelector:@selector(player:didReceiveError:)]) {
             [_delegate player:self didReceiveError:error];
         }
+        
+        if(callback) {
+            callback(error);
+        }
     });
-    
 }
 
 - (void)notifyErrorMessage:(nonnull NSString *)message callback:(nullable SKErrorCallback)callback {

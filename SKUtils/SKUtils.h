@@ -38,3 +38,5 @@ FOUNDATION_EXPORT const unsigned char SKUtilsVersionString[];
 #import <SKUtils/SKAbstractClassUtils.h>
 
 #import <SKUtils/SKBonjourDevice.h>
+
+#import <SKUtils/SKLog.h>
