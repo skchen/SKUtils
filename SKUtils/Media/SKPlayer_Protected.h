@@ -34,5 +34,6 @@
 - (void)notifyCompletion:(nullable SKErrorCallback)callback;
 - (void)notifyError:(nonnull NSError *)error callback:(nullable SKErrorCallback)callback;
 - (void)notifyErrorMessage:(nonnull NSString *)message callback:(nullable SKErrorCallback)callback;
+- (void)notifyIllegalStateException:(nullable SKErrorCallback)callback;
 
 @end
