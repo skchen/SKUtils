@@ -10,8 +10,6 @@
 
 @interface SKListPlayer () <SKPlayerDelegate>
 
-@property(nonatomic, strong, readonly, nonnull) SKPlayer *innerPlayer;
-
 @end
 
 @implementation SKListPlayer

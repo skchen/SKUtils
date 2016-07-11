@@ -11,9 +11,10 @@
 #import "SKAbstractClassUtils.h"
 
 #import "SKLog.h"
-
-//#define SKLog(__FORMAT__, ...)
-
+/*
+#undef SKLog
+#define SKLog(__FORMAT__, ...)
+*/
 static NSString * const kErrorMessageIllegalState = @"IllegalState";
 
 @implementation SKPlayer

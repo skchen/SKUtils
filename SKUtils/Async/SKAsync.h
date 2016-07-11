@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^SKObjectCallback)(id _Nonnull object);
+typedef void (^SKObjectCallback)(id _Nullable object);
 typedef void (^SKTimeCallback)(NSTimeInterval interval);
-typedef void (^SKListCallback)(NSArray  * _Nonnull list);
+typedef void (^SKListCallback)(NSArray  * _Nullable list);
 typedef void (^SKErrorCallback)(NSError * _Nullable error);
 
 @interface SKAsync : NSObject {
