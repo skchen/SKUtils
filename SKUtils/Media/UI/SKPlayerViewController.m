@@ -66,6 +66,7 @@
 - (void)updateState {
     if(_player.state==SKPlayerPlaying) {
         [_playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+        [self updateProgressLater];
     } else {
         [_playPauseButton setTitle:@"Play" forState:UIControlStateNormal];
     }
@@ -126,7 +127,6 @@
     switch (state) {
         case SKPlayerPlaying:
             [_loadingView stopAnimating];
-            [self updateProgressLater];
             break;
             
         case SKPlayerStopped:

@@ -19,6 +19,8 @@
 
 - (void)_setSource:(nonnull id)source callback:(nullable SKErrorCallback)callback;
 
+- (void)_getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
+- (void)_getProgress:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
 - (void)_seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
 
 @end

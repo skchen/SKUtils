@@ -124,6 +124,18 @@
 
 #pragma mark - Progress
 
+- (void)getDuration:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    dispatch_async(self.workerQueue, ^{
+        [self _getDuration:[self wrappedTimeCallback:success] failure:[self wrappedErrorCallback:failure]];
+    });
+}
+
+- (void)getProgress:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    dispatch_async(self.workerQueue, ^{
+        [self _getProgress:[self wrappedTimeCallback:success] failure:[self wrappedErrorCallback:failure]];
+    });
+}
+
 - (void)seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
     switch (_state) {
         case SKPlayerPlaying: {
@@ -158,6 +170,14 @@
 }
 
 - (void)_setSource:(nonnull id)source callback:(nullable SKErrorCallback)callback {
+    [self changeSource:source callback:callback];
+}
+
+- (void)_getDuration:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    THROW_NOT_OVERRIDE_EXCEPTION
+}
+
+- (void)_getProgress:(SKTimeCallback)success failure:(SKErrorCallback)failure {
     THROW_NOT_OVERRIDE_EXCEPTION
 }
 

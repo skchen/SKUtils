@@ -84,11 +84,14 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 - (void)changeSource:(id)source callback:(nullable SKErrorCallback)callback {
     SKLog(@"changeSource:%@", source);
     
+    BOOL changeSource = (_source!=source);
     _source = source;
     
     dispatch_async(self.callbackQueue, ^{
-        if([_delegate respondsToSelector:@selector(playerDidChangeSource:)]) {
-            [_delegate playerDidChangeSource:self];
+        if(changeSource) {
+            if([_delegate respondsToSelector:@selector(playerDidChangeSource:)]) {
+                [_delegate playerDidChangeSource:self];
+            }
         }
         
         if(callback) {
