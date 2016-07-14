@@ -30,12 +30,16 @@ FOUNDATION_EXPORT const unsigned char SKUtilsVersionString[];
 #import <SKUtils/SKPagedAsync.h>
 #import <SKUtils/SKPagedAsync_Protected.h>
 
+#import <SKUtils/SKAbstractClassUtils.h>
+
 #import <SKUtils/SKPlayer.h>
 #import <SKUtils/SKPlayer_Protected.h>
 #import <SKUtils/SKListPlayer.h>
-#import <SKUtils/SKListPlayer_Protected.h>
+#import <SKUtils/SKSimplePlayer.h>
+#import <SKUtils/SKNestedListPlayer.h>
 
-#import <SKUtils/SKAbstractClassUtils.h>
+#import <SKUtils/SKPlayerViewController.h>
+#import <SKUtils/SKListPlayerViewController.h>
 
 #import <SKUtils/SKBonjourDevice.h>
 

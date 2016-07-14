@@ -11,10 +11,9 @@
 #import "SKAsync.h"
 
 typedef NS_ENUM(NSUInteger, SKPlayerState) {
+    SKPlayerUnknown,
     SKPlayerStopped,
-    SKPlayerPreparing,
-    SKPlayerPrepared,
-    SKPlayerStarted,
+    SKPlayerPlaying,
     SKPlayerPaused
 };
 
@@ -23,35 +22,43 @@ typedef NS_ENUM(NSUInteger, SKPlayerState) {
 @protocol SKPlayerDelegate <NSObject>
 
 @optional
-- (void)player:(nonnull SKPlayer *)player didChangeState:(SKPlayerState)newState;
+- (void)playerDidChangeState:(nonnull SKPlayer *)player;
+- (void)playerDidChangeSource:(nonnull SKPlayer *)player;
+- (void)playerDidChangeMode:(nonnull SKPlayer *)player;
 
-- (void)playerDidComplete:(nonnull SKPlayer *)player;
+- (void)playerDidComplete:(nonnull SKPlayer *)player playback:(nonnull id)source;
+
 - (void)player:(nonnull SKPlayer *)player didReceiveError:(nonnull NSError *)error;
 
 @end
 
-@interface SKPlayer<DataSourceType> : SKAsync
+@interface SKPlayer : SKAsync
+
+@property(nonatomic, weak, nullable) id<SKPlayerDelegate> delegate;
+
+#pragma mark - State
 
 @property(nonatomic, readonly) SKPlayerState state;
 
-@property(nonatomic, strong, readonly, nullable) DataSourceType source;
-@property(nonatomic, strong, readonly, nullable) id current;
-@property(nonatomic, weak, nullable) id<SKPlayerDelegate> delegate;
-
-@property(nonatomic, assign) BOOL looping;
-
-- (BOOL)isPlaying;
-
-- (void)setDataSource:(nonnull id)source;
-
-- (void)prepare:(nullable SKErrorCallback)callback;
 - (void)start:(nullable SKErrorCallback)callback;
 - (void)pause:(nullable SKErrorCallback)callback;
 - (void)stop:(nullable SKErrorCallback)callback;
 
-- (void)getCurrentPosition:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
-- (void)getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
+#pragma mark - Source
+
+@property(nonatomic, strong, readonly, nullable) id source;
+- (void)setSource:(nonnull id)source callback:(nullable SKErrorCallback)callback;
+
+#pragma mark - Mode
+
+@property(nonatomic, readonly) BOOL looping;
+- (void)setLooping:(BOOL)looping callback:(nullable SKErrorCallback)callback;
+
+#pragma mark - Progress
 
 - (void)seekTo:(NSTimeInterval)time success:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
+
+- (void)getProgress:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
+- (void)getDuration:(nonnull SKTimeCallback)success failure:(nullable SKErrorCallback)failure;
 
 @end
