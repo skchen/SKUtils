@@ -19,7 +19,7 @@
 
 - (void)setSource:(nonnull id)source atIndex:(NSUInteger)index callback:(nullable SKErrorCallback)callback;
 - (void)addSource:(nonnull id)source callback:(nullable SKErrorCallback)callback;
-- (void)addSource:(nonnull id)source atIndex:(NSUInteger)index callback:(nullable SKErrorCallback)callback;
+- (void)insertSource:(nonnull id)source atIndex:(NSUInteger)index callback:(nullable SKErrorCallback)callback;
 
 - (void)previous:(nullable SKErrorCallback)callback;
 - (void)next:(nullable SKErrorCallback)callback;

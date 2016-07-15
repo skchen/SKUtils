@@ -23,7 +23,7 @@
     THROW_NOT_OVERRIDE_EXCEPTION
 }
 
-- (void)addSource:(nonnull id)source atIndex:(NSUInteger)index callback:(nullable SKErrorCallback)callback {
+- (void)insertSource:(nonnull id)source atIndex:(NSUInteger)index callback:(nullable SKErrorCallback)callback {
     THROW_NOT_OVERRIDE_EXCEPTION
 }
 

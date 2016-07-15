@@ -61,10 +61,10 @@
 }
 
 - (void)addSource:(nonnull id)source callback:(nullable SKErrorCallback)callback {
-    [self addSource:source atIndex:NSUIntegerMax callback:callback];
+    [self insertSource:source atIndex:NSUIntegerMax callback:callback];
 }
 
-- (void)addSource:(nonnull id)source atIndex:(NSUInteger)index callback:(nullable SKErrorCallback)callback {
+- (void)insertSource:(nonnull id)source atIndex:(NSUInteger)index callback:(nullable SKErrorCallback)callback {
     if(_source) {
         NSArray *originalPlaylist = (NSArray *)_source;
         
@@ -214,7 +214,11 @@
     }
 }
 
-- (void)playerDidComplete:(SKPlayer *)player playback:(id)source {
+- (void)playerDidComplete:(SKPlayer *)player playback:(id)playback {
+    if([_delegate respondsToSelector:@selector(player:didCompletePlayback:)]) {
+        [_delegate player:self didCompletePlayback:playback];
+    }
+    
     if([self hasNext]) {
         [self next:^(NSError * _Nullable error) {
             if(error) {
@@ -229,10 +233,6 @@
                 }];
             }
         }];
-    } else {
-        if([_delegate respondsToSelector:@selector(playerDidComplete:playback:)]) {
-            [_delegate playerDidComplete:self playback:source];
-        }
     }
 }
 

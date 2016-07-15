@@ -103,7 +103,7 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 - (void)playbackDidComplete:(nonnull id)playback {
     if(_looping) {
         [self seekTo:0 success:^(NSTimeInterval interval) {
-            NSLog(@"seekTo:0 success");
+            SKLog(@"seekTo:0 success");
         } failure:^(NSError * _Nullable error) {
             NSLog(@"seekTo:0 failed: %@", error);
         }];
@@ -111,8 +111,8 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
         [self changeState:SKPlayerStopped callback:nil];
         
         dispatch_async(self.callbackQueue, ^{
-            if([_delegate respondsToSelector:@selector(playerDidComplete:playback:)]) {
-                [_delegate playerDidComplete:self playback:playback];
+            if([_delegate respondsToSelector:@selector(player:didCompletePlayback:)]) {
+                [_delegate player:self didCompletePlayback:playback];
             }
         });
     }

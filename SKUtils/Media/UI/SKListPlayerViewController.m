@@ -8,6 +8,11 @@
 
 #import "SKListPlayerViewController.h"
 
+#import "SKLog.h"
+
+#undef SKLog
+#define SKLog(__FORMAT__, ...)
+
 @implementation SKListPlayerViewController
 
 - (void)updateState {
@@ -54,13 +59,21 @@
 
 - (IBAction)onRepeatSwitchValueChanged:(id)sender {
     [self.listPlayer setRepeat:_repeatSwitch.isOn callback:^(NSError * _Nullable error) {
-        NSLog(@"setRepeat: %@", error);
+        if(error) {
+            NSLog(@"setRepeat error: %@", error);
+        } else {
+            SKLog(@"setRepeat:%@", @(_repeatSwitch.isOn));
+        }
     }];
 }
 
 - (IBAction)onRandomSwitchValueChanged:(id)sender {
     [self.listPlayer setRandom:_randomSwitch.isOn callback:^(NSError * _Nullable error) {
-        NSLog(@"setRandom: %@", error);
+        if(error) {
+            NSLog(@"setRandom error: %@", error);
+        } else {
+            SKLog(@"setRandom:%@", @(_randomSwitch.isOn));
+        }
     }];
 }
 

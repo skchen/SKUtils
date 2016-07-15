@@ -10,6 +10,11 @@
 
 #import "SKPlayer.h"
 
+#import "SKLog.h"
+
+#undef SKLog
+#define SKLog(__FORMAT__, ...)
+
 @implementation SKPlayerViewController
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -57,7 +62,7 @@
 
 - (IBAction)onProgressSliderValueChanged:(id)sender {
     [_player seekTo:_progressSlider.value success:^(NSTimeInterval interval) {
-        NSLog(@"seek success");
+        SKLog(@"seek success");
     } failure:^(NSError * _Nullable error) {
         NSLog(@"seek error: %@", error);
     }];
@@ -115,7 +120,11 @@
 
 - (IBAction)onLoopSwitchValueChanged:(id)sender {
     [_player setLooping:_loopSwitch.isOn callback:^(NSError * _Nullable error) {
-        NSLog(@"setLooping: %@", error);
+        if(error) {
+            NSLog(@"setLooping error: %@", error);
+        } else {
+            SKLog(@"setLooping:%@", @(_loopSwitch.isOn));
+        }
     }];
 }
 

@@ -22,12 +22,12 @@ typedef NS_ENUM(NSUInteger, SKPlayerState) {
 @protocol SKPlayerDelegate <NSObject>
 
 @optional
+
 - (void)playerDidChangeState:(nonnull SKPlayer *)player;
 - (void)playerDidChangeSource:(nonnull SKPlayer *)player;
 - (void)playerDidChangeMode:(nonnull SKPlayer *)player;
 
-- (void)playerDidComplete:(nonnull SKPlayer *)player playback:(nonnull id)source;
-
+- (void)player:(nonnull SKPlayer *)player didCompletePlayback:(nonnull id)source;
 - (void)player:(nonnull SKPlayer *)player didReceiveError:(nonnull NSError *)error;
 
 @end
