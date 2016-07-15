@@ -25,8 +25,8 @@
 - (void)next:(nullable SKErrorCallback)callback;
 - (void)go:(NSUInteger)index callback:(nullable SKErrorCallback)callback;
 
-- (BOOL)hasPrevious;
-- (BOOL)hasNext;
+- (void)hasPrevious:(nonnull SKBooleanCallback)success failure:(nullable SKErrorCallback)failure;
+- (void)hasNext:(nonnull SKBooleanCallback)success failure:(nullable SKErrorCallback)failure;
 
 #pragma mark - Mode
 

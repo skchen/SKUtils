@@ -39,11 +39,11 @@
     THROW_NOT_OVERRIDE_EXCEPTION
 }
 
-- (BOOL)hasPrevious {
+- (void)hasPrevious:(nonnull SKBooleanCallback)success failure:(nullable SKErrorCallback)failure {
     THROW_NOT_OVERRIDE_EXCEPTION
 }
 
-- (BOOL)hasNext {
+- (void)hasNext:(nonnull SKBooleanCallback)success failure:(nullable SKErrorCallback)failure {
     THROW_NOT_OVERRIDE_EXCEPTION
 }
 

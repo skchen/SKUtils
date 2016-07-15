@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^SKBooleanCallback)(BOOL value);
+
 typedef void (^SKObjectCallback)(id _Nullable object);
 typedef void (^SKTimeCallback)(NSTimeInterval interval);
 typedef void (^SKListCallback)(NSArray  * _Nullable list);

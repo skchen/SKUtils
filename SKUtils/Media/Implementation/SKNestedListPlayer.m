@@ -87,7 +87,7 @@
 }
 
 - (void)previous:(nullable SKErrorCallback)callback {
-    if([self hasPrevious]) {
+    if([self _hasPrevious]) {
         NSUInteger target = NSNotFound;
         
         if(self.random) {
@@ -107,7 +107,7 @@
 }
 
 - (void)next:(nullable SKErrorCallback)callback {
-    if([self hasNext]) {
+    if([self _hasNext]) {
         NSUInteger target = NSNotFound;
         
         if(self.random) {
@@ -126,7 +126,27 @@
     }
 }
 
-- (BOOL)hasPrevious {
+- (void)hasPrevious:(SKBooleanCallback)success failure:(SKErrorCallback)failure {
+    dispatch_async(self.workerQueue, ^{
+        BOOL hasPrevious = [self _hasPrevious];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            success(hasPrevious);
+        });
+    });
+}
+
+- (void)hasNext:(SKBooleanCallback)success failure:(SKErrorCallback)failure {
+    dispatch_async(self.workerQueue, ^{
+        BOOL hasNext = [self _hasNext];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            success(hasNext);
+        });
+    });
+}
+
+- (BOOL)_hasPrevious {
     if(self.repeat || self.random) {
         return YES;
     } else {
@@ -138,7 +158,7 @@
     return NO;
 }
 
-- (BOOL)hasNext {
+- (BOOL)_hasNext {
     if(self.repeat || self.random) {
         return YES;
     } else {
@@ -219,7 +239,7 @@
         [_delegate player:self didCompletePlayback:playback];
     }
     
-    if([self hasNext]) {
+    if([self _hasNext]) {
         [self next:^(NSError * _Nullable error) {
             if(error) {
                 [self notifyError:error callback:nil];

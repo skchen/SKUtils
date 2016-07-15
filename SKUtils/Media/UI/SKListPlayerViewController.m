@@ -30,11 +30,17 @@
 }
 
 - (void)updatePrevNext {
-    BOOL hasPrevious = [self.listPlayer hasPrevious];
-    [_previousButton setEnabled:hasPrevious];
+    SKErrorCallback onError = ^(NSError * _Nullable error) {
+        NSLog(@"Unable to update prev/next state");
+    };
     
-    BOOL hasNext = [self.listPlayer hasNext];
-    [_nextButton setEnabled:hasNext];
+    [self.listPlayer hasPrevious:^(BOOL value) {
+        [_previousButton setEnabled:value];
+    } failure:onError];
+    
+    [self.listPlayer hasNext:^(BOOL value) {
+        [_nextButton setEnabled:value];
+    } failure:onError];
 }
 
 - (IBAction)onPreviousButtonPressed:(id)sender {
