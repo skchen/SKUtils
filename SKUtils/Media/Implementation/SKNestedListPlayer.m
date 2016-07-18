@@ -234,9 +234,9 @@
     }
 }
 
-- (void)playerDidComplete:(SKPlayer *)player playback:(id)playback {
+- (void)player:(SKPlayer *)player didCompletePlayback:(id)source {
     if([_delegate respondsToSelector:@selector(player:didCompletePlayback:)]) {
-        [_delegate player:self didCompletePlayback:playback];
+        [_delegate player:self didCompletePlayback:source];
     }
     
     if([self _hasNext]) {
