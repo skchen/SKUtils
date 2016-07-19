@@ -122,7 +122,7 @@
         
         [self go:target callback:callback];
     } else {
-        [self notifyErrorMessage:@"Previous not exist" callback:callback];
+        [self notifyErrorMessage:@"Next not exist" callback:callback];
     }
 }
 

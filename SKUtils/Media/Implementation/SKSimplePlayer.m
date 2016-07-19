@@ -23,69 +23,51 @@
 
 #pragma mark - State
 
-- (void)start:(nullable SKErrorCallback)callback {
-    SKErrorCallback wrappedCallback = ^(NSError * _Nullable error) {
-        if(error) {
-            callback(error);
-        } else {
-            [self changeState:SKPlayerPlaying callback:callback];
+- (void)start:(SKErrorCallback)callback {
+    dispatch_async(self.workerQueue, ^{
+        switch (_state) {
+            case SKPlayerStopped:
+                [self _start:[self wrappedErrorCallback:callback]];
+                break;
+                
+            case SKPlayerPaused:
+                [self _resume:[self wrappedErrorCallback:callback]];
+                break;
+                
+            default:
+                [self notifyIllegalStateException:callback];
+                break;
         }
-    };
-    
-    switch (_state) {
-        case SKPlayerStopped:
-            [self _start:wrappedCallback];
-            break;
-            
-        case SKPlayerPaused:
-            [self _resume:wrappedCallback];
-            break;
-            
-        default:
-            [self notifyIllegalStateException:callback];
-            break;
-    }
+    });
 }
 
-- (void)pause:(nullable SKErrorCallback)callback {
-    SKErrorCallback wrappedCallback = ^(NSError * _Nullable error) {
-        if(error) {
-            callback(error);
-        } else {
-            [self changeState:SKPlayerPaused callback:callback];
+- (void)pause:(SKErrorCallback)callback {
+    dispatch_async(self.workerQueue, ^{
+        switch (_state) {
+            case SKPlayerPlaying:
+                [self _pause:[self wrappedErrorCallback:callback]];
+                break;
+                
+            default:
+                [self notifyIllegalStateException:callback];
+                break;
         }
-    };
-    
-    switch (_state) {
-        case SKPlayerPlaying:
-            [self _pause:wrappedCallback];
-            break;
-            
-        default:
-            [self notifyIllegalStateException:callback];
-            break;
-    }
+    });
 }
 
-- (void)stop:(nullable SKErrorCallback)callback {
-    SKErrorCallback wrappedCallback = ^(NSError * _Nullable error) {
-        if(error) {
-            callback(error);
-        } else {
-            [self changeState:SKPlayerStopped callback:callback];
+- (void)stop:(SKErrorCallback)callback {
+    dispatch_async(self.workerQueue, ^{
+        switch (_state) {
+            case SKPlayerPlaying:
+            case SKPlayerPaused:
+                [self _stop:[self wrappedErrorCallback:callback]];
+                break;
+                
+            default:
+                [self notifyIllegalStateException:callback];
+                break;
         }
-    };
-    
-    switch (_state) {
-        case SKPlayerPlaying:
-        case SKPlayerPaused:
-            [self _stop:wrappedCallback];
-            break;
-            
-        default:
-            [self notifyIllegalStateException:callback];
-            break;
-    }
+    });
 }
 
 #pragma mark - Source
@@ -100,15 +82,15 @@
             
         case SKPlayerPaused:
         case SKPlayerPlaying: {
-            [self stop:^(NSError * _Nullable error) {
+            [self _stop:^(NSError * _Nullable error) {
                 if(error) {
                     callback(error);
                 } else {
-                    [self setSource:source callback:^(NSError * _Nullable error) {
+                    [self _setSource:source callback:^(NSError * _Nullable error) {
                         if(error) {
                             callback(error);
                         } else {
-                            [weakSelf start:callback];
+                            [weakSelf _start:callback];
                         }
                     }];
                 }

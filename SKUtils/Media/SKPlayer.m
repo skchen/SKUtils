@@ -25,6 +25,35 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
     THROW_NOT_OVERRIDE_EXCEPTION
 }
 
+- (void)restart:(nullable SKErrorCallback)callback {
+    switch (_state) {
+        case SKPlayerStopped:
+            [self start:callback];
+            break;
+            
+        case SKPlayerPlaying: {
+            [self seekTo:0 success:^(NSTimeInterval interval) {
+                callback(nil);
+            } failure:callback];
+        }
+            break;
+            
+        case SKPlayerPaused: {
+            [self stop:^(NSError * _Nullable error) {
+                if(error) {
+                    callback(error);
+                } else {
+                    [self start:callback];
+                }
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)pause:(nullable SKErrorCallback)callback {
     THROW_NOT_OVERRIDE_EXCEPTION
 }
@@ -102,10 +131,10 @@ static NSString * const kErrorMessageIllegalState = @"IllegalState";
 
 - (void)playbackDidComplete:(nonnull id)playback {
     if(_looping) {
-        [self seekTo:0 success:^(NSTimeInterval interval) {
-            SKLog(@"seekTo:0 success");
-        } failure:^(NSError * _Nullable error) {
-            NSLog(@"seekTo:0 failed: %@", error);
+        [self restart:^(NSError * _Nullable error) {
+            if(error) {
+                [self notifyError:error callback:nil];
+            }
         }];
     } else {
         [self changeState:SKPlayerStopped callback:nil];

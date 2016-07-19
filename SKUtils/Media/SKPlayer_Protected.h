@@ -20,6 +20,8 @@
 
 #pragma mark - Protected
 
+- (void)restart:(nullable SKErrorCallback)callback;
+
 - (void)changeState:(SKPlayerState)newState callback:(nullable SKErrorCallback)callback;
 - (void)changeSource:(nullable id)source callback:(nullable SKErrorCallback)callback;
 

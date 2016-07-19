@@ -136,6 +136,7 @@
     switch (state) {
         case SKPlayerPlaying:
             [_loadingView stopAnimating];
+            [self updateDuration];
             break;
             
         case SKPlayerStopped:
@@ -150,7 +151,7 @@
 }
 
 - (void)playerDidChangeSource:(SKPlayer *)player {
-    [self updateDuration];
+    
 }
 
 - (void)playerDidChangeMode:(SKPlayer *)player {
