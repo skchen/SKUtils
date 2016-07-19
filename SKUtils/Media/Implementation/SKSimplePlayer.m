@@ -34,6 +34,13 @@
                 [self _resume:[self wrappedErrorCallback:callback]];
                 break;
                 
+            case SKPlayerPlaying: {
+                dispatch_async(self.callbackQueue, ^{
+                    if(callback) callback(nil);
+                });
+            }
+                break;
+                
             default:
                 [self notifyIllegalStateException:callback];
                 break;
@@ -47,6 +54,12 @@
             case SKPlayerPlaying:
                 [self _pause:[self wrappedErrorCallback:callback]];
                 break;
+                
+            case SKPlayerPaused: {
+                dispatch_async(self.callbackQueue, ^{
+                    if(callback) callback(nil);
+                });
+            }
                 
             default:
                 [self notifyIllegalStateException:callback];
@@ -62,6 +75,12 @@
             case SKPlayerPaused:
                 [self _stop:[self wrappedErrorCallback:callback]];
                 break;
+                
+            case SKPlayerStopped: {
+                dispatch_async(self.callbackQueue, ^{
+                    if(callback) callback(nil);
+                });
+            }
                 
             default:
                 [self notifyIllegalStateException:callback];

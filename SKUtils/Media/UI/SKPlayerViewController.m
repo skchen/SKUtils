@@ -29,13 +29,6 @@
     [_loadingView startAnimating];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [_player stop:^(NSError * _Nullable error) {
-        NSLog(@"stop error: %@", error);
-    }];
-}
-
 - (IBAction)onPlayPauseButtonPressed:(id)sender {
     SKErrorCallback callback = ^(NSError * _Nullable error) {
         if(error) {
